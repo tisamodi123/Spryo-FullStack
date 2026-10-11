@@ -65,7 +65,7 @@
 }
 
 :global([data-theme="light"]) .mainTitle span {
-  -webkit-text-stroke: 1.5px #0284c7;
+  -webkit-text-stroke: 1.5px #0f172a;
 }
 
 /* Glass Card Design */
@@ -114,9 +114,9 @@
 }
 
 :global([data-theme="light"]) .iconCircle {
-  background: rgba(2, 132, 199, 0.1);
-  border-color: rgba(2, 132, 199, 0.3);
-  color: #0284c7;
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0f172a;
 }
 
 .idNumber {
@@ -171,8 +171,8 @@
 }
 
 :global([data-theme="light"]) .miniTag {
-  background: rgba(2, 132, 199, 0.1);
-  color: #0284c7;
+  background: rgba(0, 0, 0, 0.05);
+  color: #0f172a;
 }
 
 .warningBox {
@@ -216,7 +216,7 @@
 }
 
 :global([data-theme="light"]) .footerLink {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 .footerLink:hover {
@@ -225,6 +225,6 @@
 }
 
 :global([data-theme="light"]) .footerLink:hover {
-  border-bottom-color: #0284c7;
-  color: #0369a1;
+  border-bottom-color: #000000;
+  color: #000000;
 }

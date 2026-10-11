@@ -43,7 +43,7 @@
 }
 
 :global([data-theme="light"]) .tagline {
-  color: #0284c7;
+  color: #0f172a;
   text-shadow: none;
 }
 
@@ -73,7 +73,7 @@
 }
 
 :global([data-theme="light"]) .title span {
-  -webkit-text-stroke: 1.5px #0284c7;
+  -webkit-text-stroke: 1.5px #0f172a;
   text-shadow: none;
 }
 
@@ -84,7 +84,7 @@
   }
   
   :global([data-theme="light"]) .title span {
-    -webkit-text-stroke: 1.5px rgba(2, 132, 199, 0.4);
+    -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.6);
   }
 
   .hero:hover .title span {
@@ -93,7 +93,7 @@
   }
 
   :global([data-theme="light"]) .hero:hover .title span {
-    -webkit-text-stroke: 1.5px #0284c7;
+    -webkit-text-stroke: 1.5px #0f172a;
     text-shadow: none;
   }
 }
@@ -240,7 +240,7 @@
 }
 
 :global([data-theme="light"]) .viewLink {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 @media (min-width: 1024px) {
@@ -251,7 +251,7 @@
   
   :global([data-theme="light"]) .viewLink {
     opacity: 1;
-    color: #0284c7;
+    color: #0f172a;
   }
   
   .recipeCard:hover .viewLink {
@@ -260,6 +260,6 @@
   }
 
   :global([data-theme="light"]) .recipeCard:hover .viewLink {
-    color: #0ea5e9;
+    color: #000000;
   }
 }

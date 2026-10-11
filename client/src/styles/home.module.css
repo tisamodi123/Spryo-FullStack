@@ -404,13 +404,13 @@
 }
 
 :global([data-theme="light"]) .viewAllBtn {
-  color: #0284c7;
-  border-color: #0284c7;
+  color: #0f172a;
+  border-color: #0f172a;
 }
 
 :global([data-theme="light"]) .viewAllBtn:hover {
-  color: #0f172a;
-  border-color: #0f172a;
+  color: #000000;
+  border-color: #000000;
 }
 
 .cardWrapper {
@@ -445,8 +445,8 @@
 
 :global([data-theme="light"]) .promoBanner {
   background: linear-gradient(135deg, #e0f2fe 0%, #ecfdf5 50%, #ffffff 100%);
-  border-color: rgba(2, 132, 199, 0.25);
-  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
 }
 
 :global([data-theme="light"]) .promoBanner h3 {
@@ -465,7 +465,7 @@
 }
 
 :global([data-theme="light"]) .loadingState {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 .spinner {

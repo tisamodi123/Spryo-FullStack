@@ -74,7 +74,7 @@
 }
 
 :global([data-theme="light"]) .mainTitle span {
-  -webkit-text-stroke: 1.5px #0284c7;
+  -webkit-text-stroke: 1.5px #0f172a;
 }
 
 /* Glass Card */
@@ -106,7 +106,7 @@
 }
 
 :global([data-theme="light"]) .badge {
-  background: #0284c7;
+  background: #000000;
   color: white;
 }
 
@@ -153,7 +153,7 @@
 }
 
 .statIcon { color: #00D1FF; font-size: 1.5rem; margin-bottom: 10px; }
-:global([data-theme="light"]) .statIcon { color: #0284c7; }
+:global([data-theme="light"]) .statIcon { color: #0f172a; }
 
 .statValue { font-size: 2.5rem; font-weight: 900; font-style: italic; color: white; }
 :global([data-theme="light"]) .statValue { color: #0f172a; }
@@ -240,7 +240,7 @@
 }
 
 :global([data-theme="light"]) .mainBtn {
-  background: #0284c7;
+  background: #000000;
   color: white;
 }
 

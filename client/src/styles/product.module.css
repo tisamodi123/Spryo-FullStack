@@ -153,7 +153,7 @@
 }
 
 :global([data-theme="light"]) .currentPrice {
-  color: #0284c7;
+  color: #000000;
 }
 
 .oldPrice { 
@@ -274,8 +274,8 @@
 }
 
 :global([data-theme="light"]) .tabActive {
-  color: #0284c7;
-  border-bottom-color: #0284c7;
+  color: #000000;
+  border-bottom-color: #000000;
 }
 
 .tabContent {

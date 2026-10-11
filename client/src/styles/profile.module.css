@@ -125,7 +125,7 @@
 }
 
 :global([data-theme="light"]) .sectionTitle {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 .inputGroup { margin-bottom: 1.5rem; }
@@ -160,12 +160,12 @@
 :global([data-theme="light"]) .inputGroup input,
 :global([data-theme="light"]) .inputGroup textarea {
   background: #ffffff;
-  border-color: #0284c7;
+  border-color: rgba(0, 0, 0, 0.2);
   color: #0f172a;
 }
 
 .saveBtn { background: #00D1FF; color: black; font-weight: 900; padding: 12px 25px; border-radius: 12px; cursor: pointer; }
-:global([data-theme="light"]) .saveBtn { background: #0284c7; color: white; }
+:global([data-theme="light"]) .saveBtn { background: #000000; color: white; }
 
 .cancelBtn { background: rgba(255,255,255,0.1); padding: 12px 25px; border-radius: 12px; cursor: pointer; color: white; }
 :global([data-theme="light"]) .cancelBtn { background: rgba(0, 0, 0, 0.06); color: #0f172a; }
@@ -183,7 +183,7 @@
 }
 
 :global([data-theme="light"]) .securityBtn {
-  background: #0284c7;
+  background: #000000;
   color: white;
 }
 

@@ -26,7 +26,7 @@
   --text-muted: #64748b;
   --card-bg: #ffffff;
   --card-border: rgba(0, 0, 0, 0.08);
-  --accent-cyan: #0284c7;
+  --accent-cyan: #0f172a;
   --accent-green: #16a34a;
 }
 
@@ -46,18 +46,70 @@ body {
   background: radial-gradient(circle at 12% 15%, rgba(224, 242, 254, 0.8) 0%, transparent 45%),
               radial-gradient(circle at 88% 70%, rgba(236, 253, 245, 0.8) 0%, transparent 45%),
               #f8fafc;
-}
-
-/* Light Theme Typography Enhancements */
-[data-theme="light"] h1:not([class*="text-"]),
-[data-theme="light"] h2:not([class*="text-"]),
-[data-theme="light"] h3:not([class*="text-"]),
-[data-theme="light"] h4:not([class*="text-"]) {
   color: #0f172a;
 }
 
-[data-theme="light"] p:not([class*="text-"]) {
-  color: #475569;
+/* Light Theme Typography Enhancements */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6 {
+  color: #0f172a !important;
+}
+
+/* Turn white texts to high-contrast black in Light Mode */
+[data-theme="light"] .text-white,
+[data-theme="light"] .text-white\/90,
+[data-theme="light"] .text-white\/80 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .text-white\/70,
+[data-theme="light"] .text-white\/60 {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .text-white\/50,
+[data-theme="light"] .text-white\/40 {
+  color: #475569 !important;
+}
+
+/* User requirement: "white mode mein sare font jo aapne blue rakhe hai woh and black rkaho" */
+[data-theme="light"] .text-cyan-400,
+[data-theme="light"] .text-cyan-300,
+[data-theme="light"] .text-cyan-500,
+[data-theme="light"] .text-sky-600,
+[data-theme="light"] .text-sky-700,
+[data-theme="light"] .text-sky-500,
+[data-theme="light"] .text-blue-400,
+[data-theme="light"] .text-blue-500,
+[data-theme="light"] .text-blue-600 {
+  color: #0f172a !important;
+}
+
+/* Keep white text only on solid colored pills/buttons (green, red, black backgrounds) */
+[data-theme="light"] .bg-green-500,
+[data-theme="light"] .bg-green-600,
+[data-theme="light"] .bg-emerald-500,
+[data-theme="light"] .bg-red-500,
+[data-theme="light"] .bg-red-600,
+[data-theme="light"] .bg-rose-500,
+[data-theme="light"] .bg-black,
+[data-theme="light"] .bg-slate-900 {
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-green-500 *,
+[data-theme="light"] .bg-green-600 *,
+[data-theme="light"] .bg-emerald-500 *,
+[data-theme="light"] .bg-red-500 *,
+[data-theme="light"] .bg-red-600 *,
+[data-theme="light"] .bg-rose-500 *,
+[data-theme="light"] .bg-black *,
+[data-theme="light"] .bg-slate-900 * {
+  color: #ffffff !important;
 }
 
 /* Subtle bubble background */

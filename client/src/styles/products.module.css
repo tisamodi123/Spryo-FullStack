@@ -43,10 +43,10 @@
 :global([data-theme="light"]) .themeAll {
   background: linear-gradient(to bottom, #f1f5f9 0%, #ffffff 100%);
   color: #0f172a;
-  --accent-color: #0284c7;
-  --toolbar-bg: rgba(255, 255, 255, 0.9);
+  --accent-color: #0f172a;
+  --toolbar-bg: rgba(255, 255, 255, 0.95);
   --input-bg: rgba(0, 0, 0, 0.04);
-  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color: rgba(0, 0, 0, 0.1);
 }
 
 .themeCola {
@@ -157,9 +157,9 @@
 }
 
 :global([data-theme="light"]) .titleHighlight {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #000000 !important;
+  background: none !important;
+  -webkit-text-fill-color: #000000 !important;
 }
 
 /* FLOATING TOOLBAR */
@@ -265,6 +265,13 @@
   font-weight: 900;
 }
 
+:global([data-theme="light"]) .pillActive {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
 /* View Toggle Buttons */
 .viewToggleBtn {
   background: var(--input-bg);
@@ -297,6 +304,12 @@
   background: var(--accent-color);
   color: #000000 !important;
   box-shadow: 0 0 10px var(--accent-color);
+}
+
+:global([data-theme="light"]) .viewActive {
+  background: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* PRODUCT GRID */

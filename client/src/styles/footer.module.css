@@ -149,7 +149,7 @@
 }
 
 :global([data-theme="light"]) .nav a:hover {
-  color: #0284c7;
+  color: #000000;
 }
 
 /* NEWSLETTER */
@@ -294,7 +294,7 @@
 }
 
 :global([data-theme="light"]) .accordionHeader:hover {
-  color: #0284c7;
+  color: #000000;
 }
 
 .accordionChevron {
@@ -316,7 +316,7 @@
 }
 
 :global([data-theme="light"]) .chevronRotated {
-  color: #0284c7;
+  color: #000000;
 }
 
 .accordionBody {

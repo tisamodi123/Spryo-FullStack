@@ -78,7 +78,7 @@
 }
 
 :global([data-theme="light"]) .brandSub {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 /* DESKTOP NAV */
@@ -112,7 +112,7 @@
 }
 
 :global([data-theme="light"]) .navLink {
-  color: #475569;
+  color: #1e293b;
 }
 
 .navLink:hover {
@@ -121,8 +121,8 @@
 }
 
 :global([data-theme="light"]) .navLink:hover {
-  color: #0284c7;
-  background: rgba(2, 132, 199, 0.1);
+  color: #000000;
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .active {
@@ -132,8 +132,9 @@
 }
 
 :global([data-theme="light"]) .active {
-  color: #0284c7 !important;
-  background: rgba(2, 132, 199, 0.12) !important;
+  color: #000000 !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+  font-weight: 800;
 }
 
 /* SEARCH BAR */
@@ -353,8 +354,8 @@
 
 :global([data-theme="light"]) .profileDrop a:hover,
 :global([data-theme="light"]) .profileDrop button:hover {
-  background: rgba(2, 132, 199, 0.1);
-  color: #0284c7;
+  background: rgba(0, 0, 0, 0.05);
+  color: #000000;
 }
 
 .logoutBtn {
@@ -439,7 +440,8 @@
 }
 
 :global([data-theme="light"]) .mobileLinks a {
-  color: #0f172a;
+  color: #0f172a !important;
+  font-weight: 700;
 }
 
 .mobileLinks a:hover {
@@ -448,8 +450,8 @@
 }
 
 :global([data-theme="light"]) .mobileLinks a:hover {
-  background: rgba(2, 132, 199, 0.1);
-  color: #0284c7;
+  background: rgba(0, 0, 0, 0.06);
+  color: #000000 !important;
 }
 
 .activeMobile {
@@ -458,8 +460,9 @@
 }
 
 :global([data-theme="light"]) .activeMobile {
-  color: #0284c7 !important;
-  background: rgba(2, 132, 199, 0.12) !important;
+  color: #000000 !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+  font-weight: 900 !important;
 }
 
 @media (max-width: 640px) {

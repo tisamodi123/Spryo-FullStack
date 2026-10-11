@@ -210,7 +210,7 @@
 }
 
 :global([data-theme="light"]) .currency {
-  color: #0284c7;
+  color: #000000;
 }
 
 .priceValue {

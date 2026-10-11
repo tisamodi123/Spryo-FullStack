@@ -41,7 +41,7 @@
 }
 
 :global([data-theme="light"]) .eyebrow {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 .mainTitle {
@@ -62,7 +62,7 @@
 }
 
 :global([data-theme="light"]) .mainTitle span {
-  -webkit-text-stroke: 1.5px #0284c7;
+  -webkit-text-stroke: 1.5px #0f172a;
 }
 
 .divider {
@@ -118,7 +118,7 @@
 }
 
 :global([data-theme="light"]) .iconBox {
-  background: #0284c7;
+  background: #000000;
   color: white;
 }
 

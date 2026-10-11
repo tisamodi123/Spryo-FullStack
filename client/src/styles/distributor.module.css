@@ -62,7 +62,7 @@
 }
 
 :global([data-theme="light"]) .formTitle span {
-  -webkit-text-stroke: 1px #0284c7;
+  -webkit-text-stroke: 1px #0f172a;
 }
 
 /* Glass Container */
@@ -175,7 +175,7 @@
 }
 
 :global([data-theme="light"]) .inputIcon {
-  color: #0284c7;
+  color: #0f172a;
 }
 
 .inputField {
@@ -217,7 +217,7 @@
 }
 
 :global([data-theme="light"]) .primaryBtn {
-  background: #0284c7;
+  background: #000000;
   color: white;
 }
 

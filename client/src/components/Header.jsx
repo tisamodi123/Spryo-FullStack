@@ -214,21 +214,21 @@ export default function Header() {
 
             {/* Mobile Search */}
             <form onSubmit={handleSearch} className="flex items-center bg-white/5 [data-theme=light]:bg-slate-100 border border-white/15 [data-theme=light]:border-slate-300 rounded-xl px-3 py-2 w-full mb-3">
-              <FaSearch className="text-cyan-400 [data-theme=light]:text-sky-600 text-xs shrink-0" />
+              <FaSearch className="text-cyan-400 [data-theme=light]:text-black text-xs shrink-0" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search flavors, drinks..."
-                className="bg-transparent border-none outline-none text-xs text-white [data-theme=light]:text-slate-900 placeholder:text-white/40 [data-theme=light]:placeholder:text-slate-400 pl-2 w-full"
+                className="bg-transparent border-none outline-none text-xs text-white [data-theme=light]:text-black placeholder:text-white/40 [data-theme=light]:placeholder:text-slate-500 pl-2 w-full"
               />
             </form>
 
             {/* Mobile Theme Switcher */}
             <div className="flex items-center justify-between py-2 border-b border-white/10 [data-theme=light]:border-slate-200 mb-2 w-full">
-              <span className="text-xs uppercase tracking-widest text-white/60 [data-theme=light]:text-slate-600 font-bold">Theme</span>
+              <span className="text-xs uppercase tracking-widest text-white/60 [data-theme=light]:text-black font-bold">Theme</span>
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 [data-theme=light]:bg-slate-200 text-xs font-semibold text-cyan-300 [data-theme=light]:text-sky-700"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 [data-theme=light]:bg-slate-200 text-xs font-bold text-cyan-300 [data-theme=light]:text-black"
               >
                 {theme === "light" ? <FaMoon /> : <FaSun />}
                 {theme === "light" ? "Dark Mode" : "Light Mode"}
@@ -240,7 +240,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`${pathname === link.href ? styles.activeMobile : ""} text-white [data-theme=light]:text-slate-800`}
+                className={`${pathname === link.href ? styles.activeMobile : ""} text-white [data-theme=light]:text-black font-bold`}
                 onClick={() => setOpen(false)}
               >
                 {link.name}
@@ -249,12 +249,12 @@ export default function Header() {
 
             <hr className="border-white/10 [data-theme=light]:border-slate-200 w-full my-2" />
 
-            <Link href="/products" onClick={() => setOpen(false)} className="text-cyan-400 [data-theme=light]:text-sky-600 font-bold">
+            <Link href="/products" onClick={() => setOpen(false)} className="text-cyan-400 [data-theme=light]:text-black font-black">
               Explore Crate (Drinks)
             </Link>
-            <Link href="/cart" onClick={() => setOpen(false)} className="flex items-center justify-between text-white [data-theme=light]:text-slate-800">
+            <Link href="/cart" onClick={() => setOpen(false)} className="flex items-center justify-between text-white [data-theme=light]:text-black font-bold">
               <span>View Cart</span>
-              <span className="px-2 py-0.5 rounded-full bg-cyan-400 text-black text-xs font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-cyan-400 [data-theme=light]:bg-black text-black [data-theme=light]:text-white text-xs font-bold">
                 {itemCount}
               </span>
             </Link>
@@ -264,19 +264,19 @@ export default function Header() {
               <Link
                 href="/login"
                 onClick={() => setOpen(false)}
-                className="mt-3 w-full py-2.5 rounded-xl bg-cyan-400 text-black text-center font-black text-xs tracking-wider"
+                className="mt-3 w-full py-2.5 rounded-xl bg-cyan-400 [data-theme=light]:bg-black text-black [data-theme=light]:text-white text-center font-black text-xs tracking-wider"
               >
                 LOGIN / SIGN UP
               </Link>
             ) : (
               <div className="mt-3 pt-3 border-t border-white/10 [data-theme=light]:border-slate-200 w-full flex flex-col gap-2">
-                <div className="text-xs text-white/60 [data-theme=light]:text-slate-500 font-semibold truncate">
+                <div className="text-xs text-white/60 [data-theme=light]:text-slate-700 font-semibold truncate">
                   {user.email}
                 </div>
-                <Link href="/profile" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-slate-800 text-sm">
+                <Link href="/profile" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-black text-sm font-bold">
                   My Profile
                 </Link>
-                <Link href="/orders" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-slate-800 text-sm">
+                <Link href="/orders" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-black text-sm font-bold">
                   My Orders
                 </Link>
                 <button
