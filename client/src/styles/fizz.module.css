@@ -1,0 +1,69 @@
+.fizzContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+  /* Background ko thoda aur depth dene ke liye */
+  background: radial-gradient(circle at center, rgba(15, 5, 26, 0) 0%, #0a0414 100%);
+}
+
+.bubble {
+  position: absolute;
+  bottom: -30px;
+  /* Opacity 0.2 se badha kar 0.6 kar di hai */
+  background: rgba(255, 255, 255, 0.6); 
+  border-radius: 50%;
+  /* Glow effect taaki dark background par chamke */
+  box-shadow: 0 0 10px rgba(0, 209, 255, 0.8), inset 0 0 5px white;
+  animation: rise 8s infinite ease-in;
+}
+
+/* Neon Bubbles (Zyada chamakne wale) */
+.bubble:nth-child(odd) {
+  width: 10px;
+  height: 10px;
+  background: #00D1FF; /* Cyan Neon */
+  box-shadow: 0 0 15px #00D1FF;
+}
+
+/* White Crisp Bubbles */
+.bubble:nth-child(even) {
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff;
+}
+
+/* Animation ko thoda fast aur visible banaya hai */
+@keyframes rise {
+  0% {
+    bottom: -30px;
+    opacity: 0;
+    transform: scale(0.5) translateX(0);
+  }
+  15% {
+    opacity: 0.8; /* Jaldi dikhna shuru hoga */
+  }
+  50% {
+    transform: scale(1.2) translateX(30px); /* Size thoda bada hoga beech mein */
+  }
+  100% {
+    bottom: 100%;
+    opacity: 0;
+    transform: scale(0.8) translateX(-30px);
+  }
+}
+
+/* Random horizontal positions aur animation delays */
+.bubble:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 1s; }
+.bubble:nth-child(2) { left: 30%; animation-duration: 9s; animation-delay: 3s; }
+.bubble:nth-child(3) { left: 55%; animation-duration: 7s; animation-delay: 0s; }
+.bubble:nth-child(4) { left: 80%; animation-duration: 10s; animation-delay: 5s; }
+.bubble:nth-child(5) { left: 20%; animation-duration: 8s; animation-delay: 2s; }
+.bubble:nth-child(6) { left: 45%; animation-duration: 11s; animation-delay: 4s; }
+.bubble:nth-child(7) { left: 70%; animation-duration: 7s; animation-delay: 1s; }
+.bubble:nth-child(8) { left: 90%; animation-duration: 9s; animation-delay: 2s; }

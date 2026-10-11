@@ -1,0 +1,140 @@
+.privacyWrapper {
+  background-color: #0f051a;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+/* Neon Glows */
+.glowBlue {
+  position: absolute;
+  top: 10%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.1) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.glowPurple {
+  position: absolute;
+  bottom: 10%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.eyebrow {
+  color: #00D1FF;
+  font-weight: 900;
+  letter-spacing: 5px;
+  font-size: 0.75rem;
+}
+
+.mainTitle {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+  line-height: 1;
+}
+
+.mainTitle span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #00D1FF;
+}
+
+.divider {
+  width: 80px;
+  height: 4px;
+  background: #22c55e;
+  margin: 20px auto;
+}
+
+/* Glassmorphic Section Cards */
+.glassSection {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 35px;
+  padding: 40px;
+  transition: 0.3s ease;
+}
+
+.glassSection:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 209, 255, 0.3);
+}
+
+.iconBox {
+  background: #00D1FF;
+  color: black;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.smallIcon {
+  color: #22c55e;
+  font-size: 1.5rem;
+}
+
+.sectionHeading {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.textBody {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.dataTag {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 20px;
+  border-radius: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Contact Footer Section */
+.contactFooter {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 60px 40px;
+  margin-top: 40px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.footerBrand {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}

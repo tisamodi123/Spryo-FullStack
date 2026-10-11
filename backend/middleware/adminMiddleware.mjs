@@ -1,9 +1,9 @@
 // backend/middleware/adminMiddleware.mjs
 const adminMiddleware = (req, res, next) => {
-  if (req.user.role !== "admin") {
+  if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({
       success: false,
-      message: "Admin access denied"
+      message: "Admin access denied. Please login with an admin account."
     });
   }
   next();

@@ -1,0 +1,199 @@
+.formPage {
+  min-height: 100vh;
+  background-color: #0f051a;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+/* Background Glows */
+.glowBlue {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.glowGreen {
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+.eyebrow {
+  color: #22c55e;
+  font-weight: 900;
+  letter-spacing: 5px;
+  font-size: 0.75rem;
+}
+
+.formTitle {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+  text-transform: uppercase;
+}
+
+.formTitle span {
+  color: transparent;
+  -webkit-text-stroke: 1px #00D1FF;
+}
+
+/* Glass Container */
+.formContainer {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 40px;
+  padding: 50px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.stepLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.stepLineFull {
+  background: linear-gradient(90deg, #00D1FF, #22c55e);
+}
+
+.stepNode {
+  width: 35px;
+  height: 35px;
+  background: #1a0b2e;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  position: relative;
+  z-index: 2;
+  transition: 0.4s;
+}
+
+.activeNode {
+  background: #00D1FF;
+  border-color: #00D1FF;
+  color: black;
+  box-shadow: 0 0 15px rgba(0, 209, 255, 0.5);
+}
+
+/* Inputs */
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 5px 20px;
+  transition: 0.3s;
+}
+
+.inputWrapper:focus-within {
+  border-color: #00D1FF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inputIcon {
+  color: #00D1FF;
+  font-size: 1.1rem;
+  margin-right: 15px;
+}
+
+.inputField {
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  outline: none;
+  color: white;
+  font-weight: 500;
+}
+
+.inputField::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+
+/* Buttons */
+.primaryBtn {
+  background: #00D1FF;
+  color: black;
+  font-weight: 900;
+  font-style: italic;
+  padding: 18px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.primaryBtn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 209, 255, 0.3);
+}
+
+.secondaryBtn {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  font-weight: 800;
+  border-radius: 15px;
+}
+
+.submitBtn {
+  flex: 2;
+  background: #22c55e;
+  color: black;
+  font-weight: 900;
+  font-style: italic;
+  padding: 18px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+/* Success Screen */
+.successWrapper {
+  min-height: 100vh;
+  background: #0f051a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.successCard {
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  padding: 60px;
+  border-radius: 40px;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  max-width: 500px;
+}

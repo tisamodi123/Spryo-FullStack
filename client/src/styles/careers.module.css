@@ -1,0 +1,213 @@
+.pageWrapper {
+  background-color: #1a0b2e; /* Same as your layout background */
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+  /* Agar koi unwanted margin aa raha hai toh ye line fix kar degi */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glowing Background Effects */
+.glowTop {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.15) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.glowBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(107, 52, 163, 0.2) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.hero {
+  padding: 120px 0 80px 0;
+  width: 100%;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #00D1FF;
+  border: 1px solid rgba(0, 209, 255, 0.3);
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.9;
+  margin: 2rem 0;
+  text-transform: uppercase;
+}
+
+.brandText {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(90deg, #00D1FF, #FFB800);
+  -webkit-background-clip: text;
+}
+
+.heroLead {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mainCta {
+  background: #00D1FF;
+  color: black;
+  padding: 16px 40px;
+  border-radius: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  transition: 0.3s;
+}
+
+.mainCta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 209, 255, 0.4);
+}
+
+/* Section Styling */
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 4rem;
+  letter-spacing: -1px;
+}
+
+/* Feature Cards */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.featureCard:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 209, 255, 0.3);
+}
+
+.iconCircle {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #00D1FF;
+}
+
+/* Opportunities */
+.roleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.roleCard {
+  background: #1a0b2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 40px;
+  position: relative;
+  transition: 0.4s;
+}
+
+.roleCard:hover {
+  border-color: #FFB800;
+  transform: translateY(-10px);
+}
+
+.roleIcon { font-size: 3rem; margin-bottom: 1rem; }
+
+.roleHeader {
+  font-size: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.roleBtn {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.roleBtn:hover {
+  background: white;
+  color: black;
+}
+
+/* --- FAQ MOBILE FIX --- */
+.faqWrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px; /* Mobile safe zone */
+}
+
+/* CTA Box */
+.ctaBox {
+  background: linear-gradient(135deg, #2d1259 0%, #1a0b2e 100%);
+  padding: 60px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.contactInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.contactItem span { font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; }
+.contactItem p { font-size: 1.5rem; font-weight: 800; }
+
+.contactDivider {
+  width: 1px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .roleGrid { grid-template-columns: 1fr; }
+  .contactInfo { flex-direction: column; gap: 1.5rem; }
+  .contactDivider { display: none; }
+}

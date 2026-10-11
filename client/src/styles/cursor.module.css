@@ -1,0 +1,11 @@
+.cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none; /* Taaki buttons click ho sakein */
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease, transform 0.1s ease-out, box-shadow 0.3s ease;
+  mix-blend-mode: screen; /* Isse glow effect aur badhiya dikhta hai */
+}

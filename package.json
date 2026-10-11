@@ -1,0 +1,30 @@
+{
+  "name": "spryo-fullstack",
+  "version": "1.0.0",
+  "description": "SPRYO - Modern Full-Stack E-Commerce Platform for Premium Sparkling Beverages",
+  "private": true,
+  "scripts": {
+    "dev:client": "npm --prefix client run dev",
+    "dev:admin": "npm --prefix admin run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build:client": "npm --prefix client run build",
+    "build:admin": "npm --prefix admin run build",
+    "start:client": "npm --prefix client run start",
+    "start:admin": "npm --prefix admin run start",
+    "start:backend": "npm --prefix backend run start"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "ecommerce",
+    "fullstack",
+    "spryo",
+    "framer-motion",
+    "tailwind",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "SPRYO Team",
+  "license": "MIT"
+}

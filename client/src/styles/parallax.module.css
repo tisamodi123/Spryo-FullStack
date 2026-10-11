@@ -1,0 +1,54 @@
+.parallaxSection {
+  height: 200vh; /* Scroll space dene ke liye */
+  background: #05010a;
+  position: relative;
+}
+
+.stickyContent {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.bgTitle {
+  position: absolute;
+  font-size: 15vw;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  -webkit-text-stroke: 1px rgba(0, 209, 255, 0.2);
+  z-index: 1;
+}
+
+.centerBottle {
+  height: 60vh;
+  z-index: 5;
+  filter: drop-shadow(0 0 30px rgba(0, 209, 255, 0.5));
+}
+
+.floatLemon {
+  position: absolute;
+  width: 150px;
+  right: 15%;
+  z-index: 6;
+  filter: drop-shadow(0 0 20px #D4FF00);
+}
+
+.foregroundText {
+  position: absolute;
+  bottom: 10%;
+  text-align: center;
+  z-index: 10;
+}
+
+.foregroundText h3 {
+  font-size: 3rem;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: #00D1FF;
+  text-shadow: 0 0 20px rgba(0, 209, 255, 0.6);
+}

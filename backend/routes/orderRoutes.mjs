@@ -2,6 +2,7 @@ import express from "express";
 import Order from "../models/Order.mjs";
 import { authMiddleware } from "../middleware/authMiddleware.mjs";
 import { createOrder } from "../controllers/orderController.mjs";
+import adminMiddleware from "../middleware/adminMiddleware.mjs"; // 👈 Ye add karo
 
 const router = express.Router();
 
@@ -63,5 +64,28 @@ router.get("/my", authMiddleware, async (req, res) => {
     res.json({ success: false, message: "Cannot fetch orders" });
   }
 });
+
+// ----admin---
+// 1. Saare orders get karne ke liye (Admin only)
+router.get("/admin/all", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const orders = await Order.find().populate("userId", "name email").sort({ createdAt: -1 });
+    res.json({ success: true, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// 2. Order status update karne ke liye
+router.put("/status/:id", authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await Order.findByIdAndUpdate(req.params.id, { status });
+    res.json({ success: true, message: "Status Updated Successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 
 export default router;

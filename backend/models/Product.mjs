@@ -51,6 +51,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  stock: {
+    type: Number,
+    default: 50,
+  },
 });
 
 export default mongoose.model("Product", productSchema);
