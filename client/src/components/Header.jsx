@@ -15,8 +15,7 @@ import {
   FaSun, 
   FaMoon 
 } from "react-icons/fa";
-
-const STATIC_USER = { name: "Guest User", email: "guest@spryo.com" };
+import { logout, getLoggedInUser } from "@/lib/auth";
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -30,22 +29,34 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    // Check local session or fallback to mock guest
+  const syncUser = () => {
     try {
-      const stored = localStorage.getItem("spryo_user");
-      if (stored) {
-        setUser(JSON.parse(stored));
+      const token = localStorage.getItem("token");
+      if (token) {
+        const loggedUser = getLoggedInUser();
+        setUser(loggedUser);
       } else {
-        setUser(STATIC_USER);
+        setUser(null);
       }
     } catch {
-      setUser(STATIC_USER);
+      setUser(null);
     }
+  };
+
+  useEffect(() => {
+    syncUser();
+
+    const onAuthChange = () => syncUser();
+    window.addEventListener("spryo_auth_change", onAuthChange);
+    window.addEventListener("storage", onAuthChange);
 
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("spryo_auth_change", onAuthChange);
+      window.removeEventListener("storage", onAuthChange);
+    };
   }, []);
 
   // Close mobile menu on route change
@@ -71,10 +82,8 @@ export default function Header() {
 
   const handleLogout = () => {
     setUser(null);
-    try {
-      localStorage.removeItem("spryo_user");
-    } catch {}
     setProfileOpen(false);
+    logout();
   };
 
   return (
