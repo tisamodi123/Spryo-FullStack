@@ -114,7 +114,7 @@ export default function Profile() {
       <div className="min-h-[70vh] flex flex-col items-center justify-center">
         <div className="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
         <p className="mt-4 text-xs uppercase tracking-widest text-white/50 [data-theme=light]:text-slate-600 font-bold">
-          Validating JWT Session...
+          Loading profile...
         </p>
       </div>
     );
@@ -207,7 +207,7 @@ export default function Profile() {
                 <div>
                   <h1 className={styles.sectionTitle}>ACCOUNT DETAILS</h1>
                   <p className="text-xs text-white/50 [data-theme=light]:text-slate-500 mt-1">
-                    Managed via JWT Session Authentication
+                    Personal profile and preferences
                   </p>
                 </div>
                 {!editMode ? (

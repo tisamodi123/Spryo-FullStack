@@ -58,7 +58,7 @@ const Footer = () => {
                 <h2 className={styles.brandName}>SPRYO</h2>
               </div>
               <p className={styles.description}>
-                Crafted sparkling refreshment for modern tastes. Handcrafted in India with botanical purity and carbonated crispness.
+                Premium sparkling beverages and natural refreshments crafted for great taste and everyday hydration.
               </p>
               <div className="flex gap-3">
                 <a href="#" className={styles.socialBtn} aria-label="Instagram">
@@ -141,7 +141,7 @@ const Footer = () => {
                 <h2 className={styles.brandName}>SPRYO</h2>
               </div>
               <p className={styles.description}>
-                Crafted sparkling refreshment for modern tastes. Handcrafted in India with botanical purity and carbonated crispness.
+                Premium sparkling beverages and natural refreshments crafted for great taste and everyday hydration.
               </p>
               <div className="flex gap-2.5 pt-1">
                 <a href="#" className={styles.socialBtn} aria-label="Instagram">
@@ -255,10 +255,10 @@ const Footer = () => {
             <div className={styles.line}></div>
             <div className="flex flex-col md:flex-row justify-between items-center py-5 sm:py-6 gap-3 sm:gap-4 text-center md:text-left">
               <span className="text-[10px] sm:text-[11px] opacity-60 tracking-[1.5px] sm:tracking-[2px]">
-                © {new Date().getFullYear()} SPRYO BEVERAGES INC. ALL RIGHTS RESERVED.
+                © 2025 SPRYO BEVERAGES INC. ALL RIGHTS RESERVED.
               </span>
               <div className="flex gap-4 sm:gap-5 items-center justify-center">
-                <span className={styles.madeIn}>CRAFTED IN INDIA 🇮🇳</span>
+                <span className="text-[10px] sm:text-[11px] opacity-60 tracking-wider">ALL NATURAL</span>
                 <div className={styles.dot}></div>
                 <span className="text-[10px] sm:text-[11px] opacity-60 tracking-wider">100% RECYCLABLE</span>
               </div>

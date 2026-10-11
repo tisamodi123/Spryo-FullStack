@@ -1,13 +1,11 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth";
 import styles from "@/styles/auth.module.css";
-import { FaLock, FaEnvelope, FaWineGlassAlt, FaUserCheck, FaUserShield } from "react-icons/fa";
+import { FaLock, FaEnvelope, FaWineGlassAlt } from "react-icons/fa";
 
 export default function Login() {
-  const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -27,30 +25,25 @@ export default function Login() {
         const isAdmin = res.user?.role === "admin" || res.user?.isAdmin || form.email === "admin@gmail.com";
 
         if (isAdmin) {
-          setMsg("Admin access granted! Entering Command Center...");
+          setMsg("Access granted! Entering Dashboard...");
           setTimeout(() => {
             window.location.href = "/admin";
-          }, 800);
+          }, 700);
         } else {
-          setMsg(res.message || "Welcome back! Entering Spryo Lounge...");
+          setMsg(res.message || "Welcome back! Redirecting...");
           setTimeout(() => {
             window.location.href = "/profile";
-          }, 800);
+          }, 700);
         }
       } else {
         setIsSuccess(false);
-        setMsg(res?.message || "Invalid credentials. Please verify email and password.");
+        setMsg(res?.message || "Invalid email or password.");
       }
     } catch (err) {
       setLoading(false);
       setIsSuccess(false);
       setMsg("Connection error. Please try again.");
     }
-  };
-
-  const fillDemo = (email, password) => {
-    setForm({ email, password });
-    setMsg("");
   };
 
   return (
@@ -61,7 +54,7 @@ export default function Login() {
 
       <div className="relative z-10 w-full max-w-md px-4">
         <div className={styles.glassCard}>
-          {/* Logo/Icon section */}
+          {/* Logo / Header section */}
           <div className="text-center mb-8">
             <div className={styles.iconCircle}>
               <FaWineGlassAlt />
@@ -69,8 +62,8 @@ export default function Login() {
             <h1 className={styles.title}>
               WELCOME <br /> <span>BACK</span>
             </h1>
-            <p className="text-white/50 [data-theme=light]:text-slate-600 text-xs font-bold tracking-[0.2em] uppercase mt-1">
-              JWT Authenticated Access
+            <p className="text-white/50 [data-theme=light]:text-slate-600 text-xs font-semibold tracking-wider uppercase mt-1">
+              The House of Refreshment
             </p>
           </div>
 
@@ -113,34 +106,11 @@ export default function Login() {
               disabled={loading}
               className={styles.submitBtn}
             >
-              {loading ? "AUTHENTICATING..." : "LOGIN WITH JWT"}
+              {loading ? "LOGGING IN..." : "LOGIN"}
             </button>
           </form>
 
-          {/* Quick Demo Access Pills */}
-          <div className="mt-5 pt-4 border-t border-white/10 [data-theme=light]:border-slate-200">
-            <p className="text-[10px] uppercase font-bold tracking-wider text-white/50 [data-theme=light]:text-slate-500 text-center mb-2">
-              Quick Test Credentials:
-            </p>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => fillDemo("admin@gmail.com", "admin@123")}
-                className="flex-1 py-1.5 px-2 rounded-lg bg-white/5 [data-theme=light]:bg-slate-100 hover:bg-white/10 border border-white/10 [data-theme=light]:border-slate-300 text-[11px] font-bold text-cyan-400 [data-theme=light]:text-slate-900 flex items-center justify-center gap-1.5 transition"
-              >
-                <FaUserShield size={11} /> Admin Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => fillDemo("user@gmail.com", "user123")}
-                className="flex-1 py-1.5 px-2 rounded-lg bg-white/5 [data-theme=light]:bg-slate-100 hover:bg-white/10 border border-white/10 [data-theme=light]:border-slate-300 text-[11px] font-bold text-white/80 [data-theme=light]:text-slate-900 flex items-center justify-center gap-1.5 transition"
-              >
-                <FaUserCheck size={11} /> User Demo
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-6 text-center">
+          <div className="mt-8 text-center">
             <p className="text-white/60 [data-theme=light]:text-slate-700 text-sm">
               New to the tribe?{" "}
               <Link href="/signup" className="text-[#00D1FF] [data-theme=light]:text-sky-600 font-black italic hover:underline ml-1">

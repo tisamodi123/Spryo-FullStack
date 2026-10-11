@@ -1,13 +1,11 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { registerUser } from "@/lib/auth";
 import styles from "@/styles/auth.module.css";
 import { FaUser, FaEnvelope, FaLock, FaUserPlus } from "react-icons/fa";
 
 export default function Signup() {
-  const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [msg, setMsg] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,10 +22,10 @@ export default function Signup() {
 
       if (res && res.success) {
         setIsSuccess(true);
-        setMsg(res.message || "Account created successfully! Entering Spryo Lounge...");
+        setMsg(res.message || "Account created successfully! Redirecting...");
         setTimeout(() => {
           window.location.href = "/profile";
-        }, 1000);
+        }, 800);
       } else {
         setIsSuccess(false);
         setMsg(res?.message || "Failed to create account. Try another email or password.");
@@ -55,7 +53,7 @@ export default function Signup() {
             <h1 className={styles.title}>
               JOIN THE <br /> <span>TRIBE</span>
             </h1>
-            <p className="text-white/50 [data-theme=light]:text-slate-600 text-xs font-bold tracking-[0.2em] uppercase mt-2">
+            <p className="text-white/50 [data-theme=light]:text-slate-600 text-xs font-semibold tracking-wider uppercase mt-1">
               Start Your Refreshing Journey
             </p>
           </div>
@@ -98,7 +96,7 @@ export default function Signup() {
               <FaLock className={styles.inputIcon} />
               <input
                 type="password"
-                placeholder="Password (Min 6 chars)"
+                placeholder="Password (Min 6 characters)"
                 className={styles.inputField}
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
@@ -128,7 +126,7 @@ export default function Signup() {
         </div>
 
         <p className="text-center text-white/30 [data-theme=light]:text-slate-500 text-[10px] mt-6 tracking-widest uppercase">
-          © 2026 SPRYO BEVERAGES INDIA
+          © 2025 SPRYO BEVERAGES INDIA
         </p>
       </div>
     </div>
