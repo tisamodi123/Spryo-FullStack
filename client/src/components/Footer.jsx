@@ -32,6 +32,33 @@ const Footer = () => {
     }, 3000);
   };
 
+  // Reusable, unified Brand component ensuring 100% consistency across all screen sizes
+  const BrandSection = () => (
+    <div className={styles.brandBox}>
+      <div className="flex items-center gap-3">
+        <div className={styles.brandIcon}>S</div>
+        <h2 className={styles.brandName}>SPRYO</h2>
+      </div>
+      <p className={styles.description}>
+        Premium sparkling beverages and natural refreshments crafted for great taste and everyday hydration.
+      </p>
+      <div className={styles.socialRow}>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Instagram">
+          <FaInstagram size={14} />
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Twitter">
+          <FaTwitter size={14} />
+        </a>
+        <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="Discord">
+          <FaDiscord size={14} />
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className={styles.socialBtn} aria-label="YouTube">
+          <FaYoutube size={14} />
+        </a>
+      </div>
+    </div>
+  );
+
   return (
     <footer className={styles.footerRoot}>
       {/* GLOWING AMBIENT BLOB */}
@@ -50,31 +77,9 @@ const Footer = () => {
           {/* =========================================
               DESKTOP / TABLET GRID (md:grid)
               ========================================= */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 relative z-10">
             {/* BRAND SECTION */}
-            <div className="space-y-5">
-              <div className="flex items-center gap-3">
-                <div className={styles.brandIcon}>S</div>
-                <h2 className={styles.brandName}>SPRYO</h2>
-              </div>
-              <p className={styles.description}>
-                Premium sparkling beverages and natural refreshments crafted for great taste and everyday hydration.
-              </p>
-              <div className="flex gap-3">
-                <a href="#" className={styles.socialBtn} aria-label="Instagram">
-                  <FaInstagram size={14} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="Twitter">
-                  <FaTwitter size={14} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="Discord">
-                  <FaDiscord size={14} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="YouTube">
-                  <FaYoutube size={14} />
-                </a>
-              </div>
-            </div>
+            <BrandSection />
 
             {/* LINKS COLUMNS */}
             <div>
@@ -135,28 +140,8 @@ const Footer = () => {
               ========================================= */}
           <div className="block md:hidden relative z-10">
             {/* BRAND HEADER & SOCIALS */}
-            <div className="space-y-3 mb-4">
-              <div className="flex items-center gap-3">
-                <div className={styles.brandIcon}>S</div>
-                <h2 className={styles.brandName}>SPRYO</h2>
-              </div>
-              <p className={styles.description}>
-                Premium sparkling beverages and natural refreshments crafted for great taste and everyday hydration.
-              </p>
-              <div className="flex gap-2.5 pt-1">
-                <a href="#" className={styles.socialBtn} aria-label="Instagram">
-                  <FaInstagram size={13} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="Twitter">
-                  <FaTwitter size={13} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="Discord">
-                  <FaDiscord size={13} />
-                </a>
-                <a href="#" className={styles.socialBtn} aria-label="YouTube">
-                  <FaYoutube size={13} />
-                </a>
-              </div>
+            <div className="mb-5">
+              <BrandSection />
             </div>
 
             {/* ACCORDION WRAPPER */}
