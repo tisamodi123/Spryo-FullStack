@@ -1,5 +1,5 @@
 .contactWrapper {
-  min-height: 100vh;
+  min-height: auto;
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
-  padding: 80px 20px;
+  padding: 20px 20px;
 }
 
 :global([data-theme="light"]) .contactWrapper {

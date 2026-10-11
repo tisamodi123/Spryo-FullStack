@@ -112,17 +112,17 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-     {/* FAQ Section - Removed extra bg-black/40 if it feels like a separate box */}
-<section className="py-20 bg-[#150826]"> 
-  <div className={styles.faqWrapper}>
-    <h2 className={styles.sectionTitle}>FREQUENTLY <span className="text-[#00D1FF]">ASKED</span></h2>
-    {/* Ensure FAQ doesn't bring its own container styling */}
-    <div className="mt-10">
-      <FAQ />
-    </div>
-  </div>
-</section>
+      {/* FAQ Section */}
+      <section className="py-20 bg-[#150826] [data-theme=light]:bg-transparent"> 
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className={styles.sectionTitle}>
+            FREQUENTLY <span className="text-[#00D1FF] [data-theme=light]:text-black">ASKED</span>
+          </h2>
+          <div className="mt-8">
+            <FAQ />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
