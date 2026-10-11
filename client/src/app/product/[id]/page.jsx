@@ -8,6 +8,8 @@ import ReviewForm from "@/components/ReviewForm";
 // 1. Central API helper aur endpoints import karein for backend
 // import { clientFetch, API_ENDPOINTS } from "@/lib/api";
 
+import { useToast } from "@/components/ToastContext";
+
 const Page = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -15,70 +17,77 @@ const Page = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedImg, setSelectedImg] = useState(null);
   const [tab, setTab] = useState('details');
-  const [toastShown, setToastShown] = useState(false);
 
   const { addToCart } = useCart();
+  const { showToast } = useToast();
 
-     // STATIC DATA: Organized as an Array for easy searching
   const staticProducts = [
     {
-      _id: "2",
-      name: "Classic Lemon Chill",
-      price: 199,
-      originalPrice: 250,
+      _id: "1",
+      name: "Classic Cola",
+      price: 99,
+      originalPrice: 125,
       discount: 20,
-      category: "Soft Drink",
-      description: "Experience the ultimate refreshment with our hand-crafted lemon soda. Perfect for hot summer days.",
-      image: "/lemon.png",
-      numReviews: 5,
+      category: "Sparkling Craft Soda",
+      volume: "330 ml",
+      description: "The timeless, bold effervescence of rich caramel, cinnamon bark, and zero synthetic syrups. Precision-carbonated at sub-zero temperatures.",
+      image: "/cola.png",
+      ingredients: ["Carbonated Himalayan Spring Water", "Pure Cane Sugar", "Natural Kola Nut Extract", "Cinnamon Bark", "Organic Citrus Oil", "Caffeine (32mg)"],
+      numReviews: 8,
       reviews: [
-        { _id: "r1", name: "Rahul", rating: 5, comment: "Ek dum mast taste hai!" },
-        { _id: "r2", name: "Sneha", rating: 4, comment: "Very refreshing." }
+        { _id: "r1", name: "Chetan V.", rating: 5, comment: "Hands down the best artisanal cola in India!" },
+        { _id: "r2", name: "Aashu M.", rating: 5, comment: "Super crisp fizz, doesn't feel heavy or overly sweet." }
+      ]
+    },
+    {
+      _id: "2",
+      name: "Cloudy Lemon",
+      price: 89,
+      originalPrice: 110,
+      discount: 19,
+      category: "Sparkling Craft Soda",
+      volume: "330 ml",
+      description: "Crisp and electrifying sparkling lemonade crafted with fresh hand-crushed citrus pulp and botanical brine. Perfect hot summer refresher.",
+      image: "/lemon.png",
+      ingredients: ["Carbonated Spring Water", "Cold-Pressed Lemon Pulp", "Lime Zest", "Raw Cane Sugar", "Pink Himalayan Rock Salt", "Mint Oil"],
+      numReviews: 6,
+      reviews: [
+        { _id: "r3", name: "Rahul S.", rating: 5, comment: "Ek dum mast taste hai! The citrus bite is incredible." },
+        { _id: "r4", name: "Sneha K.", rating: 5, comment: "Tastes like real squeezed lemons with perfect fizz." }
       ]
     },
     {
       _id: "3",
-      name: "Classic Orange",
-      price: 199,
-      originalPrice: 250,
-      discount: 20,
-      category: "Soft Drink",
-      description: "A tangy and zesty orange burst that awakens your senses with every bubbly sip.",
+      name: "Zesty Orange",
+      price: 95,
+      originalPrice: 120,
+      discount: 21,
+      category: "Sparkling Craft Soda",
+      volume: "330 ml",
+      description: "A sun-drenched explosion of cold-pressed Nagpur orange peels and refreshing mineral fizz that awakens the senses.",
       image: "/orange.png",
+      ingredients: ["Carbonated Spring Water", "Nagpur Orange Juice Concentrate", "Orange Peel Infusion", "Cane Sugar", "Citric Acid", "Vitamin C"],
       numReviews: 5,
       reviews: [
-        { _id: "r3", name: "Rishi", rating: 5, comment: "Ek dum mast taste hai!" },
-        { _id: "r4", name: "Shital", rating: 4, comment: "Very refreshing." }
+        { _id: "r5", name: "Rishi P.", rating: 5, comment: "Juicy citrus taste with awesome fizz!" },
+        { _id: "r6", name: "Shital M.", rating: 4, comment: "Very refreshing, my whole family loved it." }
       ]
     },
     {
       _id: "4",
-      name: "Classic Up",
-      price: 199,
-      originalPrice: 250,
-      discount: 20,
-      category: "Soft Drink",
-      description: "The crisp, clean taste of lime and lemon in a perfectly balanced fizz.",
+      name: "Mountain Up",
+      price: 85,
+      originalPrice: 105,
+      discount: 19,
+      category: "Sparkling Craft Soda",
+      volume: "330 ml",
+      description: "Alpine-pure botanical coolers with a high-energy lime and lemon effervescence. Crafted for an instant electric refresher.",
       image: "/up.png",
-      numReviews: 5,
+      ingredients: ["Carbonated Spring Water", "Mountain Botanical Herbs", "Green Lime Extract", "Electrolytes (Sodium & Potassium)", "Cane Sugar"],
+      numReviews: 7,
       reviews: [
-        { _id: "r5", name: "Keyu", rating: 5, comment: "nice!" },
-        { _id: "r6", name: "Sneha", rating: 4, comment: "Very nice." }
-      ]
-    },
-    {
-      _id: "1",
-      name: "Classic Cola",
-      price: 199,
-      originalPrice: 250,
-      discount: 20,
-      category: "Soft Drink",
-      description: "The timeless, bold flavor of premium cola that never goes out of style.",
-      image: "/cola.png",
-      numReviews: 5,
-      reviews: [
-        { _id: "r7", name: "Chetan", rating: 5, comment: "good" },
-        { _id: "r8", name: "Aashu", rating: 4, comment: "Very good." }
+        { _id: "r7", name: "Keyur B.", rating: 5, comment: "Better than Sprite or Mountain Dew by miles!" },
+        { _id: "r8", name: "Sneha T.", rating: 5, comment: "Zero synthetic aftertaste, pure crisp fizz." }
       ]
     }
   ];
@@ -206,9 +215,12 @@ const fetchProduct = async () => {
               </div>
               <button 
                 className={styles.addToCartBtn}
-                onClick={() => { addToCart(product, quantity); setToastShown(true); setTimeout(() => setToastShown(false), 2000); }}
+                onClick={() => { 
+                  addToCart(product, quantity); 
+                  showToast(`${product.name} (x${quantity}) added to your crate! 🍹`); 
+                }}
               >
-                ADD TO REFRESHMENT
+                ADD TO CRATE
               </button>
             </div>
 
@@ -267,8 +279,6 @@ const fetchProduct = async () => {
           </div>
         </div>
       </div>
-
-      {toastShown && <div className={styles.toast}>✓ Added to your collection</div>}
     </div>
   );
 };

@@ -2,60 +2,70 @@
 
 import { useEffect, useMemo, useState } from "react";
 import debounce from "lodash.debounce";
+import ProductCard from "@/components/ProductCard";
+import pstyles from "@/styles/products.module.css";
+import { FaThLarge, FaBars, FaSearch, FaTimes, FaStar, FaPlus, FaCheck } from "react-icons/fa";
 import { useCart } from "@/components/CartContext";
-import ProductCard from '@/components/ProductCard';
-import pstyles from '@/styles/products.module.css';
-import { FaThLarge, FaBars } from 'react-icons/fa';
-// import PerfectPour from "@/components/PerfectPour";
-// 1. Central API helper aur endpoints import karein
-// import { clientFetch, API_ENDPOINTS } from "@/lib/api";
+import { useToast } from "@/components/ToastContext";
+import Link from "next/link";
 
-// 1. Static Data yahan define karein (Imports ke neeche)
 const STATIC_PRODUCTS = [
   {
-    
     _id: "1",
     name: "Classic Cola",
     category: "cola",
     price: 99,
-    image: "/cola.png", // Apne images ka sahi path check karein
-    description: "The timeless taste of refreshing cola.",
+    originalPrice: 125,
+    rating: 4.9,
+    volume: "330 ml",
+    image: "/cola.png",
+    description: "The timeless, bold effervescence of rich caramel, cinnamon bark, and zero synthetic syrups.",
   },
   {
     _id: "2",
-    name: "Zesty Lemon",
+    name: "Cloudy Lemon",
     category: "lemon",
     price: 89,
+    originalPrice: 110,
+    rating: 4.9,
+    volume: "330 ml",
     image: "/lemon.png",
-    description: "Crisp and citrusy lemon refreshment.",
+    description: "Crisp and electrifying sparkling lemonade crafted with fresh hand-crushed citrus pulp.",
   },
   {
     _id: "3",
-    name: "Orange orange",
+    name: "Zesty Orange",
     category: "orange",
     price: 95,
+    originalPrice: 120,
+    rating: 4.8,
+    volume: "330 ml",
     image: "/orange.png",
-    description: "Full of tangy orange flavor.",
+    description: "A sun-drenched explosion of cold-pressed orange peels and refreshing mineral fizz.",
   },
   {
     _id: "4",
-    name: "Sky High Up",
+    name: "Mountain Up",
     category: "up",
     price: 85,
+    originalPrice: 105,
+    rating: 4.7,
+    volume: "330 ml",
     image: "/up.png",
-    description: "Light and bubbly lime drink.",
-  }
+    description: "Alpine-pure botanical coolers with a high-energy lime and lemon effervescence.",
+  },
 ];
 
 const ProductsPage = () => {
   const { addToCart } = useCart();
-  const [products, setProducts] = useState([]);
+  const { showToast } = useToast();
+  const [products, setProducts] = useState(STATIC_PRODUCTS);
   const [loading, setLoading] = useState(false);
+  const [addedItem, setAddedItem] = useState(null);
+
   const [filters, setFilters] = useState({
     category: "All",
     search: "",
-    minPrice: "",
-    maxPrice: "",
     sort: "popularity",
   });
 
@@ -71,172 +81,253 @@ const ProductsPage = () => {
 
   const currentThemeClass = colorThemes[filters.category] || pstyles.themeAll;
 
-  const buildQuery = (f) => {
-    const q = new URLSearchParams();
-    if (f.category !== "All") q.set("category", f.category);
-    if (f.search) q.set("search", f.search);
-    return q.toString();
-  };
-//if we use backend
-  // const loadProducts = async (f = filters) => {
-  //   try {
-  //     setLoading(true);
-  //     const query = buildQuery(f);
-      
-  //     // 2. Localhost URL ki jagah clientFetch aur API_ENDPOINTS use kiya
-  //     const { ok, data } = await clientFetch(`${API_ENDPOINTS.products}${query ? "?" + query : ""}`);
-      
-  //     if (ok && data.success) {
-  //       setProducts(data.products);
-  //     } else {
-  //       setProducts([]);
-  //     }
-  //   } catch (err) {
-  //     console.error("Products Load Error:", err);
-  //     setProducts([]);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // 2. LoadProducts function jo static data ko filter karega
-  const loadProducts = (f = filters) => {
+  // Filter products based on search & category
+  const filterProducts = (f = filters) => {
     setLoading(true);
-    
-    // Thoda sa delay taaki skeleton loading effect dikhe (optional)
     setTimeout(() => {
       let filtered = STATIC_PRODUCTS.filter((p) => {
         const matchCategory = f.category === "All" || p.category === f.category;
-        const matchSearch = p.name.toLowerCase().includes(f.search.toLowerCase());
+        const matchSearch =
+          p.name.toLowerCase().includes(f.search.toLowerCase()) ||
+          p.description.toLowerCase().includes(f.search.toLowerCase());
         return matchCategory && matchSearch;
       });
 
       setProducts(filtered);
       setLoading(false);
-    }, 300); 
+    }, 150);
   };
 
-  const debouncedLoad = useMemo(() => debounce(loadProducts, 400), []);
+  const debouncedFilter = useMemo(() => debounce(filterProducts, 300), []);
 
   useEffect(() => {
-    if (filters.search) debouncedLoad(filters);
-    else loadProducts(filters);
-    return () => debouncedLoad.cancel();
+    if (filters.search) debouncedFilter(filters);
+    else filterProducts(filters);
+    return () => debouncedFilter.cancel();
   }, [filters]);
 
   const displayed = useMemo(() => {
     const arr = [...products];
     if (filters.sort === "price_low") arr.sort((a, b) => a.price - b.price);
     if (filters.sort === "price_high") arr.sort((a, b) => b.price - a.price);
+    if (filters.sort === "rating") arr.sort((a, b) => b.rating - a.rating);
     return arr;
   }, [products, filters.sort]);
 
-  const [view, setView] = useState('grid');
+  const [view, setView] = useState("grid");
+
+  const handleQuickAdd = (p) => {
+    addToCart(p, 1);
+    setAddedItem(p._id);
+    showToast(`${p.name} added to your crate! 🍹`);
+    setTimeout(() => setAddedItem(null), 1500);
+  };
 
   return (
     <div className={`${pstyles.pageWrapper} ${currentThemeClass}`}>
-      
-      <div className={pstyles.pourFixedPosition}>
-        {/* <PerfectPour category={filters.category} /> */}
-      </div>
-
       {/* HERO SECTION */}
       <section className={pstyles.heroSection}>
-        {(filters.category === 'All' || filters.category === 'cola') && (
-          <div className={pstyles.patternOverlay}></div>
-        )}
-     
-        <div className="container mx-auto px-6 relative z-10 text-center pt-24 pb-32">
+        <div className={pstyles.patternOverlay}></div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center pt-20 pb-28">
+          <span className="text-xs font-black uppercase tracking-[4px] text-cyan-400 mb-2 inline-block">
+            Handcrafted Sparkling Beverages
+          </span>
           <h1 className={pstyles.mainTitle}>
-            {filters.category === 'All' ? 'SPRYO' : filters.category} <span className={pstyles.titleStroke}>COLLECTION</span>
+            {filters.category === "All" ? "SPRYO" : filters.category.toUpperCase()}{" "}
+            <span className={pstyles.titleHighlight}>COLLECTION</span>
           </h1>
+          <p className="text-white/60 text-sm md:text-base mt-3 max-w-lg mx-auto">
+            Explore pure sparkling refreshment brewed with cold-pressed natural botanicals.
+          </p>
         </div>
       </section>
 
       {/* FLOATING TOOLBAR */}
-      <div className="container mx-auto px-4 -mt-20 relative z-30 mb-12">
+      <div className="container mx-auto px-4 -mt-14 relative z-30 mb-12">
         <div className={pstyles.glassToolbar}>
-          <div className="flex flex-col md:flex-row items-center gap-6 w-full">
-            
-            {/* Search */}
-            <div className="relative w-full md:w-72">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 w-full">
+            {/* Search Input with Clear Button */}
+            <div className="relative w-full lg:w-80">
               <input
                 type="text"
-                placeholder="Find your flavor..."
+                placeholder="Search flavors, notes..."
                 value={filters.search}
-                onChange={(e) => setFilters(p => ({ ...p, search: e.target.value }))}
+                onChange={(e) => setFilters((p) => ({ ...p, search: e.target.value }))}
                 className={pstyles.cyberInput}
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 opacity-60">🔍</span>
+              {filters.search ? (
+                <button
+                  onClick={() => setFilters((p) => ({ ...p, search: "" }))}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white"
+                >
+                  <FaTimes size={13} />
+                </button>
+              ) : (
+                <FaSearch className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50" size={13} />
+              )}
             </div>
 
-            {/* Category Pills */}
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
               {categories.map((c) => (
                 <button
                   key={c}
-                  onClick={() => setFilters(p => ({ ...p, category: c }))}
-                  className={`${pstyles.pillBtn} ${filters.category === c ? pstyles.pillActive : ''}`}
+                  onClick={() => setFilters((p) => ({ ...p, category: c }))}
+                  className={`${pstyles.pillBtn} ${filters.category === c ? pstyles.pillActive : ""}`}
                 >
                   <span className="capitalize">{c}</span>
                 </button>
               ))}
             </div>
 
-            <div className="hidden md:block flex-grow"></div>
-
-            {/* Sort & View */}
-            <div className="flex items-center gap-4">
+            {/* Sort & View Toggle */}
+            <div className="flex items-center justify-between lg:justify-end gap-3">
               <select
                 value={filters.sort}
-                onChange={(e) => setFilters(p => ({ ...p, sort: e.target.value }))}
+                onChange={(e) => setFilters((p) => ({ ...p, sort: e.target.value }))}
                 className={pstyles.cyberSelect}
+                aria-label="Sort products"
               >
                 <option value="popularity">Trending</option>
-                <option value="price_low">Price: Low</option>
-                <option value="price_high">Price: High</option>
+                <option value="price_low">Price: Low to High</option>
+                <option value="price_high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
               </select>
-              
+
               <div className={pstyles.viewToggleBtn}>
-                <button 
-                  onClick={() => setView('grid')} 
-                  className={`${pstyles.viewBtn} ${view === 'grid' ? pstyles.viewActive : ''}`}
+                <button
+                  onClick={() => setView("grid")}
+                  className={`${pstyles.viewBtn} ${view === "grid" ? pstyles.viewActive : ""}`}
                   aria-label="Grid View"
+                  title="Grid View"
                 >
                   <FaThLarge size={13} />
                 </button>
-                <button 
-                  onClick={() => setView('list')} 
-                  className={`${pstyles.viewBtn} ${view === 'list' ? pstyles.viewActive : ''}`}
+                <button
+                  onClick={() => setView("list")}
+                  className={`${pstyles.viewBtn} ${view === "list" ? pstyles.viewActive : ""}`}
                   aria-label="List View"
+                  title="List View"
                 >
                   <FaBars size={13} />
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      {/* PRODUCT GRID */}
+      {/* PRODUCTS DISPLAY */}
       <main className="container mx-auto px-4 pb-24">
-        <div className={view === 'grid' ? pstyles.productGrid : pstyles.productList}>
-          {loading ? (
-             Array.from({ length: 4 }).map((_, i) => <div key={i} className={pstyles.skeletonCard} />)
-          ) : displayed.length === 0 ? (
-            <div className={pstyles.emptyState}>
-               <p className="text-xl font-bold tracking-widest uppercase">No products match filters</p>
-               <button onClick={() => setFilters({category: 'All', search: '', sort: 'popularity'})} className="mt-4 underline uppercase text-sm font-bold">Clear All</button>
-            </div>
-          ) : (
-            displayed.map((item) => (
+        {loading ? (
+          <div className={pstyles.productGrid}>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className={pstyles.skeletonCard} />
+            ))}
+          </div>
+        ) : displayed.length === 0 ? (
+          <div className={pstyles.emptyState}>
+            <p className="text-xl font-bold tracking-wider uppercase mb-2">
+              No matching drinks found
+            </p>
+            <p className="text-sm text-white/50 mb-6">
+              Try adjusting your search terms or selecting another category.
+            </p>
+            <button
+              onClick={() => setFilters({ category: "All", search: "", sort: "popularity" })}
+              className="px-6 py-2.5 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-wide hover:bg-cyan-300 transition"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : view === "grid" ? (
+          <div className={pstyles.productGrid}>
+            {displayed.map((item) => (
               <div key={item._id} className={pstyles.cardContainer}>
                 <ProductCard item={item} />
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          /* RESPONSIVE HORIZONTAL LIST VIEW */
+          <div className={pstyles.productList}>
+            {displayed.map((item) => (
+              <div
+                key={item._id}
+                className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-cyan-400/40 transition"
+              >
+                <Link
+                  href={`/product/${item._id}`}
+                  className="w-32 h-32 flex items-center justify-center flex-shrink-0 bg-white/5 rounded-2xl p-2"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="max-h-28 object-contain drop-shadow-lg"
+                  />
+                </Link>
+
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
+                    <span className="text-xs uppercase font-bold text-cyan-400 tracking-wider">
+                      {item.category}
+                    </span>
+                    <span className="text-xs text-white/40">•</span>
+                    <span className="text-xs text-amber-400 font-bold inline-flex items-center gap-1">
+                      <FaStar size={10} /> {item.rating}
+                    </span>
+                    <span className="text-xs text-white/40">•</span>
+                    <span className="text-xs text-white/60">{item.volume}</span>
+                  </div>
+
+                  <Link href={`/product/${item._id}`}>
+                    <h3 className="text-xl font-black italic text-white hover:text-cyan-400 transition">
+                      {item.name}
+                    </h3>
+                  </Link>
+                  <p className="text-xs text-white/60 mt-1 max-w-md">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center sm:items-end gap-3 flex-shrink-0">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-black italic text-white">₹{item.price}</span>
+                    <span className="text-xs text-white/40 line-through">₹{item.originalPrice}</span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Link
+                      href={`/product/${item._id}`}
+                      className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition"
+                    >
+                      DETAILS
+                    </Link>
+                    <button
+                      onClick={() => handleQuickAdd(item)}
+                      className={`px-5 py-2 rounded-full text-xs font-black tracking-wide transition flex items-center gap-1.5 ${
+                        addedItem === item._id
+                          ? "bg-green-500 text-white"
+                          : "bg-cyan-400 hover:bg-cyan-300 text-black shadow-lg shadow-cyan-400/20"
+                      }`}
+                    >
+                      {addedItem === item._id ? (
+                        <>
+                          <FaCheck size={11} /> ADDED
+                        </>
+                      ) : (
+                        <>
+                          <FaPlus size={10} /> ADD TO CRATE
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );

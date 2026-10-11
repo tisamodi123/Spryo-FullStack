@@ -1,40 +1,41 @@
-/* Card Base Styling */
+/* Product Card Base Styling */
 .campaCard {
   position: relative;
-  height: 510px;
-  border-radius: 40px;
+  height: 500px;
+  border-radius: 36px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding: 1.8rem 1.4rem;
-  transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
 }
 
 .campaCard:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.45);
-  border-color: rgba(0, 209, 255, 0.4);
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  border-color: rgba(0, 209, 255, 0.5);
 }
 
 /* Flavor Backgrounds */
 .colaBg { 
-  background: linear-gradient(180deg, #420b18 0%, #110520 100%); 
+  background: linear-gradient(180deg, #3d0716 0%, #0d041a 100%); 
 }
 
 .orangeBg { 
-  background: linear-gradient(180deg, #b83d00 0%, #1a0802 100%); 
+  background: linear-gradient(180deg, #993200 0%, #170701 100%); 
 }
 
 .lemonBg { 
-  background: linear-gradient(180deg, #4d6600 0%, #0d1202 100%); 
+  background: linear-gradient(180deg, #405400 0%, #0a0e02 100%); 
 }
 
 .upBg { 
-  background: linear-gradient(180deg, #02576b 0%, #05141c 100%); 
+  background: linear-gradient(180deg, #014b5c 0%, #041017 100%); 
 }
 
 .powerBg { 
@@ -42,13 +43,13 @@
 }
 
 .defaultBg { 
-  background: linear-gradient(180deg, #241434 0%, #090312 100%); 
+  background: linear-gradient(180deg, #20122e 0%, #080310 100%); 
 }
 
-/* Light Mode Overrides for Cards */
+/* Light Mode Overrides */
 :global([data-theme="light"]) .campaCard {
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
 :global([data-theme="light"]) .colaBg {
@@ -68,15 +69,12 @@
 }
 
 :global([data-theme="light"]) .campaCard:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
 }
 
 /* Top Badges */
 .topBadges {
-  position: absolute;
-  top: 18px;
-  left: 20px;
-  right: 20px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -87,62 +85,63 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
   color: #ffffff;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 :global([data-theme="light"]) .ratingBadge {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   color: #0f172a;
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 .discountBadge {
   background: linear-gradient(135deg, #ef4444, #f43f5e);
   color: #ffffff;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 800;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 9999px;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
 }
 
-/* Typography */
+/* Brand & Title Header */
 .brandHeader {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin-top: 1.6rem;
+  margin-top: 0.4rem;
 }
 
 .brandName {
   display: block;
   font-weight: 900;
-  letter-spacing: 4px;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 0.2rem;
+  letter-spacing: 3px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 0.1rem;
 }
 
 :global([data-theme="light"]) .brandName {
-  color: #475569;
+  color: #64748b;
 }
 
 .flavorTitle {
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-weight: 950;
   font-style: italic;
   color: #ffffff;
   text-transform: uppercase;
-  line-height: 0.9;
-  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  line-height: 0.95;
+  text-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  letter-spacing: -0.5px;
 }
 
 :global([data-theme="light"]) .flavorTitle {
@@ -150,7 +149,7 @@
   text-shadow: none;
 }
 
-/* Bottle Section */
+/* Bottle Image Section */
 .imageContainer {
   position: relative;
   z-index: 10;
@@ -159,26 +158,28 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.5rem 0;
+  max-height: 210px;
+  padding: 0.3rem 0;
 }
 
 .floatingBottle {
-  max-height: 230px;
+  max-height: 190px;
+  width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45));
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .campaCard:hover .floatingBottle {
-  transform: scale(1.12) rotate(-6deg);
+  transform: scale(1.1) rotate(-5deg);
 }
 
 .bottleGlow {
   position: absolute;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-  filter: blur(50px);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+  filter: blur(40px);
   z-index: -1;
   pointer-events: none;
 }
@@ -187,13 +188,14 @@
 .cardPriceRow {
   position: relative;
   z-index: 15;
-  margin-bottom: 0.8rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.6rem;
 }
 
 .priceContainer {
   display: flex;
   align-items: baseline;
-  gap: 2px;
+  gap: 3px;
   color: #ffffff;
 }
 
@@ -202,7 +204,7 @@
 }
 
 .currency {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 800;
   color: #00d1ff;
 }
@@ -212,17 +214,17 @@
 }
 
 .priceValue {
-  font-size: 1.8rem;
-  font-weight: 900;
+  font-size: 1.6rem;
+  font-weight: 950;
   font-style: italic;
   line-height: 1;
 }
 
 .oldPrice {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
   text-decoration: line-through;
-  margin-left: 6px;
+  margin-left: 5px;
   font-weight: 600;
 }
 
@@ -230,7 +232,7 @@
   color: #94a3b8;
 }
 
-/* Action Area */
+/* Action Area (Footer) */
 .campaFooter {
   position: relative;
   z-index: 15;
@@ -238,32 +240,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .viewBtn {
   flex: 1;
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   color: #ffffff;
-  padding: 10px 14px;
+  padding: 9px 12px;
   border-radius: 9999px;
   font-weight: 800;
   font-size: 0.72rem;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-align: center;
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
 .viewBtn:hover {
   background: rgba(255, 255, 255, 0.95);
   color: #000000;
-  transform: translateY(-2px);
 }
 
 :global([data-theme="light"]) .viewBtn {
-  background: rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.05);
   border-color: rgba(0, 0, 0, 0.12);
   color: #0f172a;
 }
@@ -274,31 +275,31 @@
 }
 
 .quickAddBtn {
-  flex: 1;
+  flex: 1.1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   background: linear-gradient(135deg, #00d1ff, #00b4d8);
   color: #000000;
   border: none;
-  padding: 10px 14px;
+  padding: 9px 12px;
   border-radius: 9999px;
   font-weight: 900;
   font-size: 0.72rem;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 14px rgba(0, 209, 255, 0.3);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
 }
 
 .quickAddBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 209, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 209, 255, 0.45);
 }
 
 .quickAddSuccess {
   background: linear-gradient(135deg, #22c55e, #16a34a) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
 }
