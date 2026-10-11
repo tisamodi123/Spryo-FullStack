@@ -9,12 +9,18 @@ import {
   FaDiscord, 
   FaYoutube, 
   FaArrowRight, 
-  FaCheckCircle 
+  FaCheckCircle,
+  FaChevronDown 
 } from "react-icons/fa";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
+
+  const toggleSection = (id) => {
+    setOpenSection((prev) => (prev === id ? null : id));
+  };
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -41,7 +47,10 @@ const Footer = () => {
 
       <Container>
         <div className={styles.glassCard}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
+          {/* =========================================
+              DESKTOP / TABLET GRID (md:grid)
+              ========================================= */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-10 relative z-10">
             {/* BRAND SECTION */}
             <div className="space-y-5">
               <div className="flex items-center gap-3">
@@ -91,7 +100,7 @@ const Footer = () => {
             {/* NEWSLETTER SECTION */}
             <div className="space-y-4">
               <h4 className={styles.colTitle}>Stay Sparkling</h4>
-              <p className="text-xs text-white/60">
+              <p className="text-xs text-white/60 [data-theme=light]:text-slate-600">
                 Get early drops, private secret batches, and exclusive crate discounts.
               </p>
 
@@ -114,23 +123,144 @@ const Footer = () => {
                   ✓ You're on the VIP Fizz List!
                 </p>
               )}
-              <p className="text-[10px] text-white/40 tracking-widest uppercase">
+              <p className="text-[10px] text-white/40 [data-theme=light]:text-slate-400 tracking-widest uppercase">
                 Zero Spam. Pure Fizz.
               </p>
+            </div>
+          </div>
+
+          {/* =========================================
+              MOBILE ACCORDION (block md:hidden)
+              Each item opens/closes, auto-closing the other
+              ========================================= */}
+          <div className="block md:hidden relative z-10">
+            {/* BRAND HEADER & SOCIALS */}
+            <div className="space-y-3 mb-4">
+              <div className="flex items-center gap-3">
+                <div className={styles.brandIcon}>S</div>
+                <h2 className={styles.brandName}>SPRYO</h2>
+              </div>
+              <p className={styles.description}>
+                Crafted sparkling refreshment for modern tastes. Handcrafted in India with botanical purity and carbonated crispness.
+              </p>
+              <div className="flex gap-2.5 pt-1">
+                <a href="#" className={styles.socialBtn} aria-label="Instagram">
+                  <FaInstagram size={13} />
+                </a>
+                <a href="#" className={styles.socialBtn} aria-label="Twitter">
+                  <FaTwitter size={13} />
+                </a>
+                <a href="#" className={styles.socialBtn} aria-label="Discord">
+                  <FaDiscord size={13} />
+                </a>
+                <a href="#" className={styles.socialBtn} aria-label="YouTube">
+                  <FaYoutube size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* ACCORDION WRAPPER */}
+            <div className={styles.mobileAccordionWrapper}>
+              {/* 1. FLAVORS & SHOP ACCORDION */}
+              <div className={`${styles.accordionItem} ${openSection === "flavors" ? styles.accordionItemActive : ""}`}>
+                <button
+                  type="button"
+                  onClick={() => toggleSection("flavors")}
+                  className={styles.accordionHeader}
+                  aria-expanded={openSection === "flavors"}
+                >
+                  <span>Flavors & Shop</span>
+                  <span className={`${styles.accordionChevron} ${openSection === "flavors" ? styles.chevronRotated : ""}`}>
+                    <FaChevronDown size={11} />
+                  </span>
+                </button>
+                <div className={`${styles.accordionBody} ${openSection === "flavors" ? styles.accordionOpen : ""}`}>
+                  <nav className={styles.nav}>
+                    <Link href="/products">The Crate (All Drinks)</Link>
+                    <Link href="/about">Our Craft Story</Link>
+                    <Link href="/recipes">Cocktails & Mocktails</Link>
+                    <Link href="/careers">Careers & Team</Link>
+                  </nav>
+                </div>
+              </div>
+
+              {/* 2. HELP & TRUST ACCORDION */}
+              <div className={`${styles.accordionItem} ${openSection === "help" ? styles.accordionItemActive : ""}`}>
+                <button
+                  type="button"
+                  onClick={() => toggleSection("help")}
+                  className={styles.accordionHeader}
+                  aria-expanded={openSection === "help"}
+                >
+                  <span>Help & Trust</span>
+                  <span className={`${styles.accordionChevron} ${openSection === "help" ? styles.chevronRotated : ""}`}>
+                    <FaChevronDown size={11} />
+                  </span>
+                </button>
+                <div className={`${styles.accordionBody} ${openSection === "help" ? styles.accordionOpen : ""}`}>
+                  <nav className={styles.nav}>
+                    <Link href="/faq">FAQ & Shipping</Link>
+                    <Link href="/distributor">Become a Distributor</Link>
+                    <Link href="/privacy">Privacy Policy</Link>
+                    <Link href="/terms">Terms of Service</Link>
+                  </nav>
+                </div>
+              </div>
+
+              {/* 3. STAY SPARKLING (NEWSLETTER) ACCORDION */}
+              <div className={`${styles.accordionItem} ${openSection === "newsletter" ? styles.accordionItemActive : ""}`}>
+                <button
+                  type="button"
+                  onClick={() => toggleSection("newsletter")}
+                  className={styles.accordionHeader}
+                  aria-expanded={openSection === "newsletter"}
+                >
+                  <span>Stay Sparkling (VIP Drops)</span>
+                  <span className={`${styles.accordionChevron} ${openSection === "newsletter" ? styles.chevronRotated : ""}`}>
+                    <FaChevronDown size={11} />
+                  </span>
+                </button>
+                <div className={`${styles.accordionBody} ${openSection === "newsletter" ? styles.accordionOpen : ""}`}>
+                  <p className="text-xs text-white/60 [data-theme=light]:text-slate-600 mb-3">
+                    Get early drops, private secret batches, and exclusive crate discounts.
+                  </p>
+                  <form onSubmit={handleSubscribe} className={styles.newsletterBox}>
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={styles.input}
+                      required
+                    />
+                    <button type="submit" className={styles.sendBtn} aria-label="Subscribe">
+                      {subscribed ? <FaCheckCircle className="text-green-400" /> : <FaArrowRight />}
+                    </button>
+                  </form>
+                  {subscribed && (
+                    <p className="text-[11px] text-green-400 font-bold mt-2 flex items-center gap-1">
+                      ✓ You're on the VIP Fizz List!
+                    </p>
+                  )}
+                  <p className="text-[10px] text-white/40 [data-theme=light]:text-slate-400 tracking-widest uppercase mt-2">
+                    Zero Spam. Pure Fizz.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* BOTTOM STRIP */}
           <div className={styles.footerBottom}>
             <div className={styles.line}></div>
-            <div className="flex flex-col md:flex-row justify-between items-center py-6 gap-4">
-              <span className="text-[11px] opacity-60 tracking-[2px]">
+            <div className="flex flex-col md:flex-row justify-between items-center py-5 sm:py-6 gap-3 sm:gap-4 text-center md:text-left">
+              <span className="text-[10px] sm:text-[11px] opacity-60 tracking-[1.5px] sm:tracking-[2px]">
                 © {new Date().getFullYear()} SPRYO BEVERAGES INC. ALL RIGHTS RESERVED.
               </span>
-              <div className="flex gap-5 items-center">
+              <div className="flex gap-4 sm:gap-5 items-center justify-center">
                 <span className={styles.madeIn}>CRAFTED IN INDIA 🇮🇳</span>
                 <div className={styles.dot}></div>
-                <span className="text-[11px] opacity-60 tracking-wider">100% RECYCLABLE</span>
+                <span className="text-[10px] sm:text-[11px] opacity-60 tracking-wider">100% RECYCLABLE</span>
               </div>
             </div>
           </div>

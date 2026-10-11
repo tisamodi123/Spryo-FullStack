@@ -129,15 +129,15 @@ const ProductsPage = () => {
       <section className={pstyles.heroSection}>
         <div className={pstyles.patternOverlay}></div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center pt-20 pb-28">
-          <span className="text-xs font-black uppercase tracking-[4px] text-cyan-400 [data-theme=light]:text-sky-600 mb-2 inline-block">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center pt-12 sm:pt-20 pb-20 sm:pb-28">
+          <span className="text-[11px] sm:text-xs font-black uppercase tracking-[3px] sm:tracking-[4px] text-cyan-400 [data-theme=light]:text-sky-600 mb-2 inline-block">
             Handcrafted Sparkling Beverages
           </span>
           <h1 className={pstyles.mainTitle}>
             {filters.category === "All" ? "SPRYO" : filters.category.toUpperCase()}{" "}
             <span className={pstyles.titleHighlight}>COLLECTION</span>
           </h1>
-          <p className="text-white/60 [data-theme=light]:text-slate-600 text-sm md:text-base mt-3 max-w-lg mx-auto">
+          <p className="text-white/60 [data-theme=light]:text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 max-w-lg mx-auto">
             Explore pure sparkling refreshment brewed with cold-pressed natural botanicals.
           </p>
         </div>
@@ -168,13 +168,13 @@ const ProductsPage = () => {
               )}
             </div>
 
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
+            {/* Category Filter Pills - Flex Wrap so all fit without horizontal swiper */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 py-0.5">
               {categories.map((c) => (
                 <button
                   key={c}
                   onClick={() => setFilters((p) => ({ ...p, category: c }))}
-                  className={`${pstyles.pillBtn} shrink-0 ${filters.category === c ? pstyles.pillActive : ""}`}
+                  className={`${pstyles.pillBtn} ${filters.category === c ? pstyles.pillActive : ""}`}
                 >
                   <span className="capitalize">{c}</span>
                 </button>

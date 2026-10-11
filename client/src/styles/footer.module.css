@@ -206,7 +206,7 @@
 }
 
 .footerBottom {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .line {
@@ -234,4 +234,125 @@
   height: 4px;
   border-radius: 50%;
   background: #00d1ff;
+}
+
+/* =========================================
+   MOBILE ACCORDION / RESPONSIVE FOOTER
+   ========================================= */
+.mobileAccordionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.accordionItem {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+:global([data-theme="light"]) .accordionItem {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.07);
+}
+
+.accordionItemActive {
+  border-color: rgba(0, 209, 255, 0.4);
+  box-shadow: 0 4px 18px rgba(0, 209, 255, 0.08);
+}
+
+:global([data-theme="light"]) .accordionItemActive {
+  border-color: rgba(2, 132, 199, 0.3);
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.06);
+}
+
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+:global([data-theme="light"]) .accordionHeader {
+  color: #0f172a;
+}
+
+.accordionHeader:hover {
+  color: #00d1ff;
+}
+
+:global([data-theme="light"]) .accordionHeader:hover {
+  color: #0284c7;
+}
+
+.accordionChevron {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global([data-theme="light"]) .accordionChevron {
+  color: #64748b;
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+  color: #00d1ff;
+}
+
+:global([data-theme="light"]) .chevronRotated {
+  color: #0284c7;
+}
+
+.accordionBody {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, opacity 0.3s ease;
+  padding: 0 18px;
+  opacity: 0;
+}
+
+.accordionOpen {
+  max-height: 420px;
+  padding: 4px 18px 18px 18px;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .footerRoot {
+    padding-top: 60px;
+    padding-bottom: 25px;
+  }
+  .glassCard {
+    padding: 26px 18px 12px 18px;
+    border-radius: 24px;
+  }
+  .blobWrapper {
+    width: 320px;
+    height: 320px;
+  }
+  .description {
+    max-width: 100%;
+  }
+  .brandName {
+    font-size: 1.8rem;
+  }
+  .footerBottom {
+    margin-top: 25px;
+  }
 }

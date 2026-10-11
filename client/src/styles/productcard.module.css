@@ -303,3 +303,52 @@
   color: #ffffff !important;
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
 }
+
+/* =========================================
+   RESPONSIVE CARD STYLES FOR MOBILE
+   ========================================= */
+@media (max-width: 640px) {
+  .campaCard {
+    height: auto;
+    min-height: 410px;
+    padding: 1.1rem 1rem 1.1rem 1rem;
+    border-radius: 28px;
+    gap: 0.5rem;
+  }
+
+  .flavorTitle {
+    font-size: 1.85rem;
+  }
+
+  .brandName {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+  }
+
+  .imageContainer {
+    max-height: 165px;
+    padding: 0.2rem 0;
+  }
+
+  .floatingBottle {
+    max-height: 150px;
+  }
+
+  .priceValue {
+    font-size: 1.4rem;
+  }
+
+  .cardPriceRow {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+  }
+
+  .campaFooter {
+    gap: 6px;
+  }
+
+  .viewBtn, .quickAddBtn {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+  }
+}
