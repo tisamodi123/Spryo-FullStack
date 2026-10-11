@@ -1,14 +1,19 @@
 .recipeContainer {
   min-height: 100vh;
-  /* Darkest purple-black to match Spryo theme */
-  background: radial-gradient(circle at top, #120526 0%, #08020d 100%); 
-  padding: 140px 5% 80px;
+  background: transparent; 
+  padding: 120px 5% 80px;
   color: white;
+  position: relative;
+}
+
+:global([data-theme="light"]) .recipeContainer {
+  background: transparent;
+  color: #0f172a;
 }
 
 .hero { 
   text-align: center; 
-  margin-bottom: 120px; 
+  margin-bottom: 80px; 
   position: relative;
 }
 
@@ -37,53 +42,80 @@
   text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
 }
 
+:global([data-theme="light"]) .tagline {
+  color: #0284c7;
+  text-shadow: none;
+}
+
 .title { 
-  font-size: clamp(3.5rem, 12vw, 7rem); 
-  line-height: 0.85;
+  font-size: clamp(3rem, 10vw, 6.5rem); 
+  line-height: 0.9;
   font-weight: 950;
   font-style: italic;
-  letter-spacing: -4px;
+  letter-spacing: -3px;
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  color: #ffffff;
+}
+
+:global([data-theme="light"]) .title {
+  color: #0f172a;
 }
 
 /* "SERVES" word ko outline look dena */
 .title span { 
   display: block;
   color: transparent; 
- -webkit-text-stroke: 1.5px rgba(0, 209, 255, 0.6); 
+  -webkit-text-stroke: 1.5px rgba(0, 209, 255, 0.6); 
   text-shadow: 0 0 15px rgba(0, 209, 255, 0.2);
   transition: 0.5s;
 }
 
-/* Desktop ke liye (Min-width 1024px) hum wapis transparent kar denge jo hover pe blue hoga */
+:global([data-theme="light"]) .title span {
+  -webkit-text-stroke: 1.5px #0284c7;
+  text-shadow: none;
+}
+
 @media (min-width: 1024px) {
   .title span {
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.2);
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
     text-shadow: none;
   }
   
+  :global([data-theme="light"]) .title span {
+    -webkit-text-stroke: 1.5px rgba(2, 132, 199, 0.4);
+  }
+
   .hero:hover .title span {
     -webkit-text-stroke: 1.5px #00d1ff;
     text-shadow: 0 0 30px rgba(0, 209, 255, 0.3);
+  }
+
+  :global([data-theme="light"]) .hero:hover .title span {
+    -webkit-text-stroke: 1.5px #0284c7;
+    text-shadow: none;
   }
 }
 
 .hero p {
   max-width: 600px;
   margin: 0 auto;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.5px;
+}
+
+:global([data-theme="light"]) .hero p {
+  color: #475569;
 }
 
 /* --- The Modern Card --- */
 .recipeGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -91,26 +123,37 @@
 .recipeCard {
   background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 40px;
-  padding: 40px 30px;
+  border-radius: 36px;
+  padding: 35px 25px;
   position: relative;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+:global([data-theme="light"]) .recipeCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
 .recipeCard:hover {
-  transform: translateY(-20px);
+  transform: translateY(-12px);
   border-color: rgba(0, 209, 255, 0.5);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+}
+
+:global([data-theme="light"]) .recipeCard:hover {
+  border-color: #0284c7;
+  box-shadow: 0 20px 45px rgba(2, 132, 199, 0.15);
 }
 
 /* Bottle ke peeche ka Glow Circle */
 .imageBox {
   width: 100%;
-  height: 250px;
+  height: 240px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +166,7 @@
   position: absolute;
   width: 180px;
   height: 180px;
-  background: var(--glow-color); /* Dynamic from style tag */
+  background: var(--glow-color, rgba(0, 209, 255, 0.2));
   filter: blur(50px);
   opacity: 0.15;
   border-radius: 50%;
@@ -131,28 +174,27 @@
 }
 
 .recipeCard:hover .imageBox::before {
-  opacity: 0.4;
-  transform: scale(1.2);
+  opacity: 0.35;
+  transform: scale(1.15);
 }
 
 .imageBox img {
-  max-height: 240px;
+  max-height: 220px;
   width: auto;
   object-fit: contain;
   z-index: 2;
-  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
-  transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+  transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .recipeCard:hover img {
-  transform: scale(1.15) translateY(-10px) rotate(-5deg);
+  transform: scale(1.1) translateY(-6px) rotate(-3deg);
 }
 
-/* --- Content Styling --- */
 .badge {
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 24px;
+  right: 24px;
   background: rgba(255,255,255,0.1);
   padding: 5px 15px;
   border-radius: 100px;
@@ -162,10 +204,18 @@
   letter-spacing: 1px;
 }
 
-.cardContent { text-align: center; width: 100%; }
+:global([data-theme="light"]) .badge {
+  background: rgba(0, 0, 0, 0.06);
+  color: #0f172a;
+}
+
+.cardContent { 
+  text-align: center; 
+  width: 100%; 
+}
 
 .cardContent h3 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: #fff;
   text-transform: uppercase;
@@ -173,24 +223,43 @@
   margin-bottom: 10px;
 }
 
+:global([data-theme="light"]) .cardContent h3 {
+  color: #0f172a;
+}
+
 .viewLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   justify-content: center;
-  /* Mobile par hamesha readable color */
-  opacity: 1; 
   color: #00d1ff;
   font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
   transition: 0.3s;
 }
 
-/* Desktop par hi sirf opacity kam rakhenge jo hover pe badhegi */
+:global([data-theme="light"]) .viewLink {
+  color: #0284c7;
+}
+
 @media (min-width: 1024px) {
   .viewLink {
-    opacity: 0.6;
+    opacity: 0.85;
     color: #fff;
+  }
+  
+  :global([data-theme="light"]) .viewLink {
+    opacity: 1;
+    color: #0284c7;
   }
   
   .recipeCard:hover .viewLink {
     opacity: 1;
     color: #00d1ff;
+  }
+
+  :global([data-theme="light"]) .recipeCard:hover .viewLink {
+    color: #0ea5e9;
   }
 }

@@ -1,12 +1,18 @@
 .contactWrapper {
   min-height: 100vh;
-  background-color: #1a0b2e; /* Campa Dark Theme */
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  padding: 80px 20px;
+}
+
+:global([data-theme="light"]) .contactWrapper {
+  background-color: transparent;
+  color: #0f172a;
 }
 
 /* Moving Neon Orbits for Background */
@@ -49,6 +55,14 @@
   margin: 0 auto;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
   text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+:global([data-theme="light"]) .glassCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
 }
 
 .iconCircle {
@@ -65,6 +79,12 @@
   border: 1px solid rgba(0, 209, 255, 0.3);
 }
 
+:global([data-theme="light"]) .iconCircle {
+  background: rgba(2, 132, 199, 0.1);
+  color: #0284c7;
+  border-color: rgba(2, 132, 199, 0.3);
+}
+
 .mainTitle {
   font-size: 3rem;
   font-weight: 900;
@@ -75,9 +95,18 @@
   letter-spacing: -1px;
 }
 
+:global([data-theme="light"]) .mainTitle {
+  color: #0f172a;
+}
+
 .mainTitle span {
   color: #00D1FF;
   text-shadow: 0 0 20px rgba(0, 209, 255, 0.4);
+}
+
+:global([data-theme="light"]) .mainTitle span {
+  color: #0284c7;
+  text-shadow: none;
 }
 
 .description {
@@ -87,8 +116,16 @@
   margin: 2rem 0;
 }
 
+:global([data-theme="light"]) .description {
+  color: #64748b;
+}
+
 .description strong {
   color: white;
+}
+
+:global([data-theme="light"]) .description strong {
+  color: #0f172a;
 }
 
 /* Action Button */
@@ -108,16 +145,31 @@
   box-shadow: 0 10px 30px rgba(0, 209, 255, 0.3);
 }
 
+:global([data-theme="light"]) .mailButton {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.3);
+}
+
 .mailButton:hover {
-  transform: scale(1.05) translateY(-5px);
+  transform: scale(1.04) translateY(-3px);
   box-shadow: 0 20px 40px rgba(0, 209, 255, 0.5);
   background: #fff;
+}
+
+:global([data-theme="light"]) .mailButton:hover {
+  background: #0369a1;
+  color: #ffffff;
 }
 
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
   margin: 2.5rem 0;
+}
+
+:global([data-theme="light"]) .divider {
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
 }
 
 .footerInfo {
@@ -127,6 +179,10 @@
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.85rem;
   letter-spacing: 1px;
+}
+
+:global([data-theme="light"]) .footerInfo {
+  color: #94a3b8;
 }
 
 .statusIndicator {

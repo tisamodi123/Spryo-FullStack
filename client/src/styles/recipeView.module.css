@@ -1,10 +1,15 @@
 .viewPage {
   min-height: 100vh;
-  background: #0a0414;
+  background: transparent;
   color: white;
   padding: 80px 0;
   overflow: hidden;
   position: relative;
+}
+
+:global([data-theme="light"]) .viewPage {
+  background: transparent;
+  color: #0f172a;
 }
 
 .fluidGlow {
@@ -30,10 +35,14 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   font-weight: 800;
   letter-spacing: 2px;
   transition: 0.3s;
+}
+
+:global([data-theme="light"]) .backBtn {
+  color: #64748b;
 }
 
 .backBtn:hover { color: var(--theme-color); transform: translateX(-5px); }
@@ -54,6 +63,10 @@
   z-index: -1;
 }
 
+:global([data-theme="light"]) .mainCircle {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 .heroBottle {
   max-height: 550px;
   filter: drop-shadow(0 0 40px var(--theme-color));
@@ -70,12 +83,22 @@
   text-transform: uppercase;
 }
 
+:global([data-theme="light"]) .sideTitle {
+  color: #000;
+  opacity: 0.03;
+}
+
 .mainTitle {
   font-size: 4rem;
   font-weight: 900;
   font-style: italic;
   margin: 15px 0;
   text-transform: uppercase;
+  color: white;
+}
+
+:global([data-theme="light"]) .mainTitle {
+  color: #0f172a;
 }
 
 .statsGrid {
@@ -97,6 +120,12 @@
   border: 1px solid rgba(255,255,255,0.1);
 }
 
+:global([data-theme="light"]) .statBox {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
 .detailsGrid {
   display: grid;
   gap: 20px;
@@ -108,6 +137,14 @@
   padding: 30px;
   border-radius: 25px;
   border: 1px solid rgba(255,255,255,0.05);
+}
+
+:global([data-theme="light"]) .ingredientsCard,
+:global([data-theme="light"]) .methodCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  color: #0f172a;
 }
 
 .ingredientsCard h3, .methodCard h3 {
@@ -132,6 +169,10 @@
   font-size: 1.5rem;
   font-weight: 900;
   color: rgba(255,255,255,0.1);
+}
+
+:global([data-theme="light"]) .stepItem span {
+  color: rgba(0, 0, 0, 0.15);
 }
 
 .orderBtn {

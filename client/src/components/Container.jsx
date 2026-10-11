@@ -1,12 +1,11 @@
 import React from 'react'
 
-const Container = ({className,children}) => {
+const Container = ({ className = '', children }) => {
   return (
-    // className prop to add extra styles and uses children to render whatever you put inside the container
-    <div className={`max-w-[1200px] mx-auto ${className}`}>
+    <div className={`max-w-[1240px] mx-auto px-4 sm:px-6 w-full ${className}`}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 export default Container

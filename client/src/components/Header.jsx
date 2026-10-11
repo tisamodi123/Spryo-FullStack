@@ -82,13 +82,13 @@ export default function Header() {
       <Container>
         <div className={styles.headerInner}>
           {/* BRANDING */}
-          <Link href="/" className="flex items-center gap-3 z-[101] group">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 z-[101] group shrink-0">
             <div className={styles.logoBadge}>
               <span>S</span>
             </div>
             <div className="flex flex-col">
               <span className={styles.brandName}>SPRYO</span>
-              <span className={styles.brandSub}>PREMIUM FIZZ</span>
+              <span className={`${styles.brandSub} hidden sm:inline-block`}>PREMIUM FIZZ</span>
             </div>
           </Link>
 
@@ -106,8 +106,8 @@ export default function Header() {
           </nav>
 
           {/* RIGHT ACTIONS */}
-          <div className="flex items-center gap-2.5 sm:gap-4 z-[101]">
-            {/* Search Bar */}
+          <div className="flex items-center gap-2 sm:gap-3.5 z-[101]">
+            {/* Search Bar - Desktop */}
             <form onSubmit={handleSearch} className={styles.searchContainer}>
               <FaSearch className="text-cyan-400 text-xs sm:text-sm" />
               <input
@@ -142,8 +142,8 @@ export default function Header() {
               )}
             </Link>
 
-            {/* User Profile / Login */}
-            <div className={styles.userSection}>
+            {/* User Profile / Login - Hidden on mobile, visible on sm+ */}
+            <div className={`${styles.userSection} hidden sm:block`}>
               {user ? (
                 <div className="relative">
                   <button
@@ -158,9 +158,9 @@ export default function Header() {
                   </button>
                   {profileOpen && (
                     <div className={styles.profileDrop}>
-                      <div className="px-3 py-2 border-b border-white/10 text-xs text-white/70">
+                      <div className="px-3 py-2 border-b border-white/10 [data-theme=light]:border-slate-200 text-xs text-white/70 [data-theme=light]:text-slate-600">
                         Signed in as <br />
-                        <span className="font-semibold text-cyan-400">{user.email}</span>
+                        <span className="font-semibold text-cyan-400 [data-theme=light]:text-sky-600">{user.email}</span>
                       </div>
                       <Link href="/profile" onClick={() => setProfileOpen(false)}>
                         My Profile
@@ -185,9 +185,9 @@ export default function Header() {
             <button
               className={styles.menuToggle}
               onClick={() => setOpen(!open)}
-              aria-label="Toggle menu"
+              aria-label={open ? "Close menu" : "Open menu"}
             >
-              {open ? <FaTimes size={22} /> : <FaBars size={22} />}
+              {open ? <FaTimes size={20} /> : <FaBars size={20} />}
             </button>
           </div>
         </div>
@@ -195,49 +195,100 @@ export default function Header() {
         {/* MOBILE OVERLAY MENU */}
         <div className={`${styles.mobileMenu} ${open ? styles.mobileVisible : ""}`}>
           <div className={styles.mobileLinks}>
+            {/* Mobile Header with Close & Brand */}
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 [data-theme=light]:border-slate-200 mb-3 w-full">
+              <div className="flex items-center gap-2">
+                <div className={styles.logoBadge} style={{ width: 28, height: 28, fontSize: '0.9rem' }}>
+                  <span>S</span>
+                </div>
+                <span className="font-black text-sm tracking-wide text-white [data-theme=light]:text-slate-900">SPRYO</span>
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 [data-theme=light]:text-slate-700 hover:bg-white/10 [data-theme=light]:hover:bg-slate-100"
+                aria-label="Close menu"
+              >
+                <FaTimes size={18} />
+              </button>
+            </div>
+
+            {/* Mobile Search */}
+            <form onSubmit={handleSearch} className="flex items-center bg-white/5 [data-theme=light]:bg-slate-100 border border-white/15 [data-theme=light]:border-slate-300 rounded-xl px-3 py-2 w-full mb-3">
+              <FaSearch className="text-cyan-400 [data-theme=light]:text-sky-600 text-xs shrink-0" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search flavors, drinks..."
+                className="bg-transparent border-none outline-none text-xs text-white [data-theme=light]:text-slate-900 placeholder:text-white/40 [data-theme=light]:placeholder:text-slate-400 pl-2 w-full"
+              />
+            </form>
+
             {/* Mobile Theme Switcher */}
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-2">
-              <span className="text-xs uppercase tracking-widest text-white/60 font-bold">Theme</span>
+            <div className="flex items-center justify-between py-2 border-b border-white/10 [data-theme=light]:border-slate-200 mb-2 w-full">
+              <span className="text-xs uppercase tracking-widest text-white/60 [data-theme=light]:text-slate-600 font-bold">Theme</span>
               <button
                 onClick={toggleTheme}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-xs font-semibold text-cyan-300"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 [data-theme=light]:bg-slate-200 text-xs font-semibold text-cyan-300 [data-theme=light]:text-sky-700"
               >
                 {theme === "light" ? <FaMoon /> : <FaSun />}
                 {theme === "light" ? "Dark Mode" : "Light Mode"}
               </button>
             </div>
 
+            {/* Navigation Links */}
             {menuLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={pathname === link.href ? styles.activeMobile : ""}
+                className={`${pathname === link.href ? styles.activeMobile : ""} text-white [data-theme=light]:text-slate-800`}
+                onClick={() => setOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <hr className="border-white/10 w-full my-2" />
-            <Link href="/products" className="text-cyan-400 font-bold">
+
+            <hr className="border-white/10 [data-theme=light]:border-slate-200 w-full my-2" />
+
+            <Link href="/products" onClick={() => setOpen(false)} className="text-cyan-400 [data-theme=light]:text-sky-600 font-bold">
               Explore Crate (Drinks)
             </Link>
-            <Link href="/cart" className="flex items-center justify-between">
+            <Link href="/cart" onClick={() => setOpen(false)} className="flex items-center justify-between text-white [data-theme=light]:text-slate-800">
               <span>View Cart</span>
               <span className="px-2 py-0.5 rounded-full bg-cyan-400 text-black text-xs font-bold">
                 {itemCount}
               </span>
             </Link>
+
+            {/* User Account in Mobile Menu */}
             {!user ? (
-              <Link href="/login" className="text-cyan-400 font-bold mt-2">
-                Login / Signup
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="mt-3 w-full py-2.5 rounded-xl bg-cyan-400 text-black text-center font-black text-xs tracking-wider"
+              >
+                LOGIN / SIGN UP
               </Link>
             ) : (
-              <>
-                <Link href="/profile">My Account</Link>
-                <Link href="/orders">My Orders</Link>
-                <button onClick={handleLogout} className="text-red-400 mt-2 text-left font-semibold">
+              <div className="mt-3 pt-3 border-t border-white/10 [data-theme=light]:border-slate-200 w-full flex flex-col gap-2">
+                <div className="text-xs text-white/60 [data-theme=light]:text-slate-500 font-semibold truncate">
+                  {user.email}
+                </div>
+                <Link href="/profile" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-slate-800 text-sm">
+                  My Profile
+                </Link>
+                <Link href="/orders" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-slate-800 text-sm">
+                  My Orders
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setOpen(false);
+                  }}
+                  className="text-red-400 [data-theme=light]:text-red-600 text-left font-semibold text-xs mt-1"
+                >
                   Logout
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>

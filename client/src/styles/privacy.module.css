@@ -1,9 +1,15 @@
 .privacyWrapper {
-  background-color: #0f051a;
+  background-color: transparent;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
   font-family: inherit;
+  padding: 60px 0;
+}
+
+:global([data-theme="light"]) .privacyWrapper {
+  background-color: transparent;
+  color: #0f172a;
 }
 
 /* Neon Glows */
@@ -34,6 +40,10 @@
   font-size: 0.75rem;
 }
 
+:global([data-theme="light"]) .eyebrow {
+  color: #0284c7;
+}
+
 .mainTitle {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 900;
@@ -42,9 +52,17 @@
   line-height: 1;
 }
 
+:global([data-theme="light"]) .mainTitle {
+  color: #0f172a;
+}
+
 .mainTitle span {
   color: transparent;
   -webkit-text-stroke: 1.5px #00D1FF;
+}
+
+:global([data-theme="light"]) .mainTitle span {
+  -webkit-text-stroke: 1.5px #0284c7;
 }
 
 .divider {
@@ -52,6 +70,10 @@
   height: 4px;
   background: #22c55e;
   margin: 20px auto;
+}
+
+:global([data-theme="light"]) .divider {
+  background: #16a34a;
 }
 
 /* Glassmorphic Section Cards */
@@ -64,9 +86,22 @@
   transition: 0.3s ease;
 }
 
+:global([data-theme="light"]) .glassSection {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  color: #0f172a;
+}
+
 .glassSection:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(0, 209, 255, 0.3);
+}
+
+:global([data-theme="light"]) .glassSection:hover {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 15px 40px rgba(2, 132, 199, 0.1);
 }
 
 .iconBox {
@@ -82,9 +117,18 @@
   flex-shrink: 0;
 }
 
+:global([data-theme="light"]) .iconBox {
+  background: #0284c7;
+  color: white;
+}
+
 .smallIcon {
   color: #22c55e;
   font-size: 1.5rem;
+}
+
+:global([data-theme="light"]) .smallIcon {
+  color: #16a34a;
 }
 
 .sectionHeading {
@@ -96,10 +140,18 @@
   letter-spacing: 1px;
 }
 
+:global([data-theme="light"]) .sectionHeading {
+  color: #0f172a;
+}
+
 .textBody {
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.8;
   font-size: 1.1rem;
+}
+
+:global([data-theme="light"]) .textBody {
+  color: #475569;
 }
 
 .dataTag {
@@ -111,6 +163,12 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+:global([data-theme="light"]) .dataTag {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
 /* Contact Footer Section */
 .contactFooter {
   background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%);
@@ -118,6 +176,13 @@
   border-radius: 40px;
   padding: 60px 40px;
   margin-top: 40px;
+}
+
+:global([data-theme="light"]) .contactFooter {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+  color: #0f172a;
 }
 
 .contactItem {
@@ -129,6 +194,12 @@
   border-radius: 20px;
 }
 
+:global([data-theme="light"]) .contactItem {
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
 .footerBrand {
   margin-top: 50px;
   text-align: center;
@@ -137,4 +208,8 @@
   letter-spacing: 4px;
   color: rgba(255, 255, 255, 0.2);
   text-transform: uppercase;
+}
+
+:global([data-theme="light"]) .footerBrand {
+  color: #94a3b8;
 }

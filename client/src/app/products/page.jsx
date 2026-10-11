@@ -130,14 +130,14 @@ const ProductsPage = () => {
         <div className={pstyles.patternOverlay}></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center pt-20 pb-28">
-          <span className="text-xs font-black uppercase tracking-[4px] text-cyan-400 mb-2 inline-block">
+          <span className="text-xs font-black uppercase tracking-[4px] text-cyan-400 [data-theme=light]:text-sky-600 mb-2 inline-block">
             Handcrafted Sparkling Beverages
           </span>
           <h1 className={pstyles.mainTitle}>
             {filters.category === "All" ? "SPRYO" : filters.category.toUpperCase()}{" "}
             <span className={pstyles.titleHighlight}>COLLECTION</span>
           </h1>
-          <p className="text-white/60 text-sm md:text-base mt-3 max-w-lg mx-auto">
+          <p className="text-white/60 [data-theme=light]:text-slate-600 text-sm md:text-base mt-3 max-w-lg mx-auto">
             Explore pure sparkling refreshment brewed with cold-pressed natural botanicals.
           </p>
         </div>
@@ -159,12 +159,12 @@ const ProductsPage = () => {
               {filters.search ? (
                 <button
                   onClick={() => setFilters((p) => ({ ...p, search: "" }))}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 [data-theme=light]:text-slate-400 hover:text-white [data-theme=light]:hover:text-black"
                 >
                   <FaTimes size={13} />
                 </button>
               ) : (
-                <FaSearch className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50" size={13} />
+                <FaSearch className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50 [data-theme=light]:text-slate-400" size={13} />
               )}
             </div>
 
@@ -174,7 +174,7 @@ const ProductsPage = () => {
                 <button
                   key={c}
                   onClick={() => setFilters((p) => ({ ...p, category: c }))}
-                  className={`${pstyles.pillBtn} ${filters.category === c ? pstyles.pillActive : ""}`}
+                  className={`${pstyles.pillBtn} shrink-0 ${filters.category === c ? pstyles.pillActive : ""}`}
                 >
                   <span className="capitalize">{c}</span>
                 </button>

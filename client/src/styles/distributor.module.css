@@ -1,9 +1,15 @@
 .formPage {
   min-height: 100vh;
-  background-color: #0f051a;
+  background-color: transparent;
   position: relative;
   overflow: hidden;
   font-family: inherit;
+  padding: 60px 0;
+}
+
+:global([data-theme="light"]) .formPage {
+  background-color: transparent;
+  color: #0f172a;
 }
 
 /* Background Glows */
@@ -34,6 +40,10 @@
   font-size: 0.75rem;
 }
 
+:global([data-theme="light"]) .eyebrow {
+  color: #16a34a;
+}
+
 .formTitle {
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 900;
@@ -42,9 +52,17 @@
   text-transform: uppercase;
 }
 
+:global([data-theme="light"]) .formTitle {
+  color: #0f172a;
+}
+
 .formTitle span {
   color: transparent;
   -webkit-text-stroke: 1px #00D1FF;
+}
+
+:global([data-theme="light"]) .formTitle span {
+  -webkit-text-stroke: 1px #0284c7;
 }
 
 /* Glass Container */
@@ -55,6 +73,15 @@
   border-radius: 40px;
   padding: 50px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 10;
+}
+
+:global([data-theme="light"]) .formContainer {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+  color: #0f172a;
 }
 
 /* Stepper */
@@ -77,6 +104,10 @@
   z-index: 1;
 }
 
+:global([data-theme="light"]) .stepLine {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .stepLineFull {
   background: linear-gradient(90deg, #00D1FF, #22c55e);
 }
@@ -97,10 +128,16 @@
   transition: 0.4s;
 }
 
+:global([data-theme="light"]) .stepNode {
+  background: #f1f5f9;
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0f172a;
+}
+
 .activeNode {
-  background: #00D1FF;
-  border-color: #00D1FF;
-  color: black;
+  background: #00D1FF !important;
+  border-color: #00D1FF !important;
+  color: black !important;
   box-shadow: 0 0 15px rgba(0, 209, 255, 0.5);
 }
 
@@ -115,15 +152,30 @@
   transition: 0.3s;
 }
 
+:global([data-theme="light"]) .inputWrapper {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
 .inputWrapper:focus-within {
   border-color: #00D1FF;
   background: rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="light"]) .inputWrapper:focus-within {
+  border-color: #0284c7;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
 }
 
 .inputIcon {
   color: #00D1FF;
   font-size: 1.1rem;
   margin-right: 15px;
+}
+
+:global([data-theme="light"]) .inputIcon {
+  color: #0284c7;
 }
 
 .inputField {
@@ -135,8 +187,16 @@
   font-weight: 500;
 }
 
+:global([data-theme="light"]) .inputField {
+  color: #0f172a;
+}
+
 .inputField::placeholder {
   color: rgba(255,255,255,0.3);
+}
+
+:global([data-theme="light"]) .inputField::placeholder {
+  color: #94a3b8;
 }
 
 /* Buttons */
@@ -153,6 +213,12 @@
   gap: 10px;
   transition: 0.3s;
   text-transform: uppercase;
+  cursor: pointer;
+}
+
+:global([data-theme="light"]) .primaryBtn {
+  background: #0284c7;
+  color: white;
 }
 
 .primaryBtn:hover {
@@ -166,6 +232,13 @@
   color: white;
   font-weight: 800;
   border-radius: 15px;
+  cursor: pointer;
+  background: transparent;
+}
+
+:global([data-theme="light"]) .secondaryBtn {
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #0f172a;
 }
 
 .submitBtn {
@@ -177,12 +250,18 @@
   padding: 18px;
   border-radius: 15px;
   transition: 0.3s;
+  cursor: pointer;
+}
+
+:global([data-theme="light"]) .submitBtn {
+  background: #16a34a;
+  color: white;
 }
 
 /* Success Screen */
 .successWrapper {
   min-height: 100vh;
-  background: #0f051a;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,4 +275,11 @@
   border-radius: 40px;
   border: 1px solid rgba(34, 197, 94, 0.3);
   max-width: 500px;
+}
+
+:global([data-theme="light"]) .successCard {
+  background: #ffffff;
+  border-color: rgba(22, 163, 74, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  color: #0f172a;
 }

@@ -361,3 +361,13 @@
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.85; }
 }
+
+@media (max-width: 640px) {
+  .glassToolbar {
+    padding: 1rem 0.85rem;
+    border-radius: 1.25rem;
+  }
+  .mainTitle {
+    font-size: 2.2rem;
+  }
+}

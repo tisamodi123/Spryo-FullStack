@@ -1,12 +1,18 @@
 .authPage {
   min-height: 100vh;
-  background-color: #1a0b2e;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  padding: 60px 20px;
+}
+
+:global([data-theme="light"]) .authPage {
+  background-color: transparent;
+  color: #0f172a;
 }
 
 /* Background Effects */
@@ -38,6 +44,16 @@
   border-radius: 40px;
   padding: 3rem 2.5rem;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+}
+
+:global([data-theme="light"]) .glassCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
 }
 
 .iconCircle {
@@ -54,6 +70,12 @@
   border: 1px solid rgba(0, 209, 255, 0.2);
 }
 
+:global([data-theme="light"]) .iconCircle {
+  background: rgba(2, 132, 199, 0.1);
+  color: #0284c7;
+  border-color: rgba(2, 132, 199, 0.3);
+}
+
 .title {
   color: white;
   font-size: 2.5rem;
@@ -62,11 +84,21 @@
   line-height: 0.9;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+:global([data-theme="light"]) .title {
+  color: #0f172a;
 }
 
 .title span {
   color: #00D1FF;
   text-shadow: 0 0 15px rgba(0, 209, 255, 0.3);
+}
+
+:global([data-theme="light"]) .title span {
+  color: #0284c7;
+  text-shadow: none;
 }
 
 /* Form Styling */
@@ -82,6 +114,10 @@
   color: rgba(255, 255, 255, 0.3);
 }
 
+:global([data-theme="light"]) .inputIcon {
+  color: #94a3b8;
+}
+
 .inputField {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
@@ -93,10 +129,22 @@
   transition: 0.3s;
 }
 
+:global([data-theme="light"]) .inputField {
+  background: #f8fafc;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+
 .inputField:focus {
   border-color: #00D1FF;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 15px rgba(0, 209, 255, 0.1);
+}
+
+:global([data-theme="light"]) .inputField:focus {
+  border-color: #0284c7;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(2, 132, 199, 0.15);
 }
 
 .submitBtn {
@@ -110,11 +158,22 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border: none;
+}
+
+:global([data-theme="light"]) .submitBtn {
+  background: #0284c7;
+  color: white;
 }
 
 .submitBtn:hover:not(:disabled) {
   transform: scale(1.02);
   box-shadow: 0 10px 25px rgba(0, 209, 255, 0.4);
+}
+
+:global([data-theme="light"]) .submitBtn:hover:not(:disabled) {
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
 }
 
 .submitBtn:disabled {

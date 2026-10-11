@@ -1,9 +1,15 @@
 .legalWrapper {
-  background-color: #0a0412;
+  background-color: transparent;
   min-height: 100vh;
   position: relative;
   overflow: hidden;
   color: white;
+  padding: 60px 0;
+}
+
+:global([data-theme="light"]) .legalWrapper {
+  background-color: transparent;
+  color: #0f172a;
 }
 
 /* Background Effects */
@@ -36,17 +42,30 @@
   display: block;
 }
 
+:global([data-theme="light"]) .eyebrow {
+  color: #16a34a;
+}
+
 .mainTitle {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 900;
   font-style: italic;
   line-height: 1;
   text-transform: uppercase;
+  color: white;
+}
+
+:global([data-theme="light"]) .mainTitle {
+  color: #0f172a;
 }
 
 .mainTitle span {
   color: transparent;
   -webkit-text-stroke: 1.5px #00D1FF;
+}
+
+:global([data-theme="light"]) .mainTitle span {
+  -webkit-text-stroke: 1.5px #0284c7;
 }
 
 /* Glass Card Design */
@@ -61,10 +80,23 @@
   overflow: hidden;
 }
 
+:global([data-theme="light"]) .glassCard {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  color: #0f172a;
+}
+
 .glassCard:hover {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(0, 209, 255, 0.3);
   transform: translateY(-5px);
+}
+
+:global([data-theme="light"]) .glassCard:hover {
+  background: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 15px 40px rgba(2, 132, 199, 0.1);
 }
 
 .iconCircle {
@@ -81,10 +113,20 @@
   box-shadow: 0 0 20px rgba(0, 209, 255, 0.15);
 }
 
+:global([data-theme="light"]) .iconCircle {
+  background: rgba(2, 132, 199, 0.1);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+
 .idNumber {
   font-size: 1.5rem;
   font-weight: 900;
   color: rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="light"]) .idNumber {
+  color: rgba(0, 0, 0, 0.12);
 }
 
 .cardTitle {
@@ -96,10 +138,18 @@
   color: white;
 }
 
+:global([data-theme="light"]) .cardTitle {
+  color: #0f172a;
+}
+
 .cardText {
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.7;
   font-size: 1.1rem;
+}
+
+:global([data-theme="light"]) .cardText {
+  color: #475569;
 }
 
 /* UI Elements */
@@ -120,6 +170,11 @@
   text-transform: uppercase;
 }
 
+:global([data-theme="light"]) .miniTag {
+  background: rgba(2, 132, 199, 0.1);
+  color: #0284c7;
+}
+
 .warningBox {
   margin-top: 25px;
   padding: 15px 25px;
@@ -128,6 +183,12 @@
   border-radius: 0 15px 15px 0;
   font-size: 0.9rem;
   color: rgba(255, 193, 7, 0.8);
+}
+
+:global([data-theme="light"]) .warningBox {
+  background: #fffbeb;
+  border-left-color: #f59e0b;
+  color: #b45309;
 }
 
 /* Footer */
@@ -142,6 +203,11 @@
   color: rgba(255, 255, 255, 0.3);
 }
 
+:global([data-theme="light"]) .legalFooter {
+  border-top-color: rgba(0, 0, 0, 0.08);
+  color: #94a3b8;
+}
+
 .footerLink {
   color: #00D1FF;
   text-decoration: none;
@@ -149,7 +215,16 @@
   transition: 0.3s;
 }
 
+:global([data-theme="light"]) .footerLink {
+  color: #0284c7;
+}
+
 .footerLink:hover {
   border-bottom-color: #00D1FF;
   color: white;
+}
+
+:global([data-theme="light"]) .footerLink:hover {
+  border-bottom-color: #0284c7;
+  color: #0369a1;
 }
