@@ -113,10 +113,10 @@ export default function CareersPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-[#150826] [data-theme=light]:bg-transparent"> 
-        <div className="max-w-6xl mx-auto px-4">
+      <section className={styles.faqSection}> 
+        <div className={styles.faqWrapper}>
           <h2 className={styles.sectionTitle}>
-            FREQUENTLY <span className="text-[#00D1FF] [data-theme=light]:text-black">ASKED</span>
+            FREQUENTLY <span className={styles.faqHighlight}>ASKED</span>
           </h2>
           <div className="mt-8">
             <FAQ />

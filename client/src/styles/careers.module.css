@@ -269,12 +269,32 @@
   color: white;
 }
 
-/* --- FAQ MOBILE FIX --- */
+/* --- FAQ SECTION & FIX --- */
+.faqSection {
+  padding: 5rem 0;
+  background: #150826;
+  position: relative;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+:global([data-theme="light"]) .faqSection {
+  background: transparent !important;
+}
+
 .faqWrapper {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.faqHighlight {
+  color: #00D1FF;
+}
+
+:global([data-theme="light"]) .faqHighlight {
+  color: #0f172a !important;
 }
 
 /* CTA Box */
