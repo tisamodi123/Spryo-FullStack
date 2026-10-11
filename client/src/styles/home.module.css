@@ -1,17 +1,17 @@
 .mainContainer {
-  background-color: #0f051a;
+  background-color: transparent;
   overflow-x: hidden;
   transition: background-color 0.3s ease;
 }
 
 :global([data-theme="light"]) .mainContainer {
-  background-color: #f8fafc;
+  background-color: transparent;
 }
 
-/* Hero Design */
+/* Hero Section */
 .heroSection {
   min-height: 90vh;
-  background: linear-gradient(135deg, #1a0b2e 0%, #0f051a 100%);
+  background: linear-gradient(135deg, #18072c 0%, #0c0417 100%);
   position: relative;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
 }
 
 :global([data-theme="light"]) .heroSection {
-  background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #f0fdf4 0%, #e0f2fe 45%, #f8fafc 100%);
 }
 
 .heroGlow {
@@ -36,7 +36,31 @@
 }
 
 :global([data-theme="light"]) .heroGlow {
-  opacity: 0.6;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, transparent 70%);
+  opacity: 0.8;
+}
+
+/* Social Proof Pill */
+.socialProofPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+:global([data-theme="light"]) .socialProofPill {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  color: #0f172a;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.08);
 }
 
 .tagline {
@@ -83,7 +107,54 @@
 }
 
 :global([data-theme="light"]) .heroDesc {
-  color: #475569;
+  color: #334155;
+}
+
+/* Flavor Selector Tabs */
+.flavorTab {
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+}
+
+:global([data-theme="light"]) .flavorTab {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.flavorTab:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+:global([data-theme="light"]) .flavorTab:hover {
+  background: #f1f5f9;
+}
+
+.flavorTabActive {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.45);
+  transform: scale(1.05);
+}
+
+:global([data-theme="light"]) .flavorTabActive {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
 }
 
 .primaryBtn {
@@ -107,6 +178,12 @@
   box-shadow: 0 14px 35px rgba(0, 209, 255, 0.5);
 }
 
+:global([data-theme="light"]) .primaryBtn {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+}
+
 .secondaryBtn {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -126,9 +203,14 @@
 }
 
 :global([data-theme="light"]) .secondaryBtn {
-  background: rgba(0, 0, 0, 0.05);
+  background: #ffffff;
   border-color: rgba(0, 0, 0, 0.12);
   color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .secondaryBtn:hover {
+  background: #f8fafc;
 }
 
 /* Hero Bottle Container & Floating Bottle */
@@ -147,6 +229,10 @@
   pointer-events: none;
 }
 
+:global([data-theme="light"]) .bottleBackdropRing {
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
 @keyframes rotateRing {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -159,6 +245,10 @@
   animation: float 6s ease-in-out infinite, fadeIn 0.6s ease-out;
   transition: all 0.4s ease;
   z-index: 5;
+}
+
+:global([data-theme="light"]) .floatingBottle {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.25));
 }
 
 @keyframes float {
@@ -197,6 +287,10 @@
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
 }
 
+:global([data-theme="light"]) .floatingFlavorCard p {
+  color: #334155 !important;
+}
+
 /* Story Section */
 .storySection {
   padding: 100px 0;
@@ -205,7 +299,7 @@
 }
 
 :global([data-theme="light"]) .storySection {
-  background: #f1f5f9;
+  background: #ffffff;
 }
 
 .storyMedia {
@@ -226,6 +320,7 @@
 }
 
 :global([data-theme="light"]) .dynamicFrame {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, transparent 70%);
   border-color: rgba(0, 0, 0, 0.08);
 }
 
@@ -272,15 +367,15 @@
 :global([data-theme="light"]) .valueCard {
   background: #ffffff;
   border-color: rgba(0, 0, 0, 0.07);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
 :global([data-theme="light"]) .valueCard h4 {
-  color: #0f172a;
+  color: #0f172a !important;
 }
 
 :global([data-theme="light"]) .valueCard p {
-  color: #64748b;
+  color: #64748b !important;
 }
 
 /* Products Section */
@@ -326,11 +421,51 @@
   transform: translateY(-6px);
 }
 
+/* Promo Banner */
+.promoBanner {
+  border-radius: 1.75rem;
+  padding: 2.5rem 3rem;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(88, 28, 135, 0.25) 50%, rgba(15, 5, 26, 0.7) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .promoBanner {
+    flex-direction: row;
+  }
+}
+
+:global([data-theme="light"]) .promoBanner {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ecfdf5 50%, #ffffff 100%);
+  border-color: rgba(2, 132, 199, 0.25);
+  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.08);
+}
+
+:global([data-theme="light"]) .promoBanner h3 {
+  color: #0f172a !important;
+}
+
+:global([data-theme="light"]) .promoBanner p {
+  color: #475569 !important;
+}
+
 /* Loader */
 .loadingState {
   text-align: center;
   padding: 80px 0;
   color: #00D1FF;
+}
+
+:global([data-theme="light"]) .loadingState {
+  color: #0284c7;
 }
 
 .spinner {
@@ -341,6 +476,11 @@
   border-radius: 50%;
   margin: 0 auto 16px;
   animation: spin 0.9s linear infinite;
+}
+
+:global([data-theme="light"]) .spinner {
+  border-color: rgba(2, 132, 199, 0.15);
+  border-top-color: #0284c7;
 }
 
 @keyframes spin {
@@ -357,5 +497,8 @@
   }
   .heroImgContainer {
     min-height: 380px;
+  }
+  .promoBanner {
+    padding: 2rem 1.5rem;
   }
 }

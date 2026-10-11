@@ -15,13 +15,13 @@
 .pageWrapper {
   position: relative;
   overflow-x: hidden;
-  background: #05010a;
+  background: transparent;
   min-height: 100vh;
   transition: all 0.4s ease;
 }
 
 :global([data-theme="light"]) .pageWrapper {
-  background: #f8fafc;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
@@ -58,6 +58,15 @@
   --border-color: rgba(255, 0, 85, 0.25);
 }
 
+:global([data-theme="light"]) .themeCola {
+  background: linear-gradient(180deg, #fff1f2 0%, #f8fafc 100%);
+  color: #0f172a;
+  --accent-color: #e11d48;
+  --toolbar-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --border-color: rgba(225, 29, 72, 0.2);
+}
+
 .themeLemon {
   background: linear-gradient(180deg, #1b2401 0%, #090212 100%);
   color: #ffffff;
@@ -65,6 +74,15 @@
   --toolbar-bg: rgba(25, 34, 4, 0.85);
   --input-bg: rgba(255, 255, 255, 0.06);
   --border-color: rgba(212, 255, 0, 0.25);
+}
+
+:global([data-theme="light"]) .themeLemon {
+  background: linear-gradient(180deg, #fefce8 0%, #f8fafc 100%);
+  color: #0f172a;
+  --accent-color: #a16207;
+  --toolbar-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --border-color: rgba(161, 98, 7, 0.2);
 }
 
 .themeOrange {
@@ -76,6 +94,15 @@
   --border-color: rgba(255, 106, 0, 0.25);
 }
 
+:global([data-theme="light"]) .themeOrange {
+  background: linear-gradient(180deg, #fff7ed 0%, #f8fafc 100%);
+  color: #0f172a;
+  --accent-color: #ea580c;
+  --toolbar-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --border-color: rgba(234, 88, 12, 0.2);
+}
+
 .themeUp {
   background: linear-gradient(180deg, #01222e 0%, #090212 100%);
   color: #ffffff;
@@ -83,6 +110,15 @@
   --toolbar-bg: rgba(3, 30, 42, 0.85);
   --input-bg: rgba(255, 255, 255, 0.06);
   --border-color: rgba(0, 209, 255, 0.25);
+}
+
+:global([data-theme="light"]) .themeUp {
+  background: linear-gradient(180deg, #f0fdf4 0%, #f8fafc 100%);
+  color: #0f172a;
+  --accent-color: #16a34a;
+  --toolbar-bg: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --border-color: rgba(22, 163, 74, 0.2);
 }
 
 /* HERO SECTION */

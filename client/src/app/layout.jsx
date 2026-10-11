@@ -5,6 +5,7 @@ import { CartProvider } from "@/components/CartContext";
 import { ThemeProvider } from "@/components/ThemeContext";
 import { ToastProvider } from "@/components/ToastContext";
 import ScrollToTop from "@/components/ScrollToTop";
+import FizzBackground from "@/components/FizzBackground";
 
 export const metadata = {
   title: "SPRYO | Taste The Evolution - Premium Sparkling Refreshment",
@@ -22,8 +23,9 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <ToastProvider>
             <CartProvider>
+              <FizzBackground />
               <Header />
-              <main className="min-h-screen">{children}</main>
+              <main className="min-h-screen relative z-[2]">{children}</main>
               <ScrollToTop />
               <Footer />
             </CartProvider>

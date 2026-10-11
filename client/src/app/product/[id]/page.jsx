@@ -147,15 +147,15 @@ const fetchProduct = async () => {
   }, [id]);
 
   if (loading) return (
-    <div className="min-h-screen bg-[#1a0b2e] flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00D1FF]"></div>
+    <div className="min-h-screen bg-[#1a0b2e] [data-theme=light]:bg-slate-50 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#00D1FF] [data-theme=light]:border-sky-600"></div>
     </div>
   );
 
   if (!product) return (
-    <div className="min-h-screen bg-[#1a0b2e] flex flex-col items-center justify-center text-white">
+    <div className="min-h-screen bg-[#1a0b2e] [data-theme=light]:bg-slate-50 flex flex-col items-center justify-center text-white [data-theme=light]:text-slate-900">
       <h2 className="text-2xl font-bold mb-4">Drink not found.</h2>
-      <Link href="/products" className="text-[#00D1FF] underline">Back to Shop</Link>
+      <Link href="/products" className="text-[#00D1FF] [data-theme=light]:text-sky-600 underline">Back to Shop</Link>
     </div>
   );
 
@@ -170,7 +170,7 @@ const fetchProduct = async () => {
     <div className={`${styles.productPage} ${getThemeClass()}`}>
       <div className="container mx-auto px-4 py-12 relative z-10">
         
-        <Link href="/products" className="inline-block mb-8 text-white/60 hover:text-white font-bold">
+        <Link href="/products" className="inline-block mb-8 text-white/70 [data-theme=light]:text-slate-600 hover:text-[#00D1FF] [data-theme=light]:hover:text-sky-600 font-extrabold tracking-wider transition">
           ← BACK TO COLLECTION
         </Link>
 
@@ -246,30 +246,30 @@ const fetchProduct = async () => {
 
                 {tab === 'reviews' && (
                   <div className={styles.reviewsWrapper}>
-                    <h2 className="text-2xl font-bold mb-6 text-white uppercase italic">
+                    <h2 className="text-2xl font-bold mb-6 text-white [data-theme=light]:text-slate-900 uppercase italic">
                       Customer Vibes ({product.numReviews || 0})
                     </h2>
 
                     <div className="space-y-6 mb-10 max-h-[400px] overflow-y-auto pr-2">
                       {product.reviews && product.reviews.length > 0 ? (
                         product.reviews.map((r) => (
-                          <div key={r._id} className="bg-white/5 p-4 rounded-2xl border border-white/10">
+                          <div key={r._id} className="bg-white/5 [data-theme=light]:bg-white p-4 rounded-2xl border border-white/10 [data-theme=light]:border-slate-200 [data-theme=light]:shadow-sm">
                             <div className="flex justify-between items-center mb-2">
-                              <strong className="text-[#00D1FF]">{r.name}</strong>
+                              <strong className="text-[#00D1FF] [data-theme=light]:text-sky-600">{r.name}</strong>
                               <div className="text-yellow-400 text-sm">
                                 {"★".repeat(r.rating)}
-                                <span className="text-white/20">{"★".repeat(5 - r.rating)}</span>
+                                <span className="text-white/20 [data-theme=light]:text-slate-300">{"★".repeat(5 - r.rating)}</span>
                               </div>
                             </div>
-                            <p className="text-white/70 italic text-sm">"{r.comment}"</p>
+                            <p className="text-white/70 [data-theme=light]:text-slate-700 italic text-sm">"{r.comment}"</p>
                           </div>
                         ))
                       ) : (
-                        <p className="text-white/40 italic">No reviews yet. Be the first to taste!</p>
+                        <p className="text-white/40 [data-theme=light]:text-slate-400 italic">No reviews yet. Be the first to taste!</p>
                       )}
                     </div>
 
-                    <div className="mt-8 pt-8 border-t border-white/10">
+                    <div className="mt-8 pt-8 border-t border-white/10 [data-theme=light]:border-slate-200">
                       <ReviewForm productId={product._id} />
                     </div>
                   </div>

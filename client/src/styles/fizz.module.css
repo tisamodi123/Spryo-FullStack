@@ -1,69 +1,155 @@
 .fizzContainer {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
-  /* Background ko thoda aur depth dene ke liye */
-  background: radial-gradient(circle at center, rgba(15, 5, 26, 0) 0%, #0a0414 100%);
+  background: transparent;
 }
 
-.bubble {
+/* 🧊 FLOATING TRANSLUCENT ICE CUBES */
+.iceCube {
   position: absolute;
-  bottom: -30px;
-  /* Opacity 0.2 se badha kar 0.6 kar di hai */
-  background: rgba(255, 255, 255, 0.6); 
-  border-radius: 50%;
-  /* Glow effect taaki dark background par chamke */
-  box-shadow: 0 0 10px rgba(0, 209, 255, 0.8), inset 0 0 5px white;
-  animation: rise 8s infinite ease-in;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), inset 0 0 12px rgba(255, 255, 255, 0.2);
+  animation: iceDrift 14s infinite ease-in-out alternate;
+  opacity: 0.7;
 }
 
-/* Neon Bubbles (Zyada chamakne wale) */
-.bubble:nth-child(odd) {
-  width: 10px;
-  height: 10px;
-  background: #00D1FF; /* Cyan Neon */
-  box-shadow: 0 0 15px #00D1FF;
+:global([data-theme="light"]) .iceCube {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(224, 242, 254, 0.5) 100%);
+  border: 1.5px solid rgba(2, 132, 199, 0.25);
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.12), inset 0 0 10px rgba(255, 255, 255, 0.8);
+  opacity: 0.85;
 }
 
-/* White Crisp Bubbles */
-.bubble:nth-child(even) {
+.iceInnerHighlight {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 35%;
+  height: 35%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  filter: blur(1px);
+}
+
+@keyframes iceDrift {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-24px) rotate(12deg);
+  }
+  100% {
+    transform: translateY(8px) rotate(-8deg);
+  }
+}
+
+/* ✨ CONDENSATION SPARKLES */
+.sparkle {
+  position: absolute;
   width: 6px;
   height: 6px;
   background: #ffffff;
-  box-shadow: 0 0 10px #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #00d1ff, 0 0 4px #ffffff;
+  animation: twinkle 3.5s infinite ease-in-out;
+  opacity: 0;
 }
 
-/* Animation ko thoda fast aur visible banaya hai */
-@keyframes rise {
-  0% {
-    bottom: -30px;
+:global([data-theme="light"]) .sparkle {
+  background: #0284c7;
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
+}
+
+@keyframes twinkle {
+  0%, 100% {
     opacity: 0;
-    transform: scale(0.5) translateX(0);
-  }
-  15% {
-    opacity: 0.8; /* Jaldi dikhna shuru hoga */
+    transform: scale(0.3);
   }
   50% {
-    transform: scale(1.2) translateX(30px); /* Size thoda bada hoga beech mein */
-  }
-  100% {
-    bottom: 100%;
-    opacity: 0;
-    transform: scale(0.8) translateX(-30px);
+    opacity: 0.9;
+    transform: scale(1.4);
   }
 }
 
-/* Random horizontal positions aur animation delays */
-.bubble:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 1s; }
-.bubble:nth-child(2) { left: 30%; animation-duration: 9s; animation-delay: 3s; }
-.bubble:nth-child(3) { left: 55%; animation-duration: 7s; animation-delay: 0s; }
-.bubble:nth-child(4) { left: 80%; animation-duration: 10s; animation-delay: 5s; }
-.bubble:nth-child(5) { left: 20%; animation-duration: 8s; animation-delay: 2s; }
-.bubble:nth-child(6) { left: 45%; animation-duration: 11s; animation-delay: 4s; }
-.bubble:nth-child(7) { left: 70%; animation-duration: 7s; animation-delay: 1s; }
-.bubble:nth-child(8) { left: 90%; animation-duration: 9s; animation-delay: 2s; }
+/* 🫧 RISING CARBONATED BUBBLES */
+.bubble {
+  position: absolute;
+  bottom: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(0, 209, 255, 0.3) 60%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 8px rgba(0, 209, 255, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.6);
+  animation: riseAndWobble 9s infinite linear;
+  will-change: transform, opacity;
+}
+
+:global([data-theme="light"]) .bubble {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(2, 132, 199, 0.25) 70%, transparent 100%);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15), inset 0 0 4px rgba(255, 255, 255, 0.9);
+}
+
+.bubbleGlint {
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 25%;
+  height: 25%;
+  background: #ffffff;
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+
+.largeBubble {
+  box-shadow: 0 0 14px rgba(0, 209, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+.microBubble {
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px rgba(0, 209, 255, 0.7);
+}
+
+:global([data-theme="light"]) .microBubble {
+  background: rgba(2, 132, 199, 0.7);
+  box-shadow: 0 0 4px rgba(2, 132, 199, 0.4);
+}
+
+/* Realistic upward rise with horizontal fluid wobble */
+@keyframes riseAndWobble {
+  0% {
+    bottom: -40px;
+    opacity: 0;
+    transform: translateX(0) scale(0.6);
+  }
+  10% {
+    opacity: 0.85;
+  }
+  25% {
+    transform: translateX(calc(var(--sway, 20px) * 0.7)) scale(1);
+  }
+  50% {
+    transform: translateX(calc(var(--sway, 20px) * -0.8)) scale(1.05);
+  }
+  75% {
+    transform: translateX(calc(var(--sway, 20px) * 0.5)) scale(0.95);
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    bottom: 105%;
+    opacity: 0;
+    transform: translateX(0) scale(1.2);
+  }
+}

@@ -1,6 +1,6 @@
 .productPage {
   min-height: 100vh;
-  background: #0f051a;
+  background: transparent;
   color: #ffffff;
   overflow: hidden;
   position: relative;
@@ -8,18 +8,18 @@
 }
 
 :global([data-theme="light"]) .productPage {
-  background: #f8fafc;
+  background: transparent;
   color: #0f172a;
 }
 
 /* Theme Gradients */
-.lemonTheme { background: radial-gradient(circle at 20% 20%, rgba(212, 255, 0, 0.12) 0%, #0f051a 70%); }
-.colaTheme { background: radial-gradient(circle at 20% 20%, rgba(255, 0, 85, 0.12) 0%, #0f051a 70%); }
-.defaultTheme { background: radial-gradient(circle at 20% 20%, rgba(0, 209, 255, 0.12) 0%, #0f051a 70%); }
+.lemonTheme { background: radial-gradient(circle at 20% 20%, rgba(212, 255, 0, 0.12) 0%, transparent 70%); }
+.colaTheme { background: radial-gradient(circle at 20% 20%, rgba(255, 0, 85, 0.12) 0%, transparent 70%); }
+.defaultTheme { background: radial-gradient(circle at 20% 20%, rgba(0, 209, 255, 0.12) 0%, transparent 70%); }
 
-:global([data-theme="light"]) .lemonTheme { background: radial-gradient(circle at 20% 20%, rgba(212, 255, 0, 0.15) 0%, #f8fafc 70%); }
-:global([data-theme="light"]) .colaTheme { background: radial-gradient(circle at 20% 20%, rgba(255, 0, 85, 0.15) 0%, #f8fafc 70%); }
-:global([data-theme="light"]) .defaultTheme { background: radial-gradient(circle at 20% 20%, rgba(0, 209, 255, 0.15) 0%, #f8fafc 70%); }
+:global([data-theme="light"]) .lemonTheme { background: radial-gradient(circle at 20% 20%, rgba(234, 179, 8, 0.15) 0%, transparent 70%); }
+:global([data-theme="light"]) .colaTheme { background: radial-gradient(circle at 20% 20%, rgba(225, 29, 72, 0.15) 0%, transparent 70%); }
+:global([data-theme="light"]) .defaultTheme { background: radial-gradient(circle at 20% 20%, rgba(2, 132, 199, 0.15) 0%, transparent 70%); }
 
 .mainGrid {
   display: grid;

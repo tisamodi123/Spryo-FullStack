@@ -1,6 +1,6 @@
 .checkoutWrapper {
   min-height: 100vh;
-  background-color: #0f051a;
+  background-color: transparent;
   color: #ffffff;
   position: relative;
   overflow: hidden;
@@ -8,7 +8,7 @@
 }
 
 :global([data-theme="light"]) .checkoutWrapper {
-  background-color: #f8fafc;
+  background-color: transparent;
   color: #0f172a;
 }
 

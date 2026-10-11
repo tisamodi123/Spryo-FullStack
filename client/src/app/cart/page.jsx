@@ -84,9 +84,9 @@ export default function CartPage() {
             {/* LEFT - ITEMS LIST */}
             <div className="lg:col-span-2 space-y-4">
               {/* Free Delivery Bar */}
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center justify-between text-xs font-bold text-white mb-2">
-                  <span className="flex items-center gap-2 text-cyan-400">
+              <div className="p-4 rounded-2xl bg-white/5 [data-theme=light]:bg-white border border-white/10 [data-theme=light]:border-slate-200 [data-theme=light]:shadow-sm backdrop-blur-md">
+                <div className="flex items-center justify-between text-xs font-bold text-white [data-theme=light]:text-slate-800 mb-2">
+                  <span className="flex items-center gap-2 text-cyan-400 [data-theme=light]:text-sky-600">
                     <FaTruck />
                     {total >= freeDeliveryThreshold
                       ? "🎉 You've unlocked FREE Chilled Delivery!"
@@ -94,7 +94,7 @@ export default function CartPage() {
                   </span>
                   <span>{progressPercent}%</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-white/10 [data-theme=light]:bg-slate-200 rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-cyan-400 to-green-400 h-2 rounded-full transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
@@ -116,7 +116,7 @@ export default function CartPage() {
             {/* RIGHT - SUMMARY */}
             <div className="lg:sticky lg:top-24 h-fit space-y-4">
               {/* Promo Code Box */}
-              <div className="bg-white/5 p-4 rounded-2xl border border-white/10 backdrop-blur-md">
+              <div className="bg-white/5 [data-theme=light]:bg-white p-4 rounded-2xl border border-white/10 [data-theme=light]:border-slate-200 [data-theme=light]:shadow-sm backdrop-blur-md">
                 <form onSubmit={applyCoupon} className="flex gap-2">
                   <div className="relative flex-1">
                     <input
@@ -127,24 +127,24 @@ export default function CartPage() {
                         setCoupon(e.target.value);
                         setCouponError("");
                       }}
-                      className="w-full bg-black/30 border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-white/40 uppercase font-semibold focus:outline-none focus:border-cyan-400"
+                      className="w-full bg-black/30 [data-theme=light]:bg-slate-50 border border-white/15 [data-theme=light]:border-slate-300 rounded-xl px-3 py-2 text-xs text-white [data-theme=light]:text-slate-900 placeholder-white/40 [data-theme=light]:placeholder-slate-400 uppercase font-semibold focus:outline-none focus:border-cyan-400 [data-theme=light]:focus:border-sky-600"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-xl bg-white/10 hover:bg-cyan-400 hover:text-black text-white text-xs font-black transition"
+                    className="px-4 py-2 rounded-xl bg-white/10 [data-theme=light]:bg-slate-900 hover:bg-cyan-400 [data-theme=light]:hover:bg-sky-600 hover:text-black [data-theme=light]:hover:text-white text-white text-xs font-black transition"
                   >
                     APPLY
                   </button>
                 </form>
 
                 {couponApplied && (
-                  <p className="text-xs text-green-400 font-semibold mt-2 flex items-center gap-1">
+                  <p className="text-xs text-green-400 [data-theme=light]:text-emerald-600 font-semibold mt-2 flex items-center gap-1">
                     <FaCheckCircle /> 20% Discount applied successfully!
                   </p>
                 )}
                 {couponError && (
-                  <p className="text-xs text-red-400 font-semibold mt-2">
+                  <p className="text-xs text-red-400 [data-theme=light]:text-rose-600 font-semibold mt-2">
                     {couponError}
                   </p>
                 )}

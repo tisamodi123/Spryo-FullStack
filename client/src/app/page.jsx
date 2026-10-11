@@ -158,7 +158,7 @@ export default function Page() {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 h-full py-16">
           <div className="text-left order-2 md:order-1">
             {/* Social Proof Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold text-white/90 mb-5">
+            <div className={styles.socialProofPill}>
               <span className="flex text-amber-400">
                 <FaStar size={11} />
                 <FaStar size={11} />
@@ -167,7 +167,7 @@ export default function Page() {
                 <FaStar size={11} />
               </span>
               <span>4.9 / 5 Rating</span>
-              <span className="w-1 h-1 rounded-full bg-white/40"></span>
+              <span className="w-1 h-1 rounded-full bg-cyan-400"></span>
               <span className="text-cyan-400 font-bold">50,000+ Bottles Sipped</span>
             </div>
 
@@ -183,7 +183,7 @@ export default function Page() {
 
             {/* Interactive Flavor Switcher Tabs */}
             <div className="mt-8">
-              <p className="text-xs uppercase tracking-widest text-white/60 font-bold mb-3">
+              <p className="text-xs uppercase tracking-widest text-cyan-400 font-bold mb-3">
                 Select Signature Flavor:
               </p>
               <div className="flex flex-wrap gap-2.5">
@@ -194,10 +194,8 @@ export default function Page() {
                       setHeroIndex(idx);
                       setIsPaused(true);
                     }}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-black tracking-wide transition-all flex items-center gap-2 border ${
-                      heroIndex === idx
-                        ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.4)] scale-105"
-                        : "bg-white/5 text-white/80 border-white/10 hover:bg-white/15 hover:border-white/20"
+                    className={`${styles.flavorTab} ${
+                      heroIndex === idx ? styles.flavorTabActive : ""
                     }`}
                   >
                     <span 
@@ -360,7 +358,7 @@ export default function Page() {
 
       {/* ⚡ PROMO BANNER */}
       <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="rounded-3xl p-8 md:p-12 bg-gradient-to-r from-cyan-900/40 via-purple-900/40 to-black/60 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-xl relative overflow-hidden">
+        <div className={styles.promoBanner}>
           <div className="relative z-10 max-w-xl text-center md:text-left">
             <span className="px-3 py-1 rounded-full bg-cyan-400 text-black text-xs font-black uppercase tracking-wider inline-block mb-3">
               Limited Drop
