@@ -75,17 +75,16 @@ const Footer = () => {
       <Container>
         <div className={styles.glassCard}>
           {/* =========================================
-              DESKTOP / TABLET GRID (md:grid)
-              Unified 12-col layout for iPad Mini, Surface Pro & Desktop
+              DESKTOP GRID (lg:grid - 1024px and above)
               ========================================= */}
-          <div className="hidden md:grid md:grid-cols-12 gap-5 lg:gap-8 xl:gap-10 relative z-10 items-start">
+          <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-10 relative z-10 items-start">
             {/* BRAND SECTION (4 Cols) */}
-            <div className="md:col-span-4">
+            <div className="lg:col-span-4">
               <BrandSection />
             </div>
 
             {/* LINKS COLUMN: FLAVORS & SHOP (2 Cols) */}
-            <div className="md:col-span-2">
+            <div className="lg:col-span-2">
               <h4 className={styles.colTitle}>Flavors & Shop</h4>
               <nav className={styles.nav}>
                 <Link href="/products">The Crate (Drinks)</Link>
@@ -96,7 +95,7 @@ const Footer = () => {
             </div>
 
             {/* LINKS COLUMN: HELP & TRUST (2 Cols) */}
-            <div className="md:col-span-2">
+            <div className="lg:col-span-2">
               <h4 className={styles.colTitle}>Help & Trust</h4>
               <nav className={styles.nav}>
                 <Link href="/faq">FAQ & Shipping</Link>
@@ -107,7 +106,7 @@ const Footer = () => {
             </div>
 
             {/* NEWSLETTER SECTION (4 Cols) */}
-            <div className="md:col-span-4 space-y-3.5">
+            <div className="lg:col-span-4 space-y-3.5">
               <h4 className={styles.colTitle}>Stay Sparkling</h4>
               <p className="text-xs text-white/60 [data-theme=light]:text-slate-600 leading-relaxed">
                 Get early drops, secret batches, and exclusive crate discounts.
@@ -139,10 +138,10 @@ const Footer = () => {
           </div>
 
           {/* =========================================
-              MOBILE ACCORDION (block md:hidden)
-              Each item opens/closes, auto-closing the other
+              TABLET & MOBILE ACCORDION (block lg:hidden)
+              Collapsible accordion swiper footer for iPad Mini, Surface Pro & Mobile
               ========================================= */}
-          <div className="block md:hidden relative z-10">
+          <div className="block lg:hidden relative z-10">
             {/* BRAND HEADER & SOCIALS */}
             <div className="mb-5">
               <BrandSection />
