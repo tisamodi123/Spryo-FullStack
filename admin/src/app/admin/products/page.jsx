@@ -2,8 +2,15 @@
 import { useEffect, useState } from "react";
 import { adminFetch } from "@/lib/api";
 
+const defaultProducts = [
+  { _id: "1", name: "Classic Cola", price: 99, category: "cola", image: "/cola.png", description: "Timeless sparkling caramel craft soda", stock: 120 },
+  { _id: "2", name: "Cloudy Lemon", price: 89, category: "lemon", image: "/lemon.png", description: "Fresh crushed citrus lemonade with sea salt", stock: 85 },
+  { _id: "3", name: "Zesty Orange", price: 95, category: "orange", image: "/orange.png", description: "Sun-ripened orange peel infusion and fizz", stock: 64 },
+  { _id: "4", name: "Mountain Up", price: 85, category: "up", image: "/up.png", description: "Botanical lime cooler with electric fizz", stock: 90 },
+];
+
 export default function AdminProducts() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(defaultProducts);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -18,11 +25,18 @@ export default function AdminProducts() {
 
   const loadProducts = async () => {
     setLoading(true);
-    const { ok, data } = await adminFetch("/products");
-    if (ok && data.success) {
-      setProducts(data.products || []);
+    try {
+      const { ok, data } = await adminFetch("/products");
+      if (ok && Array.isArray(data?.products) && data.products.length > 0) {
+        setProducts(data.products);
+      } else {
+        setProducts(defaultProducts);
+      }
+    } catch {
+      setProducts(defaultProducts);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
