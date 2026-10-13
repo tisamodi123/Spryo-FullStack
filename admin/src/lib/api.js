@@ -56,7 +56,16 @@ export async function adminFetch(endpoint, options = {}) {
   }
 
   try {
-    const res = await fetch(url, { ...options, headers });
+    let res = await fetch(url, { ...options, headers });
+    if (res.status === 401 && typeof window !== "undefined") {
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("token");
+      const newToken = await getAdminAuthToken();
+      if (newToken) {
+        headers["Authorization"] = `Bearer ${newToken}`;
+        res = await fetch(url, { ...options, headers });
+      }
+    }
     const json = await res.json().catch(() => ({}));
     return { ok: res.ok, status: res.status, data: json };
   } catch (err) {

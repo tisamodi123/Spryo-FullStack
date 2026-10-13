@@ -40,21 +40,19 @@ export default function CheckoutPage() {
 
     const orderId = "SPRYO-" + Math.floor(100000 + Math.random() * 900000);
 
-    // Call backend API if user is authenticated
+    // Call backend API (persists real live order in MongoDB)
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-      if (token) {
-        await clientFetch("/orders/place", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ items, total, address: form }),
-        });
-      }
+      const headers = { "Content-Type": "application/json" };
+      if (token) headers["Authorization"] = `Bearer ${token}`;
+
+      await clientFetch("/orders/place", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ items, total, totalAmount: total, address: form }),
+      });
     } catch (err) {
-      // Graceful offline fallback
+      console.warn("Live order sync warning:", err);
     }
 
     try {

@@ -2,15 +2,8 @@
 import { useEffect, useState } from "react";
 import { adminFetch } from "@/lib/api";
 
-const defaultProducts = [
-  { _id: "1", name: "Classic Cola", price: 99, category: "cola", image: "/cola.png", description: "Timeless sparkling caramel craft soda", stock: 120 },
-  { _id: "2", name: "Cloudy Lemon", price: 89, category: "lemon", image: "/lemon.png", description: "Fresh crushed citrus lemonade with sea salt", stock: 85 },
-  { _id: "3", name: "Zesty Orange", price: 95, category: "orange", image: "/orange.png", description: "Sun-ripened orange peel infusion and fizz", stock: 64 },
-  { _id: "4", name: "Mountain Up", price: 85, category: "up", image: "/up.png", description: "Botanical lime cooler with electric fizz", stock: 90 },
-];
-
 export default function AdminProducts() {
-  const [products, setProducts] = useState(defaultProducts);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -18,8 +11,8 @@ export default function AdminProducts() {
     name: "",
     price: "",
     category: "cola",
-    image: "",
-    description: "",
+    image: "/cola.png",
+    description: "Handcrafted sparkling beverage",
     stock: 50,
   });
 
@@ -27,13 +20,14 @@ export default function AdminProducts() {
     setLoading(true);
     try {
       const { ok, data } = await adminFetch("/products");
-      if (ok && Array.isArray(data?.products) && data.products.length > 0) {
+      if (ok && Array.isArray(data?.products)) {
         setProducts(data.products);
       } else {
-        setProducts(defaultProducts);
+        setProducts([]);
       }
-    } catch {
-      setProducts(defaultProducts);
+    } catch (err) {
+      console.error("Load Products Error:", err);
+      setProducts([]);
     } finally {
       setLoading(false);
     }

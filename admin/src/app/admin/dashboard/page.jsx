@@ -10,20 +10,24 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     setLoading(true);
     setError(null);
-    const { ok, data: json } = await adminFetch("/admin/stats");
-    if (ok && json.success) {
-      setData(json);
-    } else {
+    try {
+      const { ok, data: json } = await adminFetch("/admin/stats");
+      if (ok && json.success) {
+        setData(json);
+      } else {
+        setData({
+          stats: { totalRevenue: 0, totalOrders: 0, totalUsers: 0, totalProducts: 0 },
+          recentOrders: []
+        });
+      }
+    } catch {
       setData({
-        stats: json?.stats || { totalRevenue: 18450, totalOrders: 28, totalUsers: 14, totalProducts: 4 },
-        recentOrders: json?.recentOrders || [
-          { _id: "SPRYO-849201", user: { name: "Chetan Verma" }, totalAmount: 198, status: "Delivered" },
-          { _id: "SPRYO-432890", user: { name: "Priya Patel" }, totalAmount: 89, status: "Shipped" },
-          { _id: "SPRYO-912403", user: { name: "Rahul Sharma" }, totalAmount: 265, status: "Pending" },
-        ]
+        stats: { totalRevenue: 0, totalOrders: 0, totalUsers: 0, totalProducts: 0 },
+        recentOrders: []
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
