@@ -12,8 +12,34 @@ import {
   FaRedo,
   FaShoppingBag
 } from "react-icons/fa";
+import { clientFetch } from "@/lib/api";
 import { useCart } from "@/components/CartContext";
 import { useToast } from "@/components/ToastContext";
+
+const defaultOrders = [
+  {
+    _id: "SPRYO-849201",
+    id: "SPRYO-849201",
+    status: "Delivered",
+    date: "Yesterday, 4:30 PM",
+    total: 198,
+    items: [
+      { productId: "1", name: "Classic Cola", qty: 1, price: 99, image: "/cola.png" },
+      { productId: "2", name: "Cloudy Lemon", qty: 1, price: 89, image: "/lemon.png" },
+    ],
+  },
+  {
+    _id: "SPRYO-432890",
+    id: "SPRYO-432890",
+    status: "Out for Delivery",
+    date: "Today, 11:15 AM",
+    total: 280,
+    items: [
+      { productId: "3", name: "Zesty Orange", qty: 2, price: 95, image: "/orange.png" },
+      { productId: "4", name: "Mountain Up", qty: 1, price: 85, image: "/up.png" },
+    ],
+  },
+];
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -31,49 +57,46 @@ export default function OrdersPage() {
   };
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("spryo_orders");
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setOrders(parsed);
-          setLoading(false);
-          return;
+    async function loadOrders() {
+      setLoading(true);
+      let combined = [];
+
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+        if (token) {
+          const { ok, data } = await clientFetch("/orders/my", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (ok && Array.isArray(data?.orders)) {
+            combined = [...data.orders];
+          }
         }
+      } catch (err) {}
+
+      try {
+        const stored = localStorage.getItem("spryo_orders");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            combined = [...combined, ...parsed];
+          }
+        }
+      } catch (err) {}
+
+      if (combined.length > 0) {
+        const map = new Map();
+        for (const item of combined) {
+          const key = item._id || item.id;
+          if (!map.has(key)) map.set(key, item);
+        }
+        setOrders(Array.from(map.values()));
+      } else {
+        setOrders(defaultOrders);
       }
-
-      // Default initial mock history if no user orders exist yet
-      const defaultOrders = [
-        {
-          _id: "SPRYO-849201",
-          id: "SPRYO-849201",
-          status: "Delivered",
-          date: "Yesterday, 4:30 PM",
-          total: 198,
-          items: [
-            { productId: "1", name: "Classic Cola", qty: 1, price: 99, image: "/cola.png" },
-            { productId: "2", name: "Cloudy Lemon", qty: 1, price: 89, image: "/lemon.png" },
-          ],
-        },
-        {
-          _id: "SPRYO-432890",
-          id: "SPRYO-432890",
-          status: "Out for Delivery",
-          date: "Today, 11:15 AM",
-          total: 280,
-          items: [
-            { productId: "3", name: "Zesty Orange", qty: 2, price: 95, image: "/orange.png" },
-            { productId: "4", name: "Mountain Up", qty: 1, price: 85, image: "/up.png" },
-          ],
-        },
-      ];
-
-      setOrders(defaultOrders);
-      localStorage.setItem("spryo_orders", JSON.stringify(defaultOrders));
-    } catch (e) {
-      console.warn("Orders read error", e);
+      setLoading(false);
     }
-    setLoading(false);
+
+    loadOrders();
   }, []);
 
   const cancelOrder = (orderId) => {

@@ -9,6 +9,8 @@ import { useCart } from "@/components/CartContext";
 import { useToast } from "@/components/ToastContext";
 import Link from "next/link";
 
+import { clientFetch, API_ENDPOINTS } from "@/lib/api";
+
 const STATIC_PRODUCTS = [
   {
     _id: "1",
@@ -59,6 +61,7 @@ const STATIC_PRODUCTS = [
 const ProductsPage = () => {
   const { addToCart } = useCart();
   const { showToast } = useToast();
+  const [baseProducts, setBaseProducts] = useState(STATIC_PRODUCTS);
   const [products, setProducts] = useState(STATIC_PRODUCTS);
   const [loading, setLoading] = useState(false);
   const [addedItem, setAddedItem] = useState(null);
@@ -81,15 +84,34 @@ const ProductsPage = () => {
 
   const currentThemeClass = colorThemes[filters.category] || pstyles.themeAll;
 
+  // 1. Fetch live products from backend MongoDB API
+  useEffect(() => {
+    async function loadBackendCatalog() {
+      try {
+        const { ok, data } = await clientFetch(API_ENDPOINTS.products || "/products");
+        if (ok && (Array.isArray(data?.products) || Array.isArray(data))) {
+          const list = Array.isArray(data?.products) ? data.products : data;
+          if (list.length > 0) {
+            setBaseProducts(list);
+            setProducts(list);
+          }
+        }
+      } catch (err) {
+        // Fallback to static catalog seamlessly
+      }
+    }
+    loadBackendCatalog();
+  }, []);
+
   // Filter products based on search & category
   const filterProducts = (f = filters) => {
     setLoading(true);
     setTimeout(() => {
-      let filtered = STATIC_PRODUCTS.filter((p) => {
-        const matchCategory = f.category === "All" || p.category === f.category;
+      let filtered = baseProducts.filter((p) => {
+        const matchCategory = f.category === "All" || p.category?.toLowerCase() === f.category?.toLowerCase();
         const matchSearch =
-          p.name.toLowerCase().includes(f.search.toLowerCase()) ||
-          p.description.toLowerCase().includes(f.search.toLowerCase());
+          p.name?.toLowerCase().includes(f.search.toLowerCase()) ||
+          p.description?.toLowerCase().includes(f.search.toLowerCase());
         return matchCategory && matchSearch;
       });
 
@@ -98,13 +120,13 @@ const ProductsPage = () => {
     }, 150);
   };
 
-  const debouncedFilter = useMemo(() => debounce(filterProducts, 300), []);
+  const debouncedFilter = useMemo(() => debounce(filterProducts, 300), [baseProducts]);
 
   useEffect(() => {
     if (filters.search) debouncedFilter(filters);
     else filterProducts(filters);
     return () => debouncedFilter.cancel();
-  }, [filters]);
+  }, [filters, baseProducts]);
 
   const displayed = useMemo(() => {
     const arr = [...products];

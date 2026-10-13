@@ -6,6 +6,8 @@ import styles from "@/styles/checkout.module.css";
 import { FaTruck, FaFileInvoiceDollar, FaLock, FaChevronLeft, FaShoppingBag } from "react-icons/fa";
 import Link from "next/link";
 
+import { clientFetch } from "@/lib/api";
+
 export default function CheckoutPage() {
   const { items, total, clearCart } = useCart();
   const router = useRouter();
@@ -36,27 +38,44 @@ export default function CheckoutPage() {
 
     setLoading(true);
 
-    // Simulated / API Call
-    setTimeout(() => {
-      const orderId = "SPRYO-" + Math.floor(100000 + Math.random() * 900000);
-      try {
-        const pastOrders = JSON.parse(localStorage.getItem("spryo_orders") || "[]");
-        pastOrders.unshift({
-          id: orderId,
-          date: new Date().toLocaleDateString(),
-          items: [...items],
-          total,
-          address: form,
-          status: "Confirmed",
-        });
-        localStorage.setItem("spryo_orders", JSON.stringify(pastOrders));
-      } catch (e) {
-        console.warn("Order storage error", e);
-      }
+    const orderId = "SPRYO-" + Math.floor(100000 + Math.random() * 900000);
 
-      clearCart();
-      router.push(`/checkout/success?id=${orderId}`);
-    }, 700);
+    // Call backend API if user is authenticated
+    try {
+      const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      if (token) {
+        await clientFetch("/orders/place", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ items, total, address: form }),
+        });
+      }
+    } catch (err) {
+      // Graceful offline fallback
+    }
+
+    try {
+      const pastOrders = JSON.parse(localStorage.getItem("spryo_orders") || "[]");
+      pastOrders.unshift({
+        _id: orderId,
+        id: orderId,
+        date: "Today, Just now",
+        items: [...items],
+        total,
+        address: form,
+        status: "Processing",
+      });
+      localStorage.setItem("spryo_orders", JSON.stringify(pastOrders));
+    } catch (e) {
+      console.warn("Order storage error", e);
+    }
+
+    clearCart();
+    setLoading(false);
+    router.push(`/checkout/success?id=${orderId}`);
   };
 
   if (!items.length) {

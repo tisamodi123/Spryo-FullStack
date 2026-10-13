@@ -5,9 +5,7 @@ import { useCart } from '@/components/CartContext';
 import styles from '@/styles/product.module.css';
 import Link from 'next/link';
 import ReviewForm from "@/components/ReviewForm";
-// 1. Central API helper aur endpoints import karein for backend
-// import { clientFetch, API_ENDPOINTS } from "@/lib/api";
-
+import { clientFetch, API_ENDPOINTS } from "@/lib/api";
 import { useToast } from "@/components/ToastContext";
 
 const Page = () => {
@@ -93,51 +91,29 @@ const Page = () => {
   ];
 
 
-const fetchProduct = async () => {
-  setLoading(true);
-  
-  // Fake a delay to simulate a real database
-  setTimeout(() => {
-    // 💡 Logic: Find the one product in our list where _id matches the URL id
-    const foundProduct = staticProducts.find(p => p._id === id);
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      const { ok, data } = await clientFetch(`${API_ENDPOINTS.products || '/products'}/${id}`);
+      if (ok && data?.success && data?.product) {
+        setProduct(data.product);
+        setSelectedImg(data.product.image);
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      // Fallback to static product catalog
+    }
 
+    const foundProduct = staticProducts.find((p) => String(p._id) === String(id));
     if (foundProduct) {
       setProduct(foundProduct);
       setSelectedImg(foundProduct.image);
     } else {
-      // Optional: Handle what happens if the ID doesn't exist
       setProduct(null);
     }
-    
     setLoading(false);
-  }, 500); 
-};
-
-//backend use
-  // const fetchProduct = async () => {
-  //   try {
-  //     setLoading(true);
-  //     // 2. Localhost URL ki jagah clientFetch use kiya
-  //     const { ok, data } = await clientFetch(`${API_ENDPOINTS.products}/${id}`);
-      
-  //     if (ok && data.success) {
-  //       setProduct(data.product);
-  //       setSelectedImg(data.product.image);
-  //     }
-  //   } catch (error) {
-  //     console.error("Fetch Product Error:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  //for backend
-  //    const fetchProduct = async () => {
-  //   setLoading(true);
-  //   // Yahan hum backend se fetch karne ke bajaye static data set kar rahe hain
-  //   setTimeout(() => {
-  //     setProduct(staticProduct);
-  //     setSelectedImg(staticProduct.image);
+  };
   //     setLoading(false);
   //   }, 500); // 0.5s ka nakli loading time
   // };
