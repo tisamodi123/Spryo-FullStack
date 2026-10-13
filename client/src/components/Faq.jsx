@@ -34,7 +34,7 @@ export default function FAQ() {
               rel="noopener noreferrer"
               className={styles.mailButton}
             >
-              <FaEnvelopeOpenText className="text-2xl" />
+              <FaEnvelopeOpenText className="text-xl shrink-0" />
               <span>Spryoindia@gmail.com</span>
             </a>
 

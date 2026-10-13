@@ -353,4 +353,6 @@
   .contactDivider { display: none; }
   .heroTitle { font-size: 2.8rem; }
   .ctaBox { padding: 30px 20px; }
+  .faqSection { padding: 2.5rem 0 1rem 0; }
+  .faqWrapper { padding: 0 12px; }
 }
