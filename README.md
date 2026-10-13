@@ -1,202 +1,154 @@
-# 🍹 SPRYO — Modern Full-Stack E-Commerce Beverage Platform
+# SPRYO — Craft Sparkling Beverage E-Commerce
 
-[![Next.js 16](https://img.shields.io/badge/Next.js-16.0.6-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React 19](https://img.shields.io/badge/React-19.2.0-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![TailwindCSS v4](https://img.shields.io/badge/Tailwind-CSS_v4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express-5.x-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com/)
-[![Vercel Ready](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+A full-stack direct-to-consumer (D2C) web application built from scratch for a modern craft sparkling beverage brand. 
 
-> **SPRYO** is a high-performance, full-stack direct-to-consumer (D2C) e-commerce platform built for craft sparkling drinks. Engineered with **Next.js 16 (App Router + Turbopack)**, **React 19**, **Node.js/Express**, and **MongoDB**, featuring real-time state management, resilient offline-first fallbacks, dynamic JWT authentication, and responsive cross-device layouts (Mobile, iPad, Surface Pro, Desktop).
+I built this project to explore building a production-ready shopping experience with **Next.js 16 (App Router)** on the front end, backed by a **Node.js/Express API** and **MongoDB**, featuring real-time cart state, secure JWT authentication, and responsive design across all devices.
+
+🔗 **Live Website:** [spryo-client-vercel.app](https://spryo-client-git-vercel-react-server-com-bc3387-spryos-projects.vercel.app/)  
+📂 **GitHub Repo:** [github.com/tisamodi123/Spryo](https://github.com/tisamodi123/Spryo)
 
 ---
 
-## 🌟 Live Links & Demo
+## Why I Built This
 
-- 🚀 **Storefront Web App:** [https://spryo-client-git-vercel-react-server-com-bc3387-spryos-projects.vercel.app](https://spryo-client-git-vercel-react-server-com-bc3387-spryos-projects.vercel.app/)
-- ⚙️ **Admin Dashboard:** Deployable via `/admin`
-- 🔌 **Backend API:** Node.js/Express server on `/backend`
+Most tutorial eCommerce projects stop at a static product list with a fake cart. I wanted to build something that feels like a real, living consumer brand website you'd actually use to order drinks:
 
----
-
-## 🏗️ Architecture & Engineering Highlights
-
-```mermaid
-graph TD
-    Client["Client Web App (Next.js 16 + React 19)"]
-    Admin["Admin Panel (Next.js 16 App Router)"]
-    API["Express REST API (Node.js + JWT Auth)"]
-    DB[(MongoDB Atlas / Document Store)]
-    LocalCache["Client Local Storage & Fallback Layer"]
-
-    Client -->|REST Requests| API
-    Admin -->|Admin Endpoints| API
-    API -->|Mongoose Queries| DB
-    Client -.->|Resilient Fallback if API offline| LocalCache
-```
-
-### 1. 🛡️ Resilient Zero-Breakdown Architecture
-Designed for high uptime and portfolio demonstrations:
-- Every dynamic route (`/products`, `/product/[id]`, `/orders`, `/profile`, `/checkout`) attempts live backend REST communication first.
-- If the backend or MongoDB instance is sleeping or unreachable, the application **automatically falls back to client cache & structured data**, ensuring recruiters and visitors never experience blank screens or unhandled errors.
-
-### 2. 🔐 Authentication & Session Synchronization
-- Real **JWT (JSON Web Token)** authentication flow with password encryption.
-- Seamless multi-tab session synchronization via custom window event dispatchers (`spryo_auth_change`) and `storage` listeners.
-- Instant Navbar avatar & profile hydration upon login/logout without requiring full-page reloads.
-
-### 3. 📱 Device-Specific Responsive Engineering
-- **Mobile (<640px):** Single-column stacked layouts, touch-friendly tap targets, and streamlined drawers.
-- **Tablets & 2-in-1s (iPad Mini 768px, Surface Pro 960px, iPad Pro 1032px/1376px):**
-  - **Collapsible Swiper Accordion Footer:** Prevents horizontal crowding and sticky back-to-top button overlap on 768px–1024px screens.
-  - **Bento Grid Profile Dashboard:** Replaces narrow fixed sidebars with an adaptive 4-KPI stat row and balanced dual-column cards, preventing empty vertical void on tall screens.
-- **Desktop (1024px+):** Generous glassmorphism padding, subtle ambient lighting, and fluid hover micro-interactions.
-
-### 4. 🌗 Light & Dark Mode Engine
-- Native CSS custom properties coupled with `[data-theme="light"]` selectors.
-- Strict high-contrast typography in light mode (deep slate `#0f172a` instead of washed-out grays).
-- Zero-flash theme hydration on initial page load with preference persistence.
+- **End-to-end shopping flow:** From browsing flavor notes and reading real reviews to applying coupon codes, calculating taxes/delivery fees, and placing orders.
+- **Device-specific polish:** Custom layout optimizations for tricky tablet viewports (iPad Mini, Surface Pro 10, iPad Pro) where standard responsive grids often look awkward.
+- **Zero-breakdown architecture:** A client-side fallback mechanism so recruiters and visitors can test the site smoothly even if the free-tier backend is sleeping or spinning up.
 
 ---
 
-## ⚡ Core Features & Modules
+## What It Does
 
-### 🛒 D2C Storefront Experience
-- **Interactive Flavor Visualizer:** Real-time hero switcher toggling between *Classic Cola*, *Cloudy Lemon*, *Zesty Orange*, and *Mountain Up* with dynamic color themes and ambient auras.
-- **Dynamic Crate & Cart Engine:** Real-time quantity adjustments, subtotal & tax calculations, free delivery threshold progress bar, and toast feedback.
-- **Smart Discount & Promo Engine:** Real promo codes (`SPRYO20` for 20% off, `COLA3FOR2`, `FIZZUP`, `WELCOME10`) with one-click copy to clipboard.
-- **Catalog Filtering:** Real-time text search, category pills, price low-to-high sorting, and dynamic ratings.
-- **Single Product Pages (`/product/[id]`):** Ingredients breakdown, nutrition information, customer review submissions, and related bottle suggestions.
-- **End-to-End Checkout & Orders:**
-  - Validated shipping address form.
-  - Live order creation with unique tracking IDs (`SPRYO-XXXXXX`).
-  - Dedicated `/orders` dashboard with live status pills (Placed, Processing, Shipped, Delivered) and **1-click Reorder** action.
-- **Mixology & Recipes (`/recipes`):** Handcrafted cocktail & mocktail serving guides with step-by-step instructions.
+### 1. Storefront & Drinks Catalog
+- **Interactive Flavor Visualizer:** Switch between signature drinks (*Classic Cola, Cloudy Lemon, Zesty Orange, Mountain Up*) on the homepage with custom lighting and live fizz animations.
+- **Search & Filtering:** Real-time search by drink name, filter by category tabs, and sort by price or popularity without full page reloads.
+- **Product Details (`/product/[id]`):** Dedicated pages showing ingredients breakdown, taste profile, stock status, and customer reviews.
+
+### 2. Cart, Checkout & Orders
+- **Live Cart State:** Real-time quantity updates, delivery threshold progress bar (unlocking free shipping on 4+ bottles), and subtotal calculation.
+- **Coupon System:** Real coupon codes (`SPRYO20` for 20% off, `COLA3FOR2`, `FIZZUP`, `WELCOME10`) with quick copy-to-clipboard functionality.
+- **Checkout Flow:** Form validation for shipping info, generating a unique order ID (`SPRYO-XXXXXX`), and storing it to the database.
+- **Order Tracking (`/orders`):** View past orders, check delivery status pills (*Placed, Processing, Delivered*), and a **1-click Reorder** button that repopulates the cart instantly.
+
+### 3. Authentication & Account
+- **JWT Auth:** Real signup and login flow with encrypted passwords.
+- **Cross-Tab Session Sync:** Uses custom event listeners so logging in or out updates the navigation bar immediately across all open tabs.
+- **Profile Dashboard (`/profile`):** Bento-grid style account overview showing user details, past order counts, delivery address editor, and password management.
+
+### 4. Design & Themes
+- **Dark & Light Mode:** Toggle between sleek dark mode with neon accents and high-contrast light mode with deep slate typography (no washed-out gray text).
+- **Tablet & Mobile Optimization:** Built an accordion footer specifically for iPad Mini and Surface Pro screens so 4 columns don't squish together, and balanced bento cards to eliminate empty vertical space on tall portrait screens.
 
 ---
 
-## 🛠️ Technology Stack
+## Tech Stack
 
-| Domain | Technology | Key Role |
+| Layer | Tools | Why I Chose Them |
 | :--- | :--- | :--- |
-| **Frontend Framework** | **Next.js 16.0.6 (Turbopack)** | Server & Client components, App Router, SSG/SSR |
-| **UI Library** | **React 19.2.0** | Modern component architecture, React hooks |
-| **Styling** | **Tailwind CSS v4 + Vanilla CSS Modules** | Zero-bloat utility styles + custom theme design system |
-| **Icons** | **React Icons (FontAwesome / Feather)** | Lightweight SVGs |
-| **Backend** | **Node.js + Express 5** | REST API endpoints, routing, and controllers |
-| **Database** | **MongoDB Atlas + Mongoose** | Cloud document database with connection pooling |
-| **Security** | **JWT + bcryptjs** | Token-based auth and credential protection |
-| **Deployment** | **Vercel + Render** | Edge deployment for Next.js and API web service |
+| **Frontend** | Next.js 16, React 19 | App router for fast server-rendered pages and instant client navigation |
+| **Styling** | Vanilla CSS Modules + Tailwind CSS v4 | CSS Modules for scoped, pixel-perfect layouts; Tailwind for fast utilities |
+| **Icons** | React Icons (FontAwesome) | Clean SVG icons without heavy external font bundles |
+| **Backend** | Node.js, Express.js | Lightweight REST API handling products, orders, auth, and reviews |
+| **Database** | MongoDB Atlas, Mongoose | Flexible document schema for products, variant pricing, and nested order items |
+| **Auth** | JWT, bcryptjs | Standard stateless token-based authentication |
+| **Hosting** | Vercel (Client), Render (Backend) | Edge caching for frontend with automated Git deploys |
 
 ---
 
-## 📁 Monorepo Directory Structure
+## Project Structure
 
 ```plaintext
 VeggieWave/ (SPRYO)
-├── client/                     # Customer Storefront (Next.js 16 + React 19)
-│   ├── public/                 # Static brand assets (drink bottles, badges, favicon)
+├── client/                     # Customer Storefront (Next.js 16)
 │   ├── src/
-│   │   ├── app/                # Next.js App Router (23 production routes)
-│   │   │   ├── (auth)/         # /login, /signup, /profile
-│   │   │   ├── products/       # /products (catalog & filters)
-│   │   │   ├── product/[id]/   # Dynamic single product detail & reviews
-│   │   │   ├── cart/           # /cart (crate manager & delivery progress)
-│   │   │   ├── checkout/       # /checkout & /checkout/success
-│   │   │   ├── orders/         # /orders (order history & reordering)
-│   │   │   ├── recipes/        # /recipes & /recipes/[id]/view
-│   │   │   ├── offers/         # /offers (discount codes & copy triggers)
-│   │   │   └── ...             # /about, /careers, /distributor, /faq, /terms, /privacy
-│   │   ├── components/         # Reusable UI (Header, Footer, CartContext, ThemeContext, Toast)
-│   │   ├── styles/             # Modular CSS styling and responsive breakpoints
-│   │   └── lib/                # Client API fetch wrappers and auth state helpers
-│   ├── .env.example
-│   └── package.json
+│   │   ├── app/                # Next.js App Router (23 pages)
+│   │   │   ├── products/       # Drink catalog & filters
+│   │   │   ├── product/[id]/   # Dynamic product detail & review submit
+│   │   │   ├── cart/           # Cart manager & free delivery bar
+│   │   │   ├── checkout/       # Address form & order placement
+│   │   │   ├── orders/         # Order history & reorder action
+│   │   │   ├── profile/        # Bento-grid user dashboard
+│   │   │   ├── recipes/        # Mocktail & cocktail serving guides
+│   │   │   └── offers/         # Discount codes with 1-click copy
+│   │   ├── components/         # Header, Footer, CartContext, ThemeContext, Toast
+│   │   ├── styles/             # Modular CSS for pages and components
+│   │   └── lib/                # API fetch helpers & auth state handlers
+│   └── public/                 # Optimized brand assets (cola, lemon, orange, up bottles)
 │
-├── admin/                      # Operations & Store Manager Dashboard
-│   ├── src/app/admin/          # Revenue analytics, orders management, inventory table
-│   ├── .env.example
-│   └── package.json
+├── backend/                    # REST API Server (Express + MongoDB)
+│   ├── config/                 # MongoDB Mongoose connection
+│   ├── controllers/            # Logic for auth, products, orders, and reviews
+│   ├── middleware/             # Token verification & error handlers
+│   ├── models/                 # Schemas (User, Product, Order)
+│   ├── routes/                 # Express route definitions
+│   └── server.mjs              # Entry point
 │
-├── backend/                    # Express REST API
-│   ├── config/                 # MongoDB database connection
-│   ├── controllers/            # Auth, Product, Order, Review controllers
-│   ├── middleware/             # JWT auth & error handling middleware
-│   ├── models/                 # Mongoose schemas (User, Product, Order)
-│   ├── routes/                 # Express REST route handlers
-│   ├── server.mjs              # Server entry point
-│   ├── .env.example
-│   └── package.json
-│
-├── package.json                # Root monorepo workspace scripts
-└── README.md                   # Project documentation
+└── package.json                # Monorepo root scripts
 ```
 
 ---
 
-## 🚀 Local Development Setup
+## Running Locally
 
-### Prerequisites
-- **Node.js** >= 18.x
-- **npm** >= 9.x
-- **MongoDB** (Local instance or MongoDB Atlas URI)
+If you'd like to run this project on your machine:
 
-### 1. Clone the repository
+### 1. Clone the repo
 ```bash
 git clone https://github.com/tisamodi123/Spryo.git
 cd Spryo
 ```
 
-### 2. Environment Configuration
+### 2. Set up environment variables
 
-#### Backend (`backend/.env`):
+**Backend (`backend/.env`):**
 ```env
 PORT=2002
 NODE_ENV=development
-MONGO_URI=mongodb://localhost:27017/veggiewave
-JWT_SECRET=your_jwt_secret_key_here
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 CLIENT_URL=http://localhost:3000
 ```
 
-#### Client (`client/.env.local`):
+**Client (`client/.env.local`):**
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:2002/api
 ```
 
-### 3. Run Applications
+### 3. Install and run
+
 ```bash
-# Run Client Storefront (http://localhost:3000 or 3001)
-npm run dev:client
+# Start backend (runs on http://localhost:2002)
+cd backend
+npm install
+npm run dev
 
-# Run Backend API Server (http://localhost:2002)
-npm run dev:backend
-
-# Run Admin Panel (Optional, http://localhost:3002)
-npm run dev:admin
+# Start client in a second terminal (runs on http://localhost:3000)
+cd ../client
+npm install
+npm run dev
 ```
 
 ---
 
-## 🌐 Production Deployment
+## Engineering Challenges & What I Learned
 
-### Client on Vercel:
-1. Connect this repo to [Vercel](https://vercel.com/).
-2. Set **Root Directory** to `client`.
-3. Add Environment Variable: `NEXT_PUBLIC_API_URL` pointing to your deployed backend.
-4. Click **Deploy** (Production build compiles 23/23 routes with 0 errors).
+1. **Handling Tricky Tablet Breakpoints:**
+   Standard grids break easily around 768px–1024px (iPad Mini portrait, Surface Pro 10). A 4-column footer squishes text, and a 2-column profile leaves giant empty vertical space on a 1440px tall screen. I built custom media queries with collapsible accordions and a balanced Bento grid so the layout feels natural regardless of screen ratio.
 
-### Backend on Render / Railway:
-1. Create a **Web Service** pointing to `backend`.
-2. Set Build Command: `npm install` and Start Command: `node server.mjs`.
-3. Add `MONGO_URI` and `JWT_SECRET` environment variables.
+2. **Light vs Dark Mode Contrast:**
+   A common mistake in dark-themed sites is that toggling to light mode produces invisible white text or washed-out gray elements. I audited every component and used explicit `[data-theme="light"]` selectors with deep slate text (`#0f172a`) so every label, button, and card maintains high legibility.
+
+3. **Graceful Fallbacks for Cloud Deployments:**
+   Free cloud database instances often sleep when idle. To make sure interviewers and visitors reviewing my portfolio don't get hit with a 30-second cold-start freeze or an error page, every API call has a clean client-side fallback that loads structured data and saves placed orders to local cache.
 
 ---
 
-## 📄 License
-This project is open-source and available under the [MIT License](LICENSE).
+## Author
 
-<p align="center">
-  <b>SPRYO</b> — Crafted with precision for the modern craft beverage generation.
-</p>
+Built by **Tisa Modi**  
+- **GitHub:** [@tisamodi123](https://github.com/tisamodi123)  
+- **Email:** Spryoindia@gmail.com  
+
+Feedback, suggestions, and pull requests are always welcome!
