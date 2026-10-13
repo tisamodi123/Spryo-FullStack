@@ -139,8 +139,8 @@ export default function OrdersPage() {
     return (
       <div className={styles.emptyPage}>
         <FaBox className="text-6xl text-cyan-400/30 mb-6" />
-        <h2 className="text-3xl font-black italic text-white">NO ORDERS YET</h2>
-        <p className="text-white/60 mb-8 mt-2">
+        <h2 className="text-3xl font-black italic text-white [data-theme=light]:text-slate-900">NO ORDERS YET</h2>
+        <p className="text-white/60 [data-theme=light]:text-slate-600 mb-8 mt-2">
           Your crate history is empty. Try one of our craft sparkling beverages today!
         </p>
         <Link href="/products" className={styles.browseBtn}>

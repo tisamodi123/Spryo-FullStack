@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import styles from "@/styles/about.module.css";
 import { FaHandshake, FaBriefcase, FaStar, FaGlobe, FaBolt, FaUsers } from "react-icons/fa";
 
@@ -93,12 +94,12 @@ export default function AboutPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="/distributor" className={styles.mainBtn}>
+              <Link href="/distributor" className={styles.mainBtn}>
                 <FaHandshake /> BECOME A PARTNER
-              </a>
-              <a href="/careers" className={styles.outlineBtn}>
+              </Link>
+              <Link href="/careers" className={styles.outlineBtn}>
                 <FaBriefcase /> JOIN THE TEAM
-              </a>
+              </Link>
             </div>
           </div>
         </div>

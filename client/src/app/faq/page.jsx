@@ -2,7 +2,7 @@
 import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa";
 import styles from "@/styles/faq.module.css";
 
-export default function CareersPage() {
+export default function FaqPage() {
   return (
     <div className={styles.contactWrapper}>
       {/* Background Animated Elements */}

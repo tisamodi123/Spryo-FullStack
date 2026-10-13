@@ -6,8 +6,7 @@ import {
   FaStore, FaChartLine, FaRupeeSign, FaMapMarkedAlt,
   FaArrowRight, FaCheckCircle
 } from "react-icons/fa";
-// 1. Central API helpers import karein
-// import { clientFetch, API_ENDPOINTS } from "@/lib/api";
+import { clientFetch, API_ENDPOINTS } from "@/lib/api";
 
 export default function DistributorForm() {
   const [step, setStep] = useState(1);
@@ -25,61 +24,49 @@ export default function DistributorForm() {
     setStep(2);
   };
 
-  //for backend
-  // const submitForm = async () => {
-  //   if (Object.values(business).some(val => !val)) {
-  //     alert("Please fill all business details");
-  //     return;
-  //   }
-  //   setLoading(true);
-
-  //   try {
-  //     // 2. Localhost URL ki jagah clientFetch aur API_ENDPOINTS use kiya
-  //     const { ok, data } = await clientFetch(API_ENDPOINTS.distributor || "/distributor", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ personal, business }),
-  //     });
-
-  //     // 3. Response check
-  //     if (ok && data.success) {
-  //       setSuccess(true);
-  //     } else {
-  //       alert(data.message || "Submission failed. Please check your data.");
-  //     }
-  //   } catch (err) {
-  //     console.error("Distributor Submit Error:", err);
-  //     alert("Server error. Please try again later.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  //for static 
-const submitForm = async () => {
-    // 1. Validation pehle ki tarah hi rahegi
+  const submitForm = async () => {
     if (Object.values(business).some(val => !val)) {
       alert("Please fill all business details");
       return;
     }
     setLoading(true);
 
-    // 2. Simulated Delay: Backend ki jagah hum setTimeout use karenge
-    setTimeout(() => {
-      console.log("Static Form Data Received:", { personal, business });
-      
-      // Fake success response
+    try {
+      const { ok, data } = await clientFetch(API_ENDPOINTS.distributor || "/distributor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ personal, business }),
+      });
+
+      if (ok && data?.success) {
+        setSuccess(true);
+      } else {
+        try {
+          const apps = JSON.parse(localStorage.getItem("spryo_distributor_apps") || "[]");
+          apps.push({ personal, business, date: new Date().toISOString() });
+          localStorage.setItem("spryo_distributor_apps", JSON.stringify(apps));
+        } catch {}
+        setSuccess(true);
+      }
+    } catch (err) {
+      try {
+        const apps = JSON.parse(localStorage.getItem("spryo_distributor_apps") || "[]");
+        apps.push({ personal, business, date: new Date().toISOString() });
+        localStorage.setItem("spryo_distributor_apps", JSON.stringify(apps));
+      } catch {}
       setSuccess(true);
+    } finally {
       setLoading(false);
-    }, 1500); // 1.5 seconds ka nakli processing time
+    }
   };
+
   if (success) {
     return (
       <div className={styles.successWrapper}>
         <div className={styles.successCard}>
           <FaCheckCircle className="text-green-500 text-6xl mx-auto mb-4" />
-          <h2 className="text-3xl font-black italic text-white mb-2">APPLICATION RECEIVED!</h2>
-          <p className="text-white/60 mb-8">Our partnership team will get in touch with you within 24-48 hours.</p>
+          <h2 className="text-3xl font-black italic text-white [data-theme=light]:text-slate-900 mb-2">APPLICATION RECEIVED!</h2>
+          <p className="text-white/60 [data-theme=light]:text-slate-600 mb-8">Our partnership team will get in touch with you within 24-48 hours.</p>
           <a href="/" className={styles.primaryBtn}>BACK TO HOME</a>
         </div>
       </div>

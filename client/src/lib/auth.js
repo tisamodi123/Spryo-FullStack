@@ -124,7 +124,7 @@ export async function loginUser(formData) {
       return { success: true, message: "Welcome back!", token: demoToken, user: userPayload };
     }
 
-    return { success: false, message: "Server unreachable. Try again or use demo credentials." };
+    return { success: false, message: "Invalid email or password. Please check your credentials and try again." };
   }
 }
 

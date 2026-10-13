@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import styles from "@/styles/legal.module.css";
 import { FaScaleBalanced, FaUserShield, FaBottleWater, FaBoxOpen, FaShieldHalved } from "react-icons/fa6";
 
@@ -97,8 +98,8 @@ export default function TermsPage() {
         <footer className={styles.legalFooter}>
           <p>LAST UPDATED: DECEMBER {new Date().getFullYear()} • SPRYO BEVERAGES PVT LTD</p>
           <div className="flex justify-center gap-8 mt-6">
-            <a href="/privacy" className={styles.footerLink}>PRIVACY</a>
-            <a href="/contact" className={styles.footerLink}>SUPPORT</a>
+            <Link href="/privacy" className={styles.footerLink}>PRIVACY</Link>
+            <Link href="/contact" className={styles.footerLink}>SUPPORT</Link>
           </div>
         </footer>
       </div>

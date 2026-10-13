@@ -85,8 +85,8 @@ export default function CheckoutPage() {
           <div className="w-16 h-16 rounded-full bg-cyan-400/10 text-cyan-400 flex items-center justify-center text-2xl mx-auto mb-4">
             <FaShoppingBag />
           </div>
-          <h2 className="text-3xl font-black italic text-white mb-2">YOUR CRATE IS EMPTY</h2>
-          <p className="text-white/60 mb-6">You need to select at least one sparkling drink to checkout.</p>
+          <h2 className="text-3xl font-black italic text-white [data-theme=light]:text-slate-900 mb-2">YOUR CRATE IS EMPTY</h2>
+          <p className="text-white/60 [data-theme=light]:text-slate-600 mb-6">You need to select at least one sparkling drink to checkout.</p>
           <Link
             href="/products"
             className="inline-block px-8 py-3.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm tracking-wide transition"

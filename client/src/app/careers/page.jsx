@@ -12,7 +12,7 @@ export default function CareersPage() {
     {
       title: "Distributor",
       icon: <FaHandshake />,
-      desc: "Partner with BLUE REZZ and distribute one of India’s fastest-growing beverage brands in your region.",
+      desc: "Partner with SPRYO and distribute one of India’s fastest-growing craft beverage brands in your region.",
       color: "#FFB800" // Gold
     },
     {
