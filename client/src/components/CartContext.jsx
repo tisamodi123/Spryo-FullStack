@@ -27,6 +27,17 @@ export function CartProvider({ children }) {
 
   // helpers
   const addToCart = (product, qty = 1) => {
+    // Enforce login requirement
+    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    if (!token) {
+      if (typeof window !== "undefined") {
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1200);
+      }
+      return false;
+    }
+
     const id = product._id || product.id;
     setItems(prev => {
       const exists = prev.find(p => (p._id || p.id) === id);
@@ -35,6 +46,7 @@ export function CartProvider({ children }) {
       }
       return [...prev, { ...(product), qty }];
     });
+    return true;
   };
 
   const removeFromCart = (id) => {

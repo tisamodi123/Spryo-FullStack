@@ -32,7 +32,11 @@ export default function ProductCard({ item }) {
   const handleQuickAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(item, 1);
+    const success = addToCart(item, 1);
+    if (!success) {
+      showToast("Please login first to add items to your crate! 🔒");
+      return;
+    }
     setAdded(true);
     showToast(`${item.name} added to your crate! 🍹`);
     setTimeout(() => setAdded(false), 1500);

@@ -139,7 +139,11 @@ const ProductsPage = () => {
   const [view, setView] = useState("grid");
 
   const handleQuickAdd = (p) => {
-    addToCart(p, 1);
+    const success = addToCart(p, 1);
+    if (!success) {
+      showToast("Please login first to add items to your crate! 🔒");
+      return;
+    }
     setAddedItem(p._id);
     showToast(`${p.name} added to your crate! 🍹`);
     setTimeout(() => setAddedItem(null), 1500);

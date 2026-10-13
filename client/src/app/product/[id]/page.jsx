@@ -192,8 +192,12 @@ const Page = () => {
               <button 
                 className={styles.addToCartBtn}
                 onClick={() => { 
-                  addToCart(product, quantity); 
-                  showToast(`${product.name} (x${quantity}) added to your crate! 🍹`); 
+                  const success = addToCart(product, quantity); 
+                  if (success) {
+                    showToast(`${product.name} (x${quantity}) added to your crate! 🍹`); 
+                  } else {
+                    showToast("Please login first to add items to your crate! 🔒");
+                  }
                 }}
               >
                 ADD TO CRATE
