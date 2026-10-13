@@ -76,37 +76,41 @@ const Footer = () => {
         <div className={styles.glassCard}>
           {/* =========================================
               DESKTOP / TABLET GRID (md:grid)
+              Unified 12-col layout for iPad Mini, Surface Pro & Desktop
               ========================================= */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 relative z-10">
-            {/* BRAND SECTION */}
-            <BrandSection />
+          <div className="hidden md:grid md:grid-cols-12 gap-5 lg:gap-8 xl:gap-10 relative z-10 items-start">
+            {/* BRAND SECTION (4 Cols) */}
+            <div className="md:col-span-4">
+              <BrandSection />
+            </div>
 
-            {/* LINKS COLUMNS */}
-            <div>
+            {/* LINKS COLUMN: FLAVORS & SHOP (2 Cols) */}
+            <div className="md:col-span-2">
               <h4 className={styles.colTitle}>Flavors & Shop</h4>
               <nav className={styles.nav}>
-                <Link href="/products">The Crate (All Drinks)</Link>
+                <Link href="/products">The Crate (Drinks)</Link>
                 <Link href="/about">Our Craft Story</Link>
-                <Link href="/recipes">Cocktails & Mocktails</Link>
+                <Link href="/recipes">Cocktails & Mixes</Link>
                 <Link href="/careers">Careers & Team</Link>
               </nav>
             </div>
 
-            <div>
+            {/* LINKS COLUMN: HELP & TRUST (2 Cols) */}
+            <div className="md:col-span-2">
               <h4 className={styles.colTitle}>Help & Trust</h4>
               <nav className={styles.nav}>
                 <Link href="/faq">FAQ & Shipping</Link>
-                <Link href="/distributor">Become a Distributor</Link>
+                <Link href="/distributor">Distributor Hub</Link>
                 <Link href="/privacy">Privacy Policy</Link>
                 <Link href="/terms">Terms of Service</Link>
               </nav>
             </div>
 
-            {/* NEWSLETTER SECTION */}
-            <div className="space-y-4">
+            {/* NEWSLETTER SECTION (4 Cols) */}
+            <div className="md:col-span-4 space-y-3.5">
               <h4 className={styles.colTitle}>Stay Sparkling</h4>
-              <p className="text-xs text-white/60 [data-theme=light]:text-slate-600">
-                Get early drops, private secret batches, and exclusive crate discounts.
+              <p className="text-xs text-white/60 [data-theme=light]:text-slate-600 leading-relaxed">
+                Get early drops, secret batches, and exclusive crate discounts.
               </p>
 
               <form onSubmit={handleSubscribe} className={styles.newsletterBox}>
