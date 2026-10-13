@@ -22,12 +22,12 @@ export default function Login() {
 
       if (res && res.success) {
         setIsSuccess(true);
-        const isAdmin = res.user?.role === "admin" || res.user?.isAdmin || form.email === "admin@gmail.com";
+        const isAdmin = res.user?.role === "admin" || res.user?.isAdmin || form.email.trim().toLowerCase() === "admin@gmail.com";
 
         if (isAdmin) {
-          setMsg("Access granted! Entering Dashboard...");
+          setMsg("Admin access granted! Redirecting to Dashboard...");
           setTimeout(() => {
-            window.location.href = "/admin";
+            window.location.href = "http://localhost:3001/admin/dashboard";
           }, 700);
         } else {
           setMsg(res.message || "Welcome back! Redirecting...");

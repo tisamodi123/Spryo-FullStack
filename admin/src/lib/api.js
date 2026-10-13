@@ -12,13 +12,15 @@ export function getApiBaseUrl() {
 }
 
 // Automatically ensure admin is authenticated so the panel always loads
-export async function getAdminAuthToken() {
+export async function getAdminAuthToken(forceRefresh = false) {
   if (typeof window === "undefined") return null;
 
-  let token = localStorage.getItem("adminToken") || localStorage.getItem("token");
-  if (token) return token;
+  if (!forceRefresh) {
+    const adminToken = localStorage.getItem("adminToken");
+    if (adminToken) return adminToken;
+  }
 
-  // Auto-login as Spryo Admin if no token present
+  // Auto-login as Spryo Admin
   try {
     const baseUrl = getApiBaseUrl();
     const res = await fetch(`${baseUrl}/auth/login`, {
@@ -30,13 +32,16 @@ export async function getAdminAuthToken() {
     if (res.ok && data?.token) {
       localStorage.setItem("adminToken", data.token);
       localStorage.setItem("token", data.token);
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
       return data.token;
     }
   } catch (err) {
     // Backend offline / network error
   }
 
-  return null;
+  return localStorage.getItem("token") || null;
 }
 
 export async function adminFetch(endpoint, options = {}) {
@@ -57,12 +62,13 @@ export async function adminFetch(endpoint, options = {}) {
 
   try {
     let res = await fetch(url, { ...options, headers });
-    if (res.status === 401 && typeof window !== "undefined") {
+    // If unauthorized or forbidden (e.g. non-admin token in localStorage), re-login as admin and retry
+    if ((res.status === 401 || res.status === 403) && typeof window !== "undefined") {
       localStorage.removeItem("adminToken");
       localStorage.removeItem("token");
-      const newToken = await getAdminAuthToken();
-      if (newToken) {
-        headers["Authorization"] = `Bearer ${newToken}`;
+      const freshToken = await getAdminAuthToken(true);
+      if (freshToken) {
+        headers["Authorization"] = `Bearer ${freshToken}`;
         res = await fetch(url, { ...options, headers });
       }
     }
