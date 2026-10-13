@@ -3,13 +3,21 @@ import User from "../models/userModel.mjs";
 
 export const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  let token = null;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.split(" ")[1];
+  } else if (req.cookies?.adminToken) {
+    token = req.cookies.adminToken;
+  } else if (req.cookies?.token) {
+    token = req.cookies.token;
+  }
+
+  if (!token) {
     return res.status(401).json({ message: "No token" });
   }
 
   try {
-    const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "mysecretkey123");
 
     if (decoded.id === "admin_super_id" || decoded.email === "admin@gmail.com" || decoded.role === "admin") {

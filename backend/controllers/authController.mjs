@@ -79,6 +79,16 @@ export const login = async (req, res) => {
         process.env.JWT_SECRET || "mysecretkey123",
         { expiresIn: "7d" }
       );
+
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      };
+      res.cookie("token", adminToken, cookieOptions);
+      res.cookie("adminToken", adminToken, cookieOptions);
+
       return res.json({
         success: true,
         message: "Admin access granted",
@@ -120,14 +130,18 @@ export const login = async (req, res) => {
       await user.save().catch(() => {});
     }
 
-    const roleToUse = user.email === "admin@gmail.com" ? "admin" : (user.role || "user");
+    // Cookie options for secure session
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    };
 
-    // JWT WITH ROLE & USER DATA
-    const token = jwt.sign(
-      { id: user._id, role: roleToUse, name: user.name, email: user.email },
-      process.env.JWT_SECRET || "mysecretkey123",
-      { expiresIn: "7d" }
-    );
+    res.cookie("token", token, cookieOptions);
+    if (roleToUse === "admin") {
+      res.cookie("adminToken", token, cookieOptions);
+    }
 
     return res.json({
       success: true,
@@ -137,13 +151,25 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: roleToUse,
       },
     });
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
+};
+
+// -------------------- LOGOUT --------------------
+export const logout = (req, res) => {
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  };
+  res.clearCookie("token", cookieOptions);
+  res.clearCookie("adminToken", cookieOptions);
+  return res.json({ success: true, message: "Logged out successfully" });
 };
 
 // --------------------CLIENT PROFILE --------------------

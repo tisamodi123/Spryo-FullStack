@@ -171,6 +171,15 @@ export default function Header() {
                         Signed in as <br />
                         <span className="font-semibold text-cyan-400 [data-theme=light]:text-sky-600">{user.email}</span>
                       </div>
+                      {(user?.role === "admin" || user?.email === "admin@gmail.com") && (
+                        <a 
+                          href="http://localhost:3001/admin/dashboard" 
+                          onClick={() => setProfileOpen(false)}
+                          style={{ color: "#f59e0b", fontWeight: 800 }}
+                        >
+                          👑 Admin Dashboard
+                        </a>
+                      )}
                       <Link href="/profile" onClick={() => setProfileOpen(false)}>
                         My Profile
                       </Link>
@@ -279,6 +288,15 @@ export default function Header() {
                 <div className="text-xs text-white/60 [data-theme=light]:text-slate-700 font-semibold truncate">
                   {user.email}
                 </div>
+                {(user?.role === "admin" || user?.email === "admin@gmail.com") && (
+                  <a
+                    href="http://localhost:3001/admin/dashboard"
+                    onClick={() => setOpen(false)}
+                    className="text-amber-400 [data-theme=light]:text-amber-600 text-sm font-extrabold flex items-center gap-1.5"
+                  >
+                    👑 Admin Dashboard (Port 3001)
+                  </a>
+                )}
                 <Link href="/profile" onClick={() => setOpen(false)} className="text-white [data-theme=light]:text-black text-sm font-bold">
                   My Profile
                 </Link>

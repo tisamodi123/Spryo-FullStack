@@ -11,39 +11,66 @@ export function getApiBaseUrl() {
   return "http://localhost:2002/api";
 }
 
-// Automatically ensure admin is authenticated so the panel always loads
-export async function getAdminAuthToken(forceRefresh = false) {
+// Check logged in admin
+export function getAdminUser() {
   if (typeof window === "undefined") return null;
-
-  if (!forceRefresh) {
-    const adminToken = localStorage.getItem("adminToken");
-    if (adminToken) return adminToken;
-  }
-
-  // Auto-login as Spryo Admin
+  const user = localStorage.getItem("adminUser");
+  if (!user) return null;
   try {
-    const baseUrl = getApiBaseUrl();
+    return JSON.parse(user);
+  } catch {
+    return null;
+  }
+}
+
+// Admin manual login with httpOnly cookies & JWT
+export async function adminLogin(email, password) {
+  const baseUrl = getApiBaseUrl();
+  try {
     const res = await fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "admin@gmail.com", password: "admin@123" }),
+      credentials: "include", // Receives and stores httpOnly secure cookie
+      body: JSON.stringify({ email: email.trim(), password }),
     });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok && data?.token) {
-      localStorage.setItem("adminToken", data.token);
-      localStorage.setItem("token", data.token);
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
-      return data.token;
-    }
-  } catch (err) {
-    // Backend offline / network error
-  }
 
-  return localStorage.getItem("token") || null;
+    const data = await res.json().catch(() => ({}));
+
+    if (res.ok && data?.success) {
+      if (data.user?.role !== "admin") {
+        return { success: false, message: "Access Denied: This account is not an administrator." };
+      }
+      if (typeof window !== "undefined") {
+        localStorage.setItem("adminUser", JSON.stringify(data.user));
+        if (data.token) localStorage.setItem("adminToken", data.token);
+      }
+      return { success: true, user: data.user, token: data.token };
+    }
+
+    return { success: false, message: data?.message || "Invalid credentials." };
+  } catch (err) {
+    return { success: false, message: "Connection to server failed. Please ensure backend is running." };
+  }
 }
 
+// Admin logout
+export async function adminLogout() {
+  const baseUrl = getApiBaseUrl();
+  try {
+    await fetch(`${baseUrl}/auth/logout`, {
+      method: "POST",
+      credentials: "include", // Clears httpOnly cookie on server
+    });
+  } catch {}
+
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("adminUser");
+    localStorage.removeItem("adminToken");
+    window.location.href = "/login";
+  }
+}
+
+// Universal fetch for admin actions with credentials: "include"
 export async function adminFetch(endpoint, options = {}) {
   const baseUrl = getApiBaseUrl();
   const url = endpoint.startsWith("http") ? endpoint : `${baseUrl}${endpoint}`;
@@ -54,24 +81,27 @@ export async function adminFetch(endpoint, options = {}) {
   };
 
   if (typeof window !== "undefined") {
-    let token = await getAdminAuthToken();
+    const token = localStorage.getItem("adminToken");
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
   }
 
   try {
-    let res = await fetch(url, { ...options, headers });
-    // If unauthorized or forbidden (e.g. non-admin token in localStorage), re-login as admin and retry
-    if ((res.status === 401 || res.status === 403) && typeof window !== "undefined") {
-      localStorage.removeItem("adminToken");
-      localStorage.removeItem("token");
-      const freshToken = await getAdminAuthToken(true);
-      if (freshToken) {
-        headers["Authorization"] = `Bearer ${freshToken}`;
-        res = await fetch(url, { ...options, headers });
+    const res = await fetch(url, {
+      ...options,
+      headers,
+      credentials: "include", // Always send httpOnly cookies
+    });
+
+    if (res.status === 401 || res.status === 403) {
+      if (typeof window !== "undefined" && !window.location.pathname.includes("/login")) {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminUser");
+        window.location.href = "/login";
       }
     }
+
     const json = await res.json().catch(() => ({}));
     return { ok: res.ok, status: res.status, data: json };
   } catch (err) {
