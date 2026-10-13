@@ -87,7 +87,7 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <h4 className={styles.colTitle}>Flavors & Shop</h4>
               <nav className={styles.nav}>
-                <Link href="/products">The Crate (Drinks)</Link>
+                <Link href="/products">All Drinks</Link>
                 <Link href="/about">Our Craft Story</Link>
                 <Link href="/recipes">Cocktails & Mixes</Link>
                 <Link href="/careers">Careers & Team</Link>
@@ -164,7 +164,7 @@ const Footer = () => {
                 </button>
                 <div className={`${styles.accordionBody} ${openSection === "flavors" ? styles.accordionOpen : ""}`}>
                   <nav className={styles.nav}>
-                    <Link href="/products">The Crate (All Drinks)</Link>
+                    <Link href="/products">All Drinks</Link>
                     <Link href="/about">Our Craft Story</Link>
                     <Link href="/recipes">Cocktails & Mocktails</Link>
                     <Link href="/careers">Careers & Team</Link>

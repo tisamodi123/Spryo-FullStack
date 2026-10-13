@@ -258,9 +258,6 @@ export default function Header() {
 
             <hr className="border-white/10 [data-theme=light]:border-slate-200 w-full my-2" />
 
-            <Link href="/products" onClick={() => setOpen(false)} className="text-cyan-400 [data-theme=light]:text-black font-black">
-              Explore Crate (Drinks)
-            </Link>
             <Link href="/cart" onClick={() => setOpen(false)} className="flex items-center justify-between text-white [data-theme=light]:text-black font-bold">
               <span>View Cart</span>
               <span className="px-2 py-0.5 rounded-full bg-cyan-400 [data-theme=light]:bg-black text-black [data-theme=light]:text-white text-xs font-bold">
