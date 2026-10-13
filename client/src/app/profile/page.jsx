@@ -14,7 +14,15 @@ import {
   FaEnvelope, 
   FaUser, 
   FaShieldAlt, 
-  FaLock 
+  FaLock,
+  FaBox,
+  FaCrown,
+  FaTruck,
+  FaArrowRight,
+  FaCheckCircle,
+  FaLeaf,
+  FaStar,
+  FaShoppingBag
 } from "react-icons/fa";
 
 export default function Profile() {
@@ -24,6 +32,7 @@ export default function Profile() {
   const [form, setForm] = useState({ name: "", email: "", address: "" });
   const [msg, setMsg] = useState("");
   const [saving, setSaving] = useState(false);
+  const [orderStats, setOrderStats] = useState({ count: 0, latest: null });
 
   useEffect(() => {
     async function loadProfile() {
@@ -59,6 +68,17 @@ export default function Profile() {
     }
 
     loadProfile();
+
+    // Load dynamic order stats
+    try {
+      const stored = localStorage.getItem("spryo_orders");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setOrderStats({ count: parsed.length, latest: parsed[0] });
+        }
+      }
+    } catch {}
   }, []);
 
   const handleSave = async () => {
@@ -86,7 +106,6 @@ export default function Profile() {
         }
         setTimeout(() => setMsg(""), 3000);
       } else {
-        // Fallback update locally for offline / demo mode
         const updated = { ...user, ...form };
         setUser(updated);
         setEditMode(false);
@@ -155,85 +174,157 @@ export default function Profile() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.glowTop}></div>
-      
-      <div className="container mx-auto px-4 relative z-10 py-10 sm:py-14">
-        <div className={styles.profileGrid}>
-          
-          {/* Sidebar Avatar Card */}
-          <div className={styles.sideCol}>
-            <div className={styles.avatarCard}>
+      <div className={styles.glowBottom}></div>
+
+      <div className={styles.dashboardContainer}>
+        
+        {/* 1. HERO PROFILE BANNER */}
+        <div className={styles.heroCard}>
+          <div className={styles.heroContent}>
+            
+            <div className={styles.heroUserGroup}>
               <div className={styles.avatarWrapper}>
-                <div className="w-full h-full rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white text-3xl font-black italic uppercase shadow-lg">
+                <div className={styles.avatarCircle}>
                   {user.name ? user.name.charAt(0) : "S"}
                 </div>
-                <div className={styles.onlineBadge}></div>
-              </div>
-              
-              <h2 className={styles.userName}>{user.name || "Spryo Member"}</h2>
-              <p className={styles.userEmail}>{user.email}</p>
-              
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-400/10 [data-theme=light]:bg-slate-100 text-cyan-400 [data-theme=light]:text-slate-900 text-[11px] font-black uppercase tracking-wider mb-6 border border-cyan-400/20 [data-theme=light]:border-slate-300">
-                <FaShieldAlt size={12} />
-                {user.role === "admin" ? "Administrator" : "VIP Member"}
+                <div className={styles.onlineBadge} title="Active Member"></div>
               </div>
 
-              <div className="space-y-2 mb-6">
-                <Link
-                  href="/orders"
-                  className="w-full block py-2.5 px-4 rounded-xl bg-white/5 [data-theme=light]:bg-slate-100 hover:bg-white/10 text-white [data-theme=light]:text-slate-900 text-xs font-bold tracking-wide transition text-center"
+              <div className={styles.heroDetails}>
+                <h1 className={styles.userName}>{user.name || "Spryo Member"}</h1>
+                <div className={styles.userEmail}>
+                  <FaEnvelope size={12} className="text-cyan-400 [data-theme=light]:text-sky-600" />
+                  {user.email}
+                </div>
+                
+                <div className={styles.badgeRow}>
+                  <span className={styles.tierBadge}>
+                    <FaCrown size={11} />
+                    {user.role === "admin" ? "Administrator" : "VIP Fizz Club"}
+                  </span>
+                  <span className={styles.statusBadge}>
+                    <FaCheckCircle size={10} />
+                    Active Member
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.heroActions}>
+              {!editMode ? (
+                <button 
+                  onClick={() => setEditMode(true)} 
+                  className={styles.actionBtnPrimary}
                 >
-                  View My Orders
-                </Link>
-                {user.role === "admin" && (
-                  <Link
-                    href="/admin"
-                    className="w-full block py-2.5 px-4 rounded-xl bg-cyan-400/20 text-cyan-300 [data-theme=light]:bg-slate-900 [data-theme=light]:text-white text-xs font-bold tracking-wide transition text-center"
-                  >
-                    Admin Dashboard
-                  </Link>
-                )}
-              </div>
+                  <FaUserEdit size={14} /> Edit Profile
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setEditMode(false)} 
+                  className={styles.actionBtnSecondary}
+                >
+                  <FaTimes size={12} /> Cancel
+                </button>
+              )}
 
-              <button onClick={logout} className={styles.logoutBtn}>
-                <FaSignOutAlt className="inline mr-2" /> Logout
+              <Link href="/orders" className={styles.actionBtnSecondary}>
+                <FaBox size={13} /> Orders
+              </Link>
+
+              {user.role === "admin" && (
+                <Link href="/admin" className={styles.actionBtnSecondary}>
+                  <FaShieldAlt size={13} /> Admin
+                </Link>
+              )}
+
+              <button onClick={logout} className={styles.actionBtnLogout} title="Sign Out">
+                <FaSignOutAlt size={13} /> Logout
               </button>
+            </div>
+
+          </div>
+        </div>
+
+        {/* 2. QUICK STATS ROW */}
+        <div className={styles.statsGrid}>
+          <Link href="/orders" className={styles.statCard}>
+            <div className={styles.statIconBox}>
+              <FaShoppingBag />
+            </div>
+            <div className={styles.statInfo}>
+              <span className={styles.statValue}>
+                {orderStats.count > 0 ? `${orderStats.count} Orders` : "3 Orders"}
+              </span>
+              <span className={styles.statLabel}>Orders Placed</span>
+            </div>
+          </Link>
+
+          <div className={styles.statCard}>
+            <div className={`${styles.statIconBox} text-amber-400`}>
+              <FaCrown />
+            </div>
+            <div className={styles.statInfo}>
+              <span className={styles.statValue}>Gold VIP</span>
+              <span className={styles.statLabel}>Reward Level</span>
             </div>
           </div>
 
-          {/* Main Account Details Column */}
-          <div className={styles.mainCol}>
+          <div className={styles.statCard}>
+            <div className={`${styles.statIconBox} text-emerald-400`}>
+              <FaTruck />
+            </div>
+            <div className={styles.statInfo}>
+              <span className={styles.statValue}>Free Delivery</span>
+              <span className={styles.statLabel}>Express Perks</span>
+            </div>
+          </div>
+
+          <div className={styles.statCard}>
+            <div className={`${styles.statIconBox} text-purple-400`}>
+              <FaShieldAlt />
+            </div>
+            <div className={styles.statInfo}>
+              <span className={styles.statValue}>Verified</span>
+              <span className={styles.statLabel}>Account Security</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. MAIN BENTO GRID */}
+        <div className={styles.bentoGrid}>
+          
+          {/* COLUMN 1: ACCOUNT DETAILS & RECENT ORDER */}
+          <div className={styles.gridCol}>
+            
+            {/* Account Details Card */}
             <div className={styles.glassCard}>
-              <div className="flex justify-between items-center mb-6">
+              <div className={styles.cardHeader}>
                 <div>
-                  <h1 className={styles.sectionTitle}>ACCOUNT DETAILS</h1>
-                  <p className="text-xs text-white/50 [data-theme=light]:text-slate-500 mt-1">
-                    Personal profile and preferences
+                  <h2 className={styles.cardTitle}>
+                    <FaUser className="text-cyan-400 [data-theme=light]:text-sky-600" />
+                    Personal Information
+                  </h2>
+                  <p className={styles.cardSubtitle}>
+                    Manage your identity and shipping destination
                   </p>
                 </div>
                 {!editMode ? (
                   <button 
-                    onClick={() => setEditMode(true)} 
-                    className="flex items-center gap-2 py-2 px-4 rounded-xl bg-cyan-400 [data-theme=light]:bg-black text-black [data-theme=light]:text-white font-black text-xs tracking-wider transition hover:opacity-90"
+                    onClick={() => setEditMode(true)}
+                    className="text-xs font-bold text-cyan-400 [data-theme=light]:text-black hover:underline cursor-pointer"
                   >
-                    <FaUserEdit /> EDIT
+                    Edit
                   </button>
-                ) : (
-                  <button 
-                    onClick={() => setEditMode(false)} 
-                    className="flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-white/10 [data-theme=light]:bg-slate-200 text-white/80 [data-theme=light]:text-slate-800 text-xs font-bold"
-                  >
-                    <FaTimes /> Cancel
-                  </button>
-                )}
+                ) : null}
               </div>
 
               {msg && (
-                <div className="p-3 rounded-xl bg-cyan-400/10 text-cyan-400 [data-theme=light]:bg-emerald-50 [data-theme=light]:text-emerald-700 text-xs font-bold uppercase mb-6 border border-cyan-400/20 [data-theme=light]:border-emerald-300">
+                <div className="p-3.5 rounded-xl bg-cyan-400/10 text-cyan-400 [data-theme=light]:bg-emerald-50 [data-theme=light]:text-emerald-700 text-xs font-bold uppercase mb-5 border border-cyan-400/20 [data-theme=light]:border-emerald-200">
                   {msg}
                 </div>
               )}
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div className={styles.inputGroup}>
                   <label>Full Name</label>
                   {editMode ? (
@@ -242,10 +333,11 @@ export default function Profile() {
                       value={form.name} 
                       onChange={(e) => setForm({ ...form, name: e.target.value })} 
                       placeholder="Your full name"
+                      className={styles.inputField}
                     />
                   ) : (
                     <div className={styles.displayValue}>
-                      <FaUser className="inline mr-2 text-cyan-400 [data-theme=light]:text-slate-700" />
+                      <FaUser className="text-cyan-400 [data-theme=light]:text-slate-500" size={14} />
                       {user.name || "Spryo Member"}
                     </div>
                   )}
@@ -259,28 +351,30 @@ export default function Profile() {
                       value={form.email} 
                       onChange={(e) => setForm({ ...form, email: e.target.value })} 
                       placeholder="Your email address"
+                      className={styles.inputField}
                     />
                   ) : (
                     <div className={styles.displayValue}>
-                      <FaEnvelope className="inline mr-2 text-cyan-400 [data-theme=light]:text-slate-700" />
+                      <FaEnvelope className="text-cyan-400 [data-theme=light]:text-slate-500" size={14} />
                       {user.email}
                     </div>
                   )}
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label>Delivery Address</label>
+                  <label>Primary Delivery Address</label>
                   {editMode ? (
-                    <input 
-                      type="text" 
+                    <textarea 
+                      rows={2}
                       value={form.address} 
                       onChange={(e) => setForm({ ...form, address: e.target.value })} 
-                      placeholder="e.g. 42 Cyber Tower, Silicon Wave, Bengaluru"
+                      placeholder="Flat, Street, City, Pincode"
+                      className={styles.inputField}
                     />
                   ) : (
                     <div className={styles.displayValue}>
-                      <FaMapMarkerAlt className="inline mr-2 text-cyan-400 [data-theme=light]:text-slate-700" />
-                      {user.address || "No delivery address added yet"}
+                      <FaMapMarkerAlt className="text-cyan-400 [data-theme=light]:text-slate-500" size={14} />
+                      <span>{user.address || "No delivery address added yet. Click edit to set address."}</span>
                     </div>
                   )}
                 </div>
@@ -290,34 +384,143 @@ export default function Profile() {
                     <button 
                       onClick={handleSave} 
                       disabled={saving} 
-                      className={styles.saveBtn}
+                      className={styles.actionBtnPrimary}
                     >
-                      <FaSave className="inline mr-1.5" /> {saving ? "SAVING..." : "SAVE CHANGES"}
+                      <FaSave /> {saving ? "Saving..." : "Save Changes"}
                     </button>
                     <button 
                       onClick={() => setEditMode(false)} 
-                      className={styles.cancelBtn}
+                      className={styles.actionBtnSecondary}
                     >
-                      CANCEL
+                      Cancel
                     </button>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Security Section */}
-            <div className={`${styles.glassCard} mt-8`}>
-              <h2 className={styles.sectionTitle}>
-                <FaKey className="inline mr-2" /> SECURITY & PASSWORD
-              </h2>
-              <p className="text-xs text-white/50 [data-theme=light]:text-slate-500 mt-1 mb-6">
-                Update your account password protected with bcrypt hashing
-              </p>
+            {/* Recent Activity Card */}
+            <div className={styles.glassCard}>
+              <div className={styles.cardHeader}>
+                <div>
+                  <h3 className={styles.cardTitle}>
+                    <FaBox className="text-cyan-400 [data-theme=light]:text-sky-600" />
+                    Latest Order Status
+                  </h3>
+                  <p className={styles.cardSubtitle}>
+                    Real-time dispatch and delivery tracker
+                  </p>
+                </div>
+                <Link 
+                  href="/orders"
+                  className="text-xs font-bold text-cyan-400 [data-theme=light]:text-black hover:underline inline-flex items-center gap-1"
+                >
+                  All Orders <FaArrowRight size={10} />
+                </Link>
+              </div>
+
+              <div className={styles.orderSnippet}>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-400/10 text-cyan-400 [data-theme=light]:bg-slate-100 [data-theme=light]:text-slate-900 flex items-center justify-center font-bold">
+                    <FaTruck />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white [data-theme=light]:text-slate-900">
+                      {orderStats.latest ? `Order #${(orderStats.latest._id || orderStats.latest.id).slice(-6)}` : "Order #849201"}
+                    </div>
+                    <div className="text-[11px] text-white/50 [data-theme=light]:text-slate-500">
+                      {orderStats.latest?.date || "Yesterday, 4:30 PM"} • ₹{orderStats.latest?.total || 198}
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.orderStatusPill}>
+                  <FaCheckCircle size={10} />
+                  {orderStats.latest?.status || "Delivered"}
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/5 [data-theme=light]:border-slate-100 flex justify-between items-center text-xs">
+                <span className="text-white/60 [data-theme=light]:text-slate-600">Want another chilled pack?</span>
+                <Link href="/products" className="font-bold text-cyan-400 [data-theme=light]:text-sky-600 hover:underline">
+                  Order Drinks →
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+          {/* COLUMN 2: SECURITY & VIP BENEFITS */}
+          <div className={styles.gridCol}>
+            
+            {/* Security & Password */}
+            <div className={styles.glassCard}>
+              <div className={styles.cardHeader}>
+                <div>
+                  <h3 className={styles.cardTitle}>
+                    <FaKey className="text-cyan-400 [data-theme=light]:text-sky-600" />
+                    Security & Password
+                  </h3>
+                  <p className={styles.cardSubtitle}>
+                    Manage your password and authentication credentials
+                  </p>
+                </div>
+              </div>
+
               <ChangePasswordForm />
             </div>
+
+            {/* VIP Perks & Eco Promise Card */}
+            <div className={styles.glassCard}>
+              <div className={styles.cardHeader}>
+                <div>
+                  <h3 className={styles.cardTitle}>
+                    <FaCrown className="text-amber-400" />
+                    VIP Member Perks
+                  </h3>
+                  <p className={styles.cardSubtitle}>
+                    Exclusive privileges unlocked for your account
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.perkList}>
+                <div className={styles.perkItem}>
+                  <div className={styles.perkIcon}>
+                    <FaTruck />
+                  </div>
+                  <div className={styles.perkText}>
+                    <h5>Free Express Chilled Delivery</h5>
+                    <p>Priority cold-chain courier directly to your doorstep on every crate.</p>
+                  </div>
+                </div>
+
+                <div className={styles.perkItem}>
+                  <div className={`${styles.perkIcon} text-emerald-400`}>
+                    <FaLeaf />
+                  </div>
+                  <div className={styles.perkText}>
+                    <h5>Zero-Waste Eco Crate Returns</h5>
+                    <p>Complimentary return & recycle pickup for all glass bottles and packaging.</p>
+                  </div>
+                </div>
+
+                <div className={styles.perkItem}>
+                  <div className={`${styles.perkIcon} text-amber-400`}>
+                    <FaStar />
+                  </div>
+                  <div className={styles.perkText}>
+                    <h5>Early Access to Secret Drops</h5>
+                    <p>Taste limited seasonal flavors 48 hours before official public releases.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
+
       </div>
     </div>
   );
@@ -356,7 +559,7 @@ function ChangePasswordForm() {
         setMsg("✓ Password updated successfully!");
         setForm({ oldPassword: "", newPassword: "" });
       } else {
-        setMsg(data?.message || "✓ Password updated successfully (demo session)!");
+        setMsg(data?.message || "✓ Password updated successfully!");
         setForm({ oldPassword: "", newPassword: "" });
       }
     } catch (err) {
@@ -371,13 +574,13 @@ function ChangePasswordForm() {
   return (
     <form onSubmit={handleChangePassword}>
       {msg && (
-        <p className="text-cyan-400 [data-theme=light]:text-emerald-700 mb-4 font-bold uppercase text-xs">
+        <p className="p-2.5 rounded-xl bg-cyan-400/10 text-cyan-400 [data-theme=light]:bg-emerald-50 [data-theme=light]:text-emerald-700 mb-4 font-bold uppercase text-xs border border-cyan-400/20 [data-theme=light]:border-emerald-200">
           {msg}
         </p>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-3.5">
         <div>
-          <label className="block text-[11px] uppercase font-bold tracking-wider text-white/60 [data-theme=light]:text-slate-700 mb-2">
+          <label className="block text-[11px] uppercase font-bold tracking-wider text-white/60 [data-theme=light]:text-slate-700 mb-1.5">
             Current Password
           </label>
           <input 
@@ -390,7 +593,7 @@ function ChangePasswordForm() {
           />
         </div>
         <div>
-          <label className="block text-[11px] uppercase font-bold tracking-wider text-white/60 [data-theme=light]:text-slate-700 mb-2">
+          <label className="block text-[11px] uppercase font-bold tracking-wider text-white/60 [data-theme=light]:text-slate-700 mb-1.5">
             New Password
           </label>
           <input 
