@@ -94,7 +94,13 @@ export async function adminFetch(endpoint, options = {}) {
       credentials: "include", // Always send httpOnly cookies
     });
 
-    if (res.status === 401 || res.status === 403) {
+    if (res.status === 403) {
+      if (typeof window !== "undefined" && !window.location.pathname.includes("/403")) {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminUser");
+        window.location.href = "/403";
+      }
+    } else if (res.status === 401) {
       if (typeof window !== "undefined" && !window.location.pathname.includes("/login")) {
         localStorage.removeItem("adminToken");
         localStorage.removeItem("adminUser");

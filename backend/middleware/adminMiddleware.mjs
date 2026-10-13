@@ -1,12 +1,13 @@
 // backend/middleware/adminMiddleware.mjs
 const adminMiddleware = (req, res, next) => {
-  if (
-    !req.user ||
-    (req.user.role !== "admin" && req.user.email !== "admin@gmail.com")
-  ) {
+  const adminEmail = (process.env.ADMIN_EMAIL || "admin@gmail.com").toLowerCase();
+  const userEmail = (req.user?.email || "").toLowerCase();
+
+  if (!req.user || req.user.role !== "admin" || userEmail !== adminEmail) {
     return res.status(403).json({
       success: false,
-      message: "Admin access denied. Please login with an admin account."
+      forbidden: true,
+      message: "403 Forbidden: Administrator privileges strictly restricted to authorized system admin."
     });
   }
   next();

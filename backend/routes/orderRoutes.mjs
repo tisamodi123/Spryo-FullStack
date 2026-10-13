@@ -19,7 +19,7 @@ router.post("/place", async (req, res) => {
     if (authHeader && authHeader.startsWith("Bearer ")) {
       try {
         const token = authHeader.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || "mysecretkey123");
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (decoded?.id && decoded.id !== "admin_super_id" && mongoose.Types.ObjectId.isValid(decoded.id)) {
           validUserId = decoded.id;
         }

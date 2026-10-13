@@ -14,6 +14,21 @@ export const signup = async (req, res) => {
     }
     email = String(email).trim().toLowerCase();
 
+    // Block any attempt to signup as admin
+    const adminEmail = (process.env.ADMIN_EMAIL || "admin@gmail.com").toLowerCase();
+    if (
+      email === adminEmail ||
+      email.startsWith("admin@") ||
+      email.includes("admin") ||
+      String(name).toLowerCase().includes("admin")
+    ) {
+      return res.status(403).json({
+        success: false,
+        forbidden: true,
+        message: "Registration with administrative identities is strictly forbidden. This incident has been logged.",
+      });
+    }
+
     // Additional password strength check
     if (password.length < 6) {
       return res.status(400).json({ success: false, message: "Password must be at least 6 characters." });
@@ -29,19 +44,19 @@ export const signup = async (req, res) => {
     const saltRounds = 12;
     const hashedPass = await bcrypt.hash(password, saltRounds);
 
-    // Create user (do not return password)
+    // Create user (strictly "user" role)
     const user = await User.create({
       name,
       email,
       password: hashedPass,
-      role: "user" //default role
+      role: "user"
     });
 
     // Generate JWT token for immediate auto-login
     const token = jwt.sign(
       { id: user._id, role: user.role, name: user.name, email: user.email },
-      process.env.JWT_SECRET || "mysecretkey123",
-      { expiresIn: "7d" }
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
     );
 
     // Return safe payload
@@ -70,14 +85,16 @@ export const login = async (req, res) => {
     }
 
     email = String(email).trim().toLowerCase();
+    const adminEmail = (process.env.ADMIN_EMAIL || "admin@gmail.com").toLowerCase();
+    const adminPassword = process.env.ADMIN_PASSWORD || "admin@123";
 
-    // Special check for default Admin credentials (always works)
-    if (email === "admin@gmail.com" && (password === "admin@123" || password === "admin")) {
-      await User.updateOne({ email: "admin@gmail.com" }, { role: "admin" }).catch(() => {});
+    // Strict verified Admin credentials check from environment
+    if (email === adminEmail && password === adminPassword) {
+      await User.updateOne({ email: adminEmail }, { role: "admin" }).catch(() => {});
       const adminToken = jwt.sign(
-        { id: "admin_super_id", role: "admin", name: "Spryo Admin", email: "admin@gmail.com" },
-        process.env.JWT_SECRET || "mysecretkey123",
-        { expiresIn: "7d" }
+        { id: "admin_super_id", role: "admin", name: "Spryo Admin", email: adminEmail },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
       );
 
       const cookieOptions = {
@@ -96,7 +113,7 @@ export const login = async (req, res) => {
         user: {
           id: "admin_super_id",
           name: "Spryo Admin",
-          email: "admin@gmail.com",
+          email: adminEmail,
           role: "admin",
         },
       });
@@ -118,17 +135,26 @@ export const login = async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch && !(email === "admin@gmail.com" && (password === "admin@123" || password === "admin"))) {
+    if (!isMatch) {
       return res.status(401).json({
         success: false,
         message: "Invalid credentials",
       });
     }
 
-    if (user.email === "admin@gmail.com" && user.role !== "admin") {
-      user.role = "admin";
+    // Role check: Only the actual admin email can have admin role
+    const roleToUse = user.email.toLowerCase() === adminEmail ? "admin" : "user";
+    if (user.role !== roleToUse) {
+      user.role = roleToUse;
       await user.save().catch(() => {});
     }
+
+    // JWT WITH ROLE & USER DATA
+    const token = jwt.sign(
+      { id: user._id, role: roleToUse, name: user.name, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
+    );
 
     // Cookie options for secure session
     const cookieOptions = {

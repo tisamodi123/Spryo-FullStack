@@ -27,6 +27,10 @@ export default function Signup() {
           window.location.href = "/profile";
         }, 800);
       } else {
+        if (res?.forbidden) {
+          window.location.href = "/403";
+          return;
+        }
         setIsSuccess(false);
         setMsg(res?.message || "Failed to create account. Try another email or password.");
       }

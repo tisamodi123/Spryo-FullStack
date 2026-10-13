@@ -18,13 +18,14 @@ export const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "mysecretkey123");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const adminEmail = (process.env.ADMIN_EMAIL || "admin@gmail.com").toLowerCase();
 
-    if (decoded.id === "admin_super_id" || decoded.email === "admin@gmail.com" || decoded.role === "admin") {
+    if (decoded.id === "admin_super_id" || (decoded.email && decoded.email.toLowerCase() === adminEmail) || decoded.role === "admin") {
       req.user = {
         _id: decoded.id || "admin_super_id",
         name: decoded.name || "Spryo Admin",
-        email: decoded.email || "admin@gmail.com",
+        email: decoded.email || adminEmail,
         role: "admin",
       };
       req.userID = String(decoded.id || "admin_super_id");
@@ -36,7 +37,7 @@ export const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ success: false, message: "User not found" });
     }
 
-    if (user.email === "admin@gmail.com" || user.role === "admin") {
+    if (user.email && user.email.toLowerCase() === adminEmail) {
       user.role = "admin";
     }
 
