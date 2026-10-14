@@ -1,4 +1,4 @@
-# SPRYO — Craft Sparkling Beverage E-Commerce
+# SPRYO : Craft Sparkling Beverage E-Commerce
 
 A full-stack direct-to-consumer (D2C) web application built from scratch for a modern craft sparkling beverage brand. 
 
