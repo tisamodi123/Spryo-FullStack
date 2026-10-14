@@ -4,7 +4,7 @@ A full-stack direct-to-consumer (D2C) web application built from scratch for a m
 
 I built this project to explore building a production-ready shopping experience with **Next.js 16 (App Router)** on the front end, backed by a **Node.js/Express API** and **MongoDB**, featuring real-time cart state, secure JWT authentication, and responsive design across all devices.
 
-🔗 **Live Website:** [[spryo-client-vercel.app](https://spryo-client-git-vercel-react-server-com-bc3387-spryos-projects.vercel.app/)  ](https://spryo-full-stack-rl8o.vercel.app/)
+🔗 **Live Website:** (https://spryo-client-git-vercel-react-server-com-bc3387-spryos-projects.vercel.app/)  (https://spryo-full-stack-rl8o.vercel.app/)
 📂 **GitHub Repo:** [github.com/tisamodi123/Spryo](https://github.com/tisamodi123/Spryo)
 
 ---
