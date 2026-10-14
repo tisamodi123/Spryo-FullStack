@@ -4,18 +4,17 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
+  // Always default to dark mode when the website is opened
   const [theme, setTheme] = useState("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     try {
-      const savedTheme = localStorage.getItem("spryo_theme");
-      if (savedTheme) {
-        setTheme(savedTheme);
-        document.documentElement.setAttribute("data-theme", savedTheme);
-      } else {
-        document.documentElement.setAttribute("data-theme", "dark");
-      }
+      // By default the website always opens in dark mode
+      setTheme("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.removeItem("spryo_theme");
+      sessionStorage.removeItem("spryo_theme");
     } catch (e) {
       console.warn("Theme storage error", e);
     }
@@ -26,10 +25,9 @@ export function ThemeProvider({ children }) {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     try {
-      localStorage.setItem("spryo_theme", nextTheme);
       document.documentElement.setAttribute("data-theme", nextTheme);
     } catch (e) {
-      console.warn("Theme storage error", e);
+      console.warn("Theme toggle error", e);
     }
   };
 

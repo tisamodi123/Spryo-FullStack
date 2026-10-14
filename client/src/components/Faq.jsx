@@ -2,11 +2,8 @@
 import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa";
 import styles from "@/styles/faq.module.css";
 
-// 1. Function ka naam badal kar FAQ rakha
 export default function FAQ() {
   return (
-    // Agar styles.contactWrapper mein 'min-height: 100vh' hai, 
-    // toh use hatana pad sakta hai taaki ye page ke beech mein fit ho jaye.
     <div className={styles.contactWrapper}>
       <div className={styles.neonOrbit}></div>
       <div className={styles.neonOrbit2}></div>
@@ -17,21 +14,19 @@ export default function FAQ() {
             <div className={styles.iconCircle}>
               <FaRocket className="animate-bounce" />
             </div>
-            <h1 className={styles.mainTitle}>
-              JOIN THE <br/> <span>REVOLUTION</span>
-            </h1>
+            <h2 className={styles.mainTitle}>
+              JOIN THE <br/> <span>EVOLUTION</span>
+            </h2>
           </div>
 
           <div className={styles.cardBody}>
             <p className={styles.description}>
               Have questions about <strong>careers</strong>, <strong>partnerships</strong>, or 
-              <strong> distributor</strong> opportunities? Our team is ready to help.
+              <strong> regional distributorships</strong>? Our leadership team in Surat is excited to connect with you.
             </p>
 
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=Spryoindia@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:Spryoindia@gmail.com?subject=Career and Partnership Inquiry"
               className={styles.mailButton}
             >
               <FaEnvelopeOpenText className="text-xl shrink-0" />
@@ -41,10 +36,10 @@ export default function FAQ() {
             <div className={styles.divider}></div>
 
             <div className={styles.footerInfo}>
-              <p>⏱ RESPONSE TIME: <b>24–48 HOURS</b></p>
+              <p>⏱ RESPONSE TIME: <b>WITHIN 24 HOURS</b></p>
               <div className={styles.statusIndicator}>
                 <span className={styles.pulseDot}></span>
-                HIRING STATUS: ACTIVE
+                OPPORTUNITIES: ACTIVE
               </div>
             </div>
           </div>

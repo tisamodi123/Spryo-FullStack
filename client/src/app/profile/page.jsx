@@ -144,26 +144,26 @@ export default function Profile() {
       <div className="min-h-[75vh] flex items-center justify-center px-4 py-16">
         <div className="relative z-10 w-full max-w-md p-8 sm:p-10 rounded-3xl bg-white/5 [data-theme=light]:bg-white border border-white/10 [data-theme=light]:border-slate-200 shadow-2xl text-center backdrop-blur-xl">
           <div className="w-16 h-16 rounded-2xl bg-cyan-400/10 text-cyan-400 [data-theme=light]:bg-slate-100 [data-theme=light]:text-slate-900 mx-auto flex items-center justify-center text-2xl mb-4 border border-cyan-400/20 [data-theme=light]:border-slate-300">
-            <FaLock />
+            <FaUser />
           </div>
-          <h1 className="text-2xl font-black italic tracking-wide text-white [data-theme=light]:text-slate-900">
-            ACCESS DENIED
+          <h1 className="text-2xl font-black italic tracking-wide text-white [data-theme=light]:text-slate-900 uppercase">
+            YOUR SPRYO PROFILE
           </h1>
-          <p className="my-4 text-sm text-white/60 [data-theme=light]:text-slate-600 font-medium">
-            Please log in with your account to access your personalized Spryo profile and order history.
+          <p className="my-4 text-sm text-white/60 [data-theme=light]:text-slate-600 font-medium leading-relaxed">
+            Please sign in to access your personal account, review your live orders, and manage your delivery addresses.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 mt-6">
             <Link
               href="/login"
               className="flex-1 py-3 px-4 rounded-xl bg-cyan-400 [data-theme=light]:bg-black text-black [data-theme=light]:text-white font-black text-xs tracking-wider uppercase hover:opacity-90 transition text-center"
             >
-              Login Now
+              Sign In
             </Link>
             <Link
               href="/signup"
               className="flex-1 py-3 px-4 rounded-xl bg-white/10 [data-theme=light]:bg-slate-100 text-white [data-theme=light]:text-slate-900 font-bold text-xs tracking-wider uppercase hover:bg-white/15 transition text-center"
             >
-              Sign Up
+              Create Account
             </Link>
           </div>
         </div>

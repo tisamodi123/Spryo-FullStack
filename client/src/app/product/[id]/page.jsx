@@ -50,7 +50,7 @@ const Page = () => {
       ingredients: ["Carbonated Spring Water", "Cold-Pressed Lemon Pulp", "Lime Zest", "Raw Cane Sugar", "Pink Himalayan Rock Salt", "Mint Oil"],
       numReviews: 6,
       reviews: [
-        { _id: "r3", name: "Rahul S.", rating: 5, comment: "Ek dum mast taste hai! The citrus bite is incredible." },
+        { _id: "r3", name: "Rahul S.", rating: 5, comment: "Incredible citrus bite! Tastes like real hand-squeezed lemons with an intense sparkling fizz." },
         { _id: "r4", name: "Sneha K.", rating: 5, comment: "Tastes like real squeezed lemons with perfect fizz." }
       ]
     },
@@ -114,9 +114,6 @@ const Page = () => {
     }
     setLoading(false);
   };
-  //     setLoading(false);
-  //   }, 500); // 0.5s ka nakli loading time
-  // };
 
   useEffect(() => { 
     if (id) fetchProduct(); 

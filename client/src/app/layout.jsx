@@ -19,6 +19,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark" className="min-h-screen scroll-smooth">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                  localStorage.removeItem('spryo_theme');
+                  sessionStorage.removeItem('spryo_theme');
+                } catch(e) {
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased selection:bg-cyan-500 selection:text-black">
         <ThemeProvider>
           <ToastProvider>

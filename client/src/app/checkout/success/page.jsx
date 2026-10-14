@@ -1,11 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react"; // 1. Suspense import karein
+import { Suspense } from "react";
 import Link from "next/link";
 import styles from "@/styles/success.module.css";
 import { FaCheckCircle, FaBoxOpen, FaArrowRight } from "react-icons/fa";
 
-// 2. Asli UI ko ek alag function mein move karein
 function SuccessContent() {
   const params = useSearchParams();
   const orderId = params.get("id");
@@ -28,30 +27,30 @@ function SuccessContent() {
           </h1>
 
           <p className={styles.subtext}>
-            The refreshment is on its way. Your tribe is ready to deliver.
+            Your chilled crate is packed and prepared for express delivery. Get ready for an icy botanical rush!
           </p>
 
           <div className={styles.orderIdBox}>
             <span className="text-[10px] tracking-[3px] opacity-50 block mb-1 uppercase font-black">
-              Transaction ID
+              Order Reference
             </span>
             <p className="text-[#00D1FF] font-mono text-xl font-bold tracking-wider">
-              #{orderId || "BBR-992104"}
+              #{orderId || "SPRYO-849201"}
             </p>
           </div>
 
           <div className={styles.actionGrid}>
             <Link href="/orders" className={styles.primaryBtn}>
-              <FaBoxOpen className="text-xl" /> TRACK ORDER
+              <FaBoxOpen className="text-xl" /> VIEW YOUR ORDERS
             </Link>
             
             <Link href="/products" className={styles.secondaryBtn}>
-              CONTINUE SHOPPING <FaArrowRight className="text-sm" />
+              EXPLORE MORE FLAVORS <FaArrowRight className="text-sm" />
             </Link>
           </div>
 
-          <p className="mt-8 text-white/30 text-[10px] tracking-widest uppercase font-bold italic">
-            SPRYO · The Evolution of Sparkling Drinks
+          <p className="mt-8 text-white/40 text-[10px] tracking-widest uppercase font-bold italic">
+            SPRYO · Pure Botanical Refreshment · Handcrafted in India
           </p>
         </div>
       </div>
@@ -59,7 +58,6 @@ function SuccessContent() {
   );
 }
 
-// 3. Main Export mein Suspense Wrap karein
 export default function SuccessPage() {
   return (
     <Suspense fallback={<div className={styles.loader}>Loading Details...</div>}>

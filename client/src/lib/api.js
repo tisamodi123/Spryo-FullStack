@@ -32,16 +32,14 @@ export const API_ENDPOINTS = {
   orders: "/orders",
 };
 
-// client-friendly wrapper
+// Client-friendly wrapper for API communication
 export async function clientFetch(path, opts = {}) {
-  // Ab yahan BASE_URL + path milkar sahi URL banayenge
-  // Example: "http://localhost:2002/api" + "/products"
   const url = `${BASE_URL}${path}`;
   
   try {
     const res = await fetch(url, opts);
     
-    // Check karein ki response JSON hai ya nahi
+    // Verify response content type is JSON
     const contentType = res.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
       return { ok: false, status: res.status, data: { message: "Server error: Not JSON" } };

@@ -54,7 +54,7 @@ export default function RecipeView() {
   // ERROR FIX: Check if ID exists in data, else fallback to 'lemon'
   const recipe = recipeData[id] || recipeData["lemon"];
 
-  // Agar recipe fir bhi na mile (safer check)
+  // Fallback safety check if recipe object is missing
   if (!recipe) return <div className="text-white">Recipe not found...</div>;
 
   return (

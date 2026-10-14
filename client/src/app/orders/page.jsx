@@ -91,7 +91,7 @@ export default function OrdersPage() {
         }
         setOrders(Array.from(map.values()));
       } else {
-        setOrders(defaultOrders);
+        setOrders([]);
       }
       setLoading(false);
     }
