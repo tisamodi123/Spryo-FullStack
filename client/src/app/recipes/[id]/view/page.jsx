@@ -71,7 +71,6 @@ export default function RecipeView() {
           <div className={styles.visualSection}>
             <div className={styles.mainCircle}></div>
             <img src={recipe.image} alt={recipe.title} className={styles.heroBottle} />
-            <h1 className={styles.sideTitle}>{recipe.title.split(' ')[0]}</h1>
           </div>
 
           <div className={styles.infoSection}>

@@ -11,9 +11,7 @@ function SuccessContent() {
 
   return (
     <div className={styles.successWrapper}>
-      <div className={styles.bubble1}></div>
-      <div className={styles.bubble2}></div>
-      <div className={styles.bubble3}></div>
+      <div className={styles.ambientGlow}></div>
 
       <div className="relative z-10 max-w-2xl w-full px-4 text-center">
         <div className={styles.glassCard}>

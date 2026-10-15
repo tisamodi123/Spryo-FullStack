@@ -1,75 +1,54 @@
-/* Product Card Base Styling */
-.campaCard {
+/* Product Card - Sleek Obsidian Design */
+.productCard {
   position: relative;
-  height: 500px;
-  border-radius: 36px;
+  background: #10131b;
+  border-radius: 24px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.campaCard:hover {
-  transform: translateY(-8px) scale(1.015);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
-  border-color: rgba(0, 209, 255, 0.5);
+.productCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
 
-/* Flavor Backgrounds */
-.colaBg { 
-  background: linear-gradient(180deg, #3d0716 0%, #0d041a 100%); 
+/* Dynamic ambient glow on hover */
+.colaTheme:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 20px 45px rgba(244, 63, 94, 0.15);
 }
 
-.orangeBg { 
-  background: linear-gradient(180deg, #993200 0%, #170701 100%); 
+.orangeTheme:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  box-shadow: 0 20px 45px rgba(249, 115, 22, 0.15);
 }
 
-.lemonBg { 
-  background: linear-gradient(180deg, #405400 0%, #0a0e02 100%); 
+.lemonTheme:hover {
+  border-color: rgba(132, 204, 22, 0.4);
+  box-shadow: 0 20px 45px rgba(132, 204, 22, 0.15);
 }
 
-.upBg { 
-  background: linear-gradient(180deg, #014b5c 0%, #041017 100%); 
-}
-
-.powerBg { 
-  background: linear-gradient(180deg, #0b2d77 0%, #050d26 100%); 
-}
-
-.defaultBg { 
-  background: linear-gradient(180deg, #20122e 0%, #080310 100%); 
+.upTheme:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 20px 45px rgba(6, 182, 212, 0.15);
 }
 
 /* Light Mode Overrides */
-:global([data-theme="light"]) .campaCard {
+:global([data-theme="light"]) .productCard {
+  background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
-:global([data-theme="light"]) .colaBg {
-  background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%);
-}
-
-:global([data-theme="light"]) .orangeBg {
-  background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
-}
-
-:global([data-theme="light"]) .lemonBg {
-  background: linear-gradient(180deg, #fefce8 0%, #fef08a 100%);
-}
-
-:global([data-theme="light"]) .upBg {
-  background: linear-gradient(180deg, #f0fdf4 0%, #dcfce7 100%);
-}
-
-:global([data-theme="light"]) .campaCard:hover {
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+:global([data-theme="light"]) .productCard:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
 }
 
 /* Top Badges */
@@ -78,277 +57,236 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 20;
+  z-index: 10;
 }
 
 .ratingBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.45);
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(8px);
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 3px 9px;
+  color: #f8fafc;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 :global([data-theme="light"]) .ratingBadge {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.04);
   color: #0f172a;
-  border-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 .discountBadge {
-  background: linear-gradient(135deg, #ef4444, #f43f5e);
-  color: #ffffff;
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 3px 9px;
+  background: rgba(244, 63, 94, 0.12);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
   border-radius: 9999px;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.35);
 }
 
-/* Brand & Title Header */
-.brandHeader {
+:global([data-theme="light"]) .discountBadge {
+  background: #ffe4e6;
+  color: #e11d48;
+  border-color: #fecdd3;
+}
+
+/* Image Stage */
+.imageStage {
   position: relative;
-  z-index: 5;
-  text-align: center;
-  margin-top: 0.4rem;
-}
-
-.brandName {
-  display: block;
-  font-weight: 900;
-  letter-spacing: 3px;
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 0.1rem;
-}
-
-:global([data-theme="light"]) .brandName {
-  color: #64748b;
-}
-
-.flavorTitle {
-  font-size: 2.3rem;
-  font-weight: 950;
-  font-style: italic;
-  color: #ffffff;
-  text-transform: uppercase;
-  line-height: 0.95;
-  text-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
-  letter-spacing: -0.5px;
-}
-
-:global([data-theme="light"]) .flavorTitle {
-  color: #0f172a;
-  text-shadow: none;
-}
-
-/* Bottle Image Section */
-.imageContainer {
-  position: relative;
-  z-index: 10;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-height: 210px;
-  padding: 0.3rem 0;
+  height: 220px;
+  margin: 10px 0 16px;
+  cursor: pointer;
 }
 
-.floatingBottle {
-  max-height: 190px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45));
-  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.campaCard:hover .floatingBottle {
-  transform: scale(1.1) rotate(-5deg);
-}
-
-.bottleGlow {
+.pedestalAura {
   position: absolute;
   width: 140px;
   height: 140px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
-  filter: blur(40px);
-  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  filter: blur(25px);
   pointer-events: none;
+  transition: transform 0.4s ease;
 }
 
-/* Price Row */
-.cardPriceRow {
-  position: relative;
-  z-index: 15;
-  margin-top: 0.2rem;
-  margin-bottom: 0.6rem;
+.productCard:hover .pedestalAura {
+  transform: scale(1.2);
 }
 
-.priceContainer {
+.bottleImg {
+  max-height: 195px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.45));
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.productCard:hover .bottleImg {
+  transform: translateY(-6px) scale(1.05);
+}
+
+:global([data-theme="light"]) .bottleImg {
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.15));
+}
+
+/* Info Section */
+.infoSection {
   display: flex;
-  align-items: baseline;
-  gap: 3px;
-  color: #ffffff;
+  flex-direction: column;
+  z-index: 5;
 }
 
-:global([data-theme="light"]) .priceContainer {
+.brandTag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+:global([data-theme="light"]) .brandTag {
+  color: #64748b;
+}
+
+.productName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  transition: color 0.2s ease;
+}
+
+.productName a:hover {
+  color: #06b6d4;
+}
+
+:global([data-theme="light"]) .productName {
   color: #0f172a;
 }
 
-.currency {
-  font-size: 0.9rem;
+:global([data-theme="light"]) .productName a:hover {
+  color: #0284c7;
+}
+
+.productDescription {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+:global([data-theme="light"]) .productDescription {
+  color: #64748b;
+}
+
+/* Footer Row with Price and CTA */
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+:global([data-theme="light"]) .footerRow {
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+.priceGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.priceCurrent {
+  font-size: 1.3rem;
   font-weight: 800;
-  color: #00d1ff;
+  color: #f8fafc;
 }
 
-:global([data-theme="light"]) .currency {
-  color: #000000;
+:global([data-theme="light"]) .priceCurrent {
+  color: #0f172a;
 }
 
-.priceValue {
-  font-size: 1.6rem;
-  font-weight: 950;
-  font-style: italic;
-  line-height: 1;
-}
-
-.oldPrice {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.4);
+.priceOriginal {
+  font-size: 0.82rem;
+  color: #64748b;
   text-decoration: line-through;
-  margin-left: 5px;
-  font-weight: 600;
 }
 
-:global([data-theme="light"]) .oldPrice {
+:global([data-theme="light"]) .priceOriginal {
   color: #94a3b8;
 }
 
-/* Action Area (Footer) */
-.campaFooter {
-  position: relative;
-  z-index: 15;
-  width: 100%;
+.buttonGroup {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
 
-.viewBtn {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #ffffff;
-  padding: 9px 12px;
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #090a0f;
+  border: none;
+  padding: 8px 16px;
   border-radius: 9999px;
-  font-weight: 800;
-  font-size: 0.72rem;
-  letter-spacing: 0.5px;
-  text-align: center;
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.viewBtn:hover {
-  background: rgba(255, 255, 255, 0.95);
-  color: #000000;
+.addBtn:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
 }
 
-:global([data-theme="light"]) .viewBtn {
-  background: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.12);
-  color: #0f172a;
-}
-
-:global([data-theme="light"]) .viewBtn:hover {
+:global([data-theme="light"]) .addBtn {
   background: #0f172a;
   color: #ffffff;
 }
 
-.quickAddBtn {
-  flex: 1.1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  background: linear-gradient(135deg, #00d1ff, #00b4d8);
-  color: #000000;
-  border: none;
-  padding: 9px 12px;
-  border-radius: 9999px;
-  font-weight: 900;
-  font-size: 0.72rem;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 209, 255, 0.3);
+:global([data-theme="light"]) .addBtn:hover {
+  background: #1e293b;
 }
 
-.quickAddBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 209, 255, 0.45);
-}
-
-.quickAddSuccess {
-  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+.addBtnSuccess {
+  background: #10b981 !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
 }
 
-/* =========================================
-   RESPONSIVE CARD STYLES FOR MOBILE
-   ========================================= */
 @media (max-width: 640px) {
-  .campaCard {
-    height: auto;
-    min-height: 410px;
-    padding: 1.1rem 1rem 1.1rem 1rem;
-    border-radius: 28px;
-    gap: 0.5rem;
+  .productCard {
+    padding: 14px;
+    border-radius: 20px;
   }
-
-  .flavorTitle {
-    font-size: 1.85rem;
+  .imageStage {
+    height: 180px;
   }
-
-  .brandName {
-    font-size: 0.65rem;
-    letter-spacing: 2px;
+  .bottleImg {
+    max-height: 160px;
   }
-
-  .imageContainer {
-    max-height: 165px;
-    padding: 0.2rem 0;
-  }
-
-  .floatingBottle {
-    max-height: 150px;
-  }
-
-  .priceValue {
-    font-size: 1.4rem;
-  }
-
-  .cardPriceRow {
-    margin-top: 0;
-    margin-bottom: 0.3rem;
-  }
-
-  .campaFooter {
-    gap: 6px;
-  }
-
-  .viewBtn, .quickAddBtn {
-    padding: 8px 10px;
-    font-size: 0.7rem;
+  .priceCurrent {
+    font-size: 1.15rem;
   }
 }

@@ -61,17 +61,6 @@ const Footer = () => {
 
   return (
     <footer className={styles.footerRoot}>
-      {/* GLOWING AMBIENT BLOB */}
-      <div className={styles.blobWrapper}>
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className={styles.blobSvg}>
-          <path
-            fill="var(--blob-color, rgba(0, 209, 255, 0.15))"
-            d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,76.4,-44.7C83.7,-31.3,87.1,-15.7,84.9,-0.8C82.7,14.1,74.9,28.2,65.6,40.1C56.3,52,45.4,61.7,32.8,68.9C20.1,76.1,5.7,80.8,-9.4,79.5C-24.5,78.2,-40.3,71,-53.4,60.5C-66.5,50,-76.9,36.2,-81.2,21C-85.5,5.8,-83.7,-10.8,-77.3,-25.3C-70.9,-39.8,-59.8,-52.2,-46.5,-59.5C-33.2,-66.8,-17.6,-69,-1.1,-67.1C15.4,-65.2,31.3,-83.6,44.7,-76.4Z"
-            transform="translate(100 100)"
-          />
-        </svg>
-      </div>
-
       <Container>
         <div className={styles.glassCard}>
           {/* =========================================

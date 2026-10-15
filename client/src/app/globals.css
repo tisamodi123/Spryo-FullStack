@@ -2,20 +2,21 @@
 @import "../styles/theme.css";
 
 :root {
-  --background: #0f051a;
-  --foreground: #ffffff;
-  --text-primary: #ffffff;
+  --background: #090a0f;
+  --foreground: #f8fafc;
+  --text-primary: #f8fafc;
   --text-muted: #94a3b8;
-  --site-header-height: 64px;
-  --card-bg: rgba(255, 255, 255, 0.04);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --accent-cyan: #00d1ff;
-  --accent-green: #22c55e;
+  --site-header-height: 72px;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover-border: rgba(6, 182, 212, 0.4);
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
 }
 
 @media (max-width: 640px) {
   :root { 
-    --site-header-height: 58px; 
+    --site-header-height: 64px; 
   }
 }
 
@@ -25,26 +26,41 @@
   --text-primary: #0f172a;
   --text-muted: #64748b;
   --card-bg: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.08);
-  --accent-cyan: #0f172a;
+  --card-border: rgba(0, 0, 0, 0.07);
+  --card-hover-border: rgba(2, 132, 199, 0.35);
+  --accent-cyan: #0284c7;
   --accent-green: #16a34a;
 }
 
+html,
 body {
-  background: radial-gradient(circle at 15% 15%, rgba(30, 10, 60, 0.8) 0%, transparent 50%),
-              radial-gradient(circle at 85% 75%, rgba(10, 30, 60, 0.6) 0%, transparent 50%),
-              #0f051a;
+  background: radial-gradient(ellipse 80% 50% at 50% -15%, rgba(6, 182, 212, 0.12), transparent 70%),
+              radial-gradient(ellipse 60% 40% at 85% 85%, rgba(16, 185, 129, 0.06), transparent 60%),
+              #090a0f;
   color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.012em;
   padding-top: var(--site-header-height);
   transition: background 0.4s ease, color 0.3s ease;
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.025em;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+button, input, select, textarea {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 [data-theme="light"] body {
-  background: radial-gradient(circle at 12% 15%, rgba(224, 242, 254, 0.8) 0%, transparent 45%),
-              radial-gradient(circle at 88% 70%, rgba(236, 253, 245, 0.8) 0%, transparent 45%),
+  background: radial-gradient(ellipse 80% 40% at 50% -10%, rgba(2, 132, 199, 0.07), transparent 70%),
+              radial-gradient(ellipse 60% 40% at 85% 80%, rgba(16, 185, 129, 0.05), transparent 60%),
               #f8fafc;
   color: #0f172a;
 }
@@ -59,7 +75,7 @@ body {
   color: #0f172a !important;
 }
 
-/* Turn white texts to high-contrast black in Light Mode */
+/* Contrast helpers in Light Mode */
 [data-theme="light"] .text-white,
 [data-theme="light"] .text-white\/90,
 [data-theme="light"] .text-white\/80 {
@@ -73,10 +89,9 @@ body {
 
 [data-theme="light"] .text-white\/50,
 [data-theme="light"] .text-white\/40 {
-  color: #475569 !important;
+  color: #64748b !important;
 }
 
-/* User requirement: "white mode mein sare font jo aapne blue rakhe hai woh and black rkaho" */
 [data-theme="light"] .text-cyan-400,
 [data-theme="light"] .text-cyan-300,
 [data-theme="light"] .text-cyan-500,
@@ -86,10 +101,10 @@ body {
 [data-theme="light"] .text-blue-400,
 [data-theme="light"] .text-blue-500,
 [data-theme="light"] .text-blue-600 {
-  color: #0f172a !important;
+  color: #0284c7 !important;
 }
 
-/* Keep white text only on solid colored pills/buttons (green, red, black backgrounds) */
+/* Solid badge and CTA pill color retention */
 [data-theme="light"] .bg-green-500,
 [data-theme="light"] .bg-green-600,
 [data-theme="light"] .bg-emerald-500,
@@ -112,71 +127,29 @@ body {
   color: #ffffff !important;
 }
 
-/* Subtle bubble background */
-@keyframes floatBubble {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  8% {
-    opacity: 0.25;
-  }
-  85% {
-    opacity: 0.25;
-  }
-  100% {
-    transform: translateY(-130vh) scale(1.5);
-    opacity: 0;
-  }
+/* Sleek custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.bubbly-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.bubbly-bg .bubble {
-  position: absolute;
-  left: var(--left, 20%);
-  bottom: var(--bottom, -8%);
-  width: var(--size, 120px);
-  height: var(--size, 120px);
-  background: radial-gradient(circle at 30% 30%, var(--color, rgba(255,255,255,0.08)), transparent 55%);
-  border-radius: 50%;
-  filter: blur(var(--blur, 20px));
-  transform: translateY(0) scale(var(--scale, 1));
-  opacity: 0;
-  mix-blend-mode: screen;
-  animation: floatBubble var(--duration, 18s) linear infinite;
-  animation-delay: var(--delay, 0s);
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
 }
 
-[data-theme="light"] .bubbly-bg .bubble {
-  mix-blend-mode: multiply;
-  opacity: 0.15;
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
-.bubbly-bg .bubble:nth-child(1) { --size: 360px; --left: 6%;  --bottom: -10%; --duration: 26s; --delay: -6s; --color: rgba(59,130,246,0.1); --blur: 60px; }
-.bubbly-bg .bubble:nth-child(2) { --size: 220px; --left: 22%; --bottom: -6%;  --duration: 20s; --delay: -2s; --color: rgba(16,185,129,0.08); --blur: 36px; }
-.bubbly-bg .bubble:nth-child(3) { --size: 200px; --left: 44%; --bottom: -12%; --duration: 24s; --delay: -8s; --color: rgba(14,165,233,0.08); --blur: 46px; }
-.bubbly-bg .bubble:nth-child(4) { --size: 280px; --left: 68%; --bottom: -8%;  --duration: 28s; --delay: -12s; --color: rgba(59,130,246,0.07); --blur: 56px; }
-.bubbly-bg .bubble:nth-child(5) { --size: 120px; --left: 82%; --bottom: -6%;  --duration: 18s; --delay: -4s; --color: rgba(6,182,212,0.08); --blur: 28px; }
-.bubbly-bg .bubble:nth-child(6) { --size: 90px;  --left: 52%; --bottom: -4%;  --duration: 14s; --delay: -1s; --color: rgba(34,197,94,0.08);  --blur: 22px; }
-
-@media (prefers-reduced-motion: reduce) {
-  .bubbly-bg .bubble {
-    animation: none;
-    opacity: 0.1;
-    transform: translateY(-30vh) scale(1);
-  }
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
 }
 
-@media (max-width: 640px) {
-  .bubbly-bg .bubble { --blur: 18px; }
-  .bubbly-bg .bubble:nth-child(1) { --size: 200px; }
-  .bubbly-bg .bubble:nth-child(2) { --size: 130px; }
-  .bubbly-bg .bubble:nth-child(3) { --size: 110px; }
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }

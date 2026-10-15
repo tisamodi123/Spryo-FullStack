@@ -1,155 +1,101 @@
-.fizzContainer {
+/* Sleek, professional ambient lighting container */
+.ambientContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   background: transparent;
 }
 
-/* 🧊 FLOATING TRANSLUCENT ICE CUBES */
-.iceCube {
+.ambientGlowPrimary {
   position: absolute;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), inset 0 0 12px rgba(255, 255, 255, 0.2);
-  animation: iceDrift 14s infinite ease-in-out alternate;
-  opacity: 0.7;
-}
-
-:global([data-theme="light"]) .iceCube {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(224, 242, 254, 0.5) 100%);
-  border: 1.5px solid rgba(2, 132, 199, 0.25);
-  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.12), inset 0 0 10px rgba(255, 255, 255, 0.8);
-  opacity: 0.85;
-}
-
-.iceInnerHighlight {
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 35%;
-  height: 35%;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 6px;
-  filter: blur(1px);
-}
-
-@keyframes iceDrift {
-  0% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-24px) rotate(12deg);
-  }
-  100% {
-    transform: translateY(8px) rotate(-8deg);
-  }
-}
-
-/* ✨ CONDENSATION SPARKLES */
-.sparkle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: #ffffff;
+  top: -15%;
+  left: 20%;
+  width: 65vw;
+  height: 60vh;
   border-radius: 50%;
-  box-shadow: 0 0 12px #00d1ff, 0 0 4px #ffffff;
-  animation: twinkle 3.5s infinite ease-in-out;
-  opacity: 0;
+  filter: blur(120px);
+  opacity: 0.18;
+  transition: all 0.8s ease;
+  pointer-events: none;
 }
 
-:global([data-theme="light"]) .sparkle {
-  background: #0284c7;
-  box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
-}
-
-@keyframes twinkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.4);
-  }
-}
-
-/* 🫧 RISING CARBONATED BUBBLES */
-.bubble {
+.ambientGlowSecondary {
   position: absolute;
-  bottom: -40px;
+  bottom: -10%;
+  right: 15%;
+  width: 50vw;
+  height: 50vh;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(0, 209, 255, 0.3) 60%, transparent 100%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 0 8px rgba(0, 209, 255, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.6);
-  animation: riseAndWobble 9s infinite linear;
-  will-change: transform, opacity;
+  filter: blur(140px);
+  opacity: 0.12;
+  transition: all 0.8s ease;
+  pointer-events: none;
 }
 
-:global([data-theme="light"]) .bubble {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(2, 132, 199, 0.25) 70%, transparent 100%);
-  border: 1px solid rgba(2, 132, 199, 0.3);
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15), inset 0 0 4px rgba(255, 255, 255, 0.9);
-}
-
-.bubbleGlint {
+/* Very subtle high-end ambient grid mesh */
+.ambientGridOverlay {
   position: absolute;
-  top: 18%;
-  left: 22%;
-  width: 25%;
-  height: 25%;
-  background: #ffffff;
-  border-radius: 50%;
-  filter: blur(0.5px);
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 80%);
+  opacity: 0.6;
 }
 
-.largeBubble {
-  box-shadow: 0 0 14px rgba(0, 209, 255, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.8);
+/* Flavor specific ambient tones */
+.classic .ambientGlowPrimary {
+  background: radial-gradient(circle, #00d1ff 0%, #3b82f6 70%);
+}
+.classic .ambientGlowSecondary {
+  background: radial-gradient(circle, #10b981 0%, #06b6d4 70%);
 }
 
-.microBubble {
-  border: none;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 6px rgba(0, 209, 255, 0.7);
+.cola .ambientGlowPrimary {
+  background: radial-gradient(circle, #f43f5e 0%, #be123c 70%);
+}
+.cola .ambientGlowSecondary {
+  background: radial-gradient(circle, #881337 0%, #4c0519 70%);
 }
 
-:global([data-theme="light"]) .microBubble {
-  background: rgba(2, 132, 199, 0.7);
-  box-shadow: 0 0 4px rgba(2, 132, 199, 0.4);
+.orange .ambientGlowPrimary {
+  background: radial-gradient(circle, #f97316 0%, #ea580c 70%);
+}
+.orange .ambientGlowSecondary {
+  background: radial-gradient(circle, #fbbf24 0%, #d97706 70%);
 }
 
-/* Realistic upward rise with horizontal fluid wobble */
-@keyframes riseAndWobble {
-  0% {
-    bottom: -40px;
-    opacity: 0;
-    transform: translateX(0) scale(0.6);
-  }
-  10% {
-    opacity: 0.85;
-  }
-  25% {
-    transform: translateX(calc(var(--sway, 20px) * 0.7)) scale(1);
-  }
-  50% {
-    transform: translateX(calc(var(--sway, 20px) * -0.8)) scale(1.05);
-  }
-  75% {
-    transform: translateX(calc(var(--sway, 20px) * 0.5)) scale(0.95);
-  }
-  90% {
-    opacity: 0.7;
-  }
-  100% {
-    bottom: 105%;
-    opacity: 0;
-    transform: translateX(0) scale(1.2);
-  }
+.lemon .ambientGlowPrimary {
+  background: radial-gradient(circle, #84cc16 0%, #eab308 70%);
+}
+.lemon .ambientGlowSecondary {
+  background: radial-gradient(circle, #10b981 0%, #22c55e 70%);
+}
+
+.up .ambientGlowPrimary {
+  background: radial-gradient(circle, #06b6d4 0%, #0284c7 70%);
+}
+.up .ambientGlowSecondary {
+  background: radial-gradient(circle, #38bdf8 0%, #0ea5e9 70%);
+}
+
+/* Light Theme refinements */
+:global([data-theme="light"]) .ambientGlowPrimary {
+  opacity: 0.12;
+  filter: blur(140px);
+}
+
+:global([data-theme="light"]) .ambientGlowSecondary {
+  opacity: 0.08;
+  filter: blur(160px);
+}
+
+:global([data-theme="light"]) .ambientGridOverlay {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  opacity: 0.5;
 }

@@ -9,10 +9,8 @@ import {
   FaStar, 
   FaShieldAlt, 
   FaTruck, 
-  FaFire,
   FaCheckCircle 
 } from "react-icons/fa";
-import FizzBackground from "@/components/FizzBackground";
 import Link from "next/link";
 
 const FLAVORS_DATA = [
@@ -20,20 +18,18 @@ const FLAVORS_DATA = [
     id: "cola",
     name: "Classic Cola",
     tagline: "BOLD & TIMELESS",
-    color: "#ff0055",
-    glow: "rgba(255, 0, 85, 0.2)",
-    accentBg: "from-rose-600/20 to-purple-900/30",
+    color: "#f43f5e",
+    glow: "rgba(244, 63, 94, 0.2)",
     image: "/cola.png",
     fizzScore: 98,
-    flavorNotes: "Cinnamon bark, rich caramel & carbonated bite",
+    flavorNotes: "Cinnamon bark, rich caramel & crisp carbonated bite",
   },
   {
     id: "orange",
     name: "Zesty Orange",
     tagline: "CITRUS TSUNAMI",
-    color: "#ff6a00",
-    glow: "rgba(255, 106, 0, 0.25)",
-    accentBg: "from-orange-600/20 to-amber-900/30",
+    color: "#f97316",
+    glow: "rgba(249, 115, 22, 0.2)",
     image: "/orange.png",
     fizzScore: 94,
     flavorNotes: "Nagpur orange zest & sun-ripened citrus blast",
@@ -42,23 +38,21 @@ const FLAVORS_DATA = [
     id: "lemon",
     name: "Cloudy Lemon",
     tagline: "ELECTRIC CHILL",
-    color: "#d4ff00",
-    glow: "rgba(212, 255, 0, 0.2)",
-    accentBg: "from-yellow-500/20 to-lime-900/30",
+    color: "#84cc16",
+    glow: "rgba(132, 204, 22, 0.2)",
     image: "/lemon.png",
     fizzScore: 96,
-    flavorNotes: "Crushed mint, fresh lime pulp & sparkling brine",
+    flavorNotes: "Crushed mint, fresh lime pulp & sparkling mineral brine",
   },
   {
     id: "up",
     name: "Mountain Up",
     tagline: "ALPINE RUSH",
-    color: "#00d1ff",
-    glow: "rgba(0, 209, 255, 0.25)",
-    accentBg: "from-cyan-500/20 to-blue-900/30",
+    color: "#06b6d4",
+    glow: "rgba(6, 182, 212, 0.2)",
     image: "/up.png",
     fizzScore: 99,
-    flavorNotes: "Mountain dew herbs & glacier-pure crispness",
+    flavorNotes: "Mountain dew herbs & glacier-pure botanical crispness",
   },
 ];
 
@@ -66,15 +60,14 @@ export default function Page() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeFlavor, setActiveFlavor] = useState("classic");
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto flavor rotation every 4 seconds unless user interacts/pauses
+  // Auto flavor rotation every 5 seconds unless user hovers
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % FLAVORS_DATA.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, [isPaused]);
 
@@ -88,7 +81,8 @@ export default function Page() {
         rating: 4.9,
         image: "/cola.png", 
         category: "cola",
-        tag: "Bestseller" 
+        tag: "Bestseller",
+        description: "The timeless effervescence of roasted cinnamon bark, real caramel, and sub-zero carbonation.",
       },
       { 
         _id: "2", 
@@ -98,7 +92,8 @@ export default function Page() {
         rating: 4.8,
         image: "/orange.png", 
         category: "orange",
-        tag: "Fresh Harvest" 
+        tag: "Fresh Harvest",
+        description: "Sun-ripened Nagpur oranges cold-pressed with aromatic zest and refreshing mineral fizz.",
       },
       { 
         _id: "3", 
@@ -108,7 +103,8 @@ export default function Page() {
         rating: 4.9,
         image: "/lemon.png", 
         category: "lemon",
-        tag: "Citrus Chill" 
+        tag: "Citrus Chill",
+        description: "Handcrafted cloudy lemonade made with hand-crushed limes, garden mint, and micro-fizz.",
       },
       { 
         _id: "4", 
@@ -118,7 +114,8 @@ export default function Page() {
         rating: 4.7,
         image: "/up.png", 
         category: "up",
-        tag: "Energy Boost" 
+        tag: "Energy Boost",
+        description: "Alpine botanicals and glacier crispness infused with clean electrolytes for peak focus.",
       },
     ];
 
@@ -126,24 +123,10 @@ export default function Page() {
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      if (scrollPos < 600) setActiveFlavor("classic");
-      else if (scrollPos < 1200) setActiveFlavor("lemon");
-      else if (scrollPos < 1800) setActiveFlavor("orange");
-      else setActiveFlavor("cola");
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const currentFlavor = FLAVORS_DATA[heroIndex];
 
   return (
     <div className={styles.mainContainer}>
-      <FizzBackground flavor={activeFlavor} />
-
       {/* 🔵 HERO SECTION */}
       <section 
         className={styles.heroSection}
@@ -152,14 +135,14 @@ export default function Page() {
       >
         <div 
           className={styles.heroGlow}
-          style={{ background: `radial-gradient(circle, ${currentFlavor.glow} 0%, transparent 70%)` }}
+          style={{ background: currentFlavor.glow }}
         ></div>
 
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 h-full py-16">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10 w-full">
           <div className="text-left order-2 md:order-1">
             {/* Social Proof Pill */}
             <div className={styles.socialProofPill}>
-              <span className="flex text-amber-400">
+              <span className="flex text-amber-400 gap-0.5">
                 <FaStar size={11} />
                 <FaStar size={11} />
                 <FaStar size={11} />
@@ -167,24 +150,25 @@ export default function Page() {
                 <FaStar size={11} />
               </span>
               <span>4.9 / 5 Rating</span>
-              <span className="w-1 h-1 rounded-full bg-cyan-400"></span>
-              <span className="text-cyan-400 font-bold">50,000+ Bottles Sipped</span>
+              <span className="w-1 h-1 rounded-full bg-slate-400"></span>
+              <span className="text-cyan-400 font-semibold">50,000+ Bottles Delivered</span>
             </div>
 
-            <span className={styles.tagline}>MADE FOR THE NEW INDIA</span>
+            <span className={styles.tagline}>CRAFT SPARKLING BOTANICALS</span>
             <h1 className={styles.heroTitle}>
-              TASTE THE <br /> <span>EVOLUTION</span>
+              TASTE THE <br /> 
+              <span className={styles.heroTitleGradient}>EVOLUTION</span>
             </h1>
 
             <p className={styles.heroDesc}>
-              Premium sparkling craft drinks infused with cold-pressed natural botanicals. 
-              Elevate your vibe with 100% effervescent crispness.
+              Premium sparkling sodas infused with cold-pressed natural botanicals. 
+              Sub-zero carbonated for unmatched effervescent crispness with zero synthetic junk.
             </p>
 
             {/* Interactive Flavor Switcher Tabs */}
             <div className="mt-8">
-              <p className="text-xs uppercase tracking-widest text-cyan-400 font-bold mb-3">
-                Select Signature Flavor:
+              <p className={styles.flavorSelectorLabel}>
+                Signature Flavors:
               </p>
               <div className="flex flex-wrap gap-2.5">
                 {FLAVORS_DATA.map((flavor, idx) => (
@@ -199,7 +183,7 @@ export default function Page() {
                     }`}
                   >
                     <span 
-                      className="w-2.5 h-2.5 rounded-full" 
+                      className="w-2 h-2 rounded-full" 
                       style={{ backgroundColor: flavor.color }}
                     ></span>
                     {flavor.name}
@@ -211,33 +195,36 @@ export default function Page() {
             {/* Call To Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 mt-8">
               <a href="#products" className={styles.primaryBtn}>
-                EXPLORE CRATE <FaArrowRight />
+                Explore The Crate <FaArrowRight size={13} />
               </a>
               <Link href="/products" className={styles.secondaryBtn}>
-                VIEW ALL FLAVORS
+                All Drinks
               </Link>
             </div>
 
             {/* Hero Quick Feature Badges */}
-            <div className="grid grid-cols-3 gap-4 mt-10 pt-6 border-t border-white/10 max-w-lg">
+            <div className={styles.featureStripRow}>
               <div>
-                <span className="text-cyan-400 font-black text-xl">100%</span>
-                <p className="text-xs text-white/60 font-medium mt-0.5">Natural Brew</p>
+                <div className={styles.featureStatVal}>100%</div>
+                <div className={styles.featureStatLabel}>Natural Botanicals</div>
               </div>
               <div>
-                <span className="text-green-400 font-black text-xl">0%</span>
-                <p className="text-xs text-white/60 font-medium mt-0.5">Artificial Dye</p>
+                <div className={styles.featureStatVal}>0%</div>
+                <div className={styles.featureStatLabel}>Artificial Dyes</div>
               </div>
               <div>
-                <span className="text-amber-400 font-black text-xl">{currentFlavor.fizzScore}%</span>
-                <p className="text-xs text-white/60 font-medium mt-0.5">Fizz Intensity</p>
+                <div className={styles.featureStatVal}>{currentFlavor.fizzScore}%</div>
+                <div className={styles.featureStatLabel}>Sub-Zero Fizz</div>
               </div>
             </div>
           </div>
 
-          {/* Right Hero Bottle Section with Live Flavor Details */}
-          <div className={`${styles.heroImgContainer} order-1 md:order-2 flex flex-col items-center justify-center relative`}>
-            <div className={styles.bottleBackdropRing}></div>
+          {/* Right Hero Bottle Section with Pedestal Aura */}
+          <div className={`${styles.heroImgContainer} order-1 md:order-2`}>
+            <div 
+              className={styles.bottleSpotlight}
+              style={{ background: `radial-gradient(circle, ${currentFlavor.glow} 0%, transparent 70%)` }}
+            ></div>
             <img 
               key={heroIndex} 
               src={currentFlavor.image} 
@@ -248,14 +235,14 @@ export default function Page() {
             {/* Floating Flavor Info Badge */}
             <div className={styles.floatingFlavorCard}>
               <div className="flex items-center justify-between gap-4">
-                <span className="text-xs font-black tracking-widest text-cyan-400 uppercase">
+                <span className="text-xs font-bold tracking-widest text-cyan-400 uppercase">
                   {currentFlavor.tagline}
                 </span>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-300">
-                  {currentFlavor.fizzScore}% Fizz
+                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-cyan-400/10 text-cyan-300">
+                  {currentFlavor.fizzScore}% Crispness
                 </span>
               </div>
-              <p className="text-xs text-white/80 mt-1 font-medium">
+              <p className="text-xs text-slate-300 mt-1.5 font-normal leading-relaxed">
                 {currentFlavor.flavorNotes}
               </p>
             </div>
@@ -263,59 +250,75 @@ export default function Page() {
         </div>
       </section>
 
-      {/* 🟢 STORY & VALUES SECTION */}
-      <section className={styles.storySection}>
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className={styles.storyMedia}>
-            <div className={styles.dynamicFrame}>
-              <img src={currentFlavor.image} alt="Story Bottle" className={styles.storyImg} />
-            </div>
+      {/* 💎 PILLARS TICKER STRIP */}
+      <div className={styles.pillarsStrip}>
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6 py-2">
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarDot}></span>
+            <span>Cold-Pressed Botanical Infusions</span>
           </div>
-          <div className={styles.storyContent}>
-            <span className="text-[#00D1FF] font-black tracking-[4px] uppercase text-xs sm:text-sm">
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarDot}></span>
+            <span>Sub-Zero Precision Carbonation</span>
+          </div>
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarDot}></span>
+            <span>100% Infinitely Recyclable Glass</span>
+          </div>
+          <div className={styles.pillarItem}>
+            <span className={styles.pillarDot}></span>
+            <span>Handcrafted In Micro-Batches</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 🟢 STORY & CRAFT SECTION */}
+      <section className={styles.storySection}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-2xl mb-12">
+            <span className="text-cyan-400 font-bold tracking-widest uppercase text-xs">
               Our Craft & Legacy
             </span>
             <h2 className={styles.sectionTitle}>
-              BORN TO BE <span>DIFFERENT</span>
+              ENGINEERED FOR <span>REFRESHMENT</span>
             </h2>
-            <p className="text-white/70 text-base md:text-lg mt-5 leading-relaxed">
-              Born with an obsession for pure sparkle and botanical refreshment. 
-              Every bottle is precision carbonated at sub-zero temperatures to capture 
-              the crispest fizz on earth.
+            <p className="text-slate-400 text-base md:text-lg mt-4 leading-relaxed">
+              We started SPRYO with a simple conviction: soda should be honest, sophisticated, and deeply satisfying. 
+              Every bottle is carbonated at sub-zero temperatures with real fruit extracts and clean electrolytes.
             </p>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <div className={styles.valueCard}>
-                <div className="w-10 h-10 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center text-lg mb-2">
-                  <FaBolt />
-                </div>
-                <h4 className="text-white font-bold text-sm">Instant Energy Burst</h4>
-                <p className="text-xs text-white/60 mt-1">Electrolytes & natural caffeine for all-day focus.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className={styles.valueCard}>
+              <div className="w-10 h-10 rounded-xl bg-cyan-400/10 text-cyan-400 flex items-center justify-center text-lg mb-3">
+                <FaBolt />
               </div>
+              <h4>Clean Energy</h4>
+              <p>Natural green tea caffeine & electrolytes for smooth, sustained focus without a crash.</p>
+            </div>
 
-              <div className={styles.valueCard}>
-                <div className="w-10 h-10 rounded-xl bg-green-400/10 text-green-400 flex items-center justify-center text-lg mb-2">
-                  <FaLeaf />
-                </div>
-                <h4 className="text-white font-bold text-sm">100% Real Extracts</h4>
-                <p className="text-xs text-white/60 mt-1">Cold-pressed botanical infusions with zero junk.</p>
+            <div className={styles.valueCard}>
+              <div className="w-10 h-10 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center text-lg mb-3">
+                <FaLeaf />
               </div>
+              <h4>100% Real Extracts</h4>
+              <p>Cold-pressed citrus, fresh herbs, and botanical infusions without synthetic dyes or high-fructose corn syrup.</p>
+            </div>
 
-              <div className={styles.valueCard}>
-                <div className="w-10 h-10 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-lg mb-2">
-                  <FaTruck />
-                </div>
-                <h4 className="text-white font-bold text-sm">Express Chilled Delivery</h4>
-                <p className="text-xs text-white/60 mt-1">Direct from our micro-brewery to your doorstep.</p>
+            <div className={styles.valueCard}>
+              <div className="w-10 h-10 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-lg mb-3">
+                <FaTruck />
               </div>
+              <h4>Express Chilled</h4>
+              <p>Dispatched in temperature-controlled sustainable packaging direct to your doorstep.</p>
+            </div>
 
-              <div className={styles.valueCard}>
-                <div className="w-10 h-10 rounded-xl bg-rose-400/10 text-rose-400 flex items-center justify-center text-lg mb-2">
-                  <FaShieldAlt />
-                </div>
-                <h4 className="text-white font-bold text-sm">Eco-Crate Promise</h4>
-                <p className="text-xs text-white/60 mt-1">Infinitely recyclable glass & sustainable crates.</p>
+            <div className={styles.valueCard}>
+              <div className="w-10 h-10 rounded-xl bg-rose-400/10 text-rose-400 flex items-center justify-center text-lg mb-3">
+                <FaShieldAlt />
               </div>
+              <h4>Eco-Crate Promise</h4>
+              <p>Heavyweight recyclable amber glass bottles and cardboard crates engineered with 0% single-use plastic.</p>
             </div>
           </div>
         </div>
@@ -324,18 +327,18 @@ export default function Page() {
       {/* 🟡 PRODUCTS SECTION (THE CRATE) */}
       <section id="products" className={styles.productsSection}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-14 gap-6 text-center md:text-left">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-cyan-400">
-                Freshly Bottled
+              <span className="text-xs font-bold uppercase tracking-widest text-cyan-400">
+                Small-Batch Drops
               </span>
-              <h2 className={styles.sectionTitle}>THE <span>CRATE</span></h2>
-              <p className="text-white/60 text-sm mt-1">
+              <h2 className={styles.sectionTitle}>THE <span>SIGNATURE CRATE</span></h2>
+              <p className="text-slate-400 text-sm mt-1">
                 Handcrafted, flash-chilled, and ready to quench your thirst.
               </p>
             </div>
             <Link href="/products" className={styles.viewAllBtn}>
-              VIEW FULL CRATE RANGE <FaArrowRight size={12} />
+              View All 4 Drinks <FaArrowRight size={12} />
             </Link>
           </div>
 
@@ -345,11 +348,9 @@ export default function Page() {
               <p className="text-sm font-semibold tracking-wider">CHILLING BOTTLES...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {products.slice(0, 4).map((p) => (
-                <div key={p._id} className={styles.cardWrapper}>
-                  <ProductCard item={p} />
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {products.map((p) => (
+                <ProductCard key={p._id} item={p} />
               ))}
             </div>
           )}
@@ -357,25 +358,25 @@ export default function Page() {
       </section>
 
       {/* ⚡ PROMO BANNER */}
-      <section className="max-w-7xl mx-auto px-6 py-12">
+      <section className="max-w-7xl mx-auto px-6 pb-20">
         <div className={styles.promoBanner}>
           <div className="relative z-10 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-cyan-400 text-black text-xs font-black uppercase tracking-wider inline-block mb-3">
-              Limited Drop
+            <span className="px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 text-xs font-bold uppercase tracking-wider inline-block mb-3">
+              Special Launch Offer
             </span>
-            <h3 className="text-2xl md:text-3xl font-black italic text-white">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
               USE CODE <span className="text-cyan-400">"SPRYO20"</span> FOR 20% OFF
             </h3>
-            <p className="text-white/70 text-sm mt-2">
-              Order any crate of 4 bottles or more and enjoy free express chilled delivery right to your door.
+            <p className="text-slate-300 text-sm mt-2 leading-relaxed">
+              Order any crate of 4 bottles or more and enjoy complimentary express chilled delivery to your door.
             </p>
           </div>
-          <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div className="relative z-10">
             <Link
               href="/products"
-              className="px-8 py-3.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-sm tracking-wide text-center transition shadow-lg shadow-cyan-500/20"
+              className={styles.primaryBtn}
             >
-              CLAIM YOUR CRATE
+              Claim Your Crate <FaArrowRight size={13} />
             </Link>
           </div>
         </div>

@@ -68,33 +68,18 @@
 }
 
 .heroBottle {
-  max-height: 550px;
-  filter: drop-shadow(0 0 40px var(--theme-color));
+  max-height: 520px;
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.45));
   animation: float 6s ease-in-out infinite;
 }
 
-.sideTitle {
-  position: absolute;
-  font-size: 12rem;
-  font-weight: 900;
-  color: white;
-  opacity: 0.03;
-  z-index: -2;
-  text-transform: uppercase;
-}
-
-:global([data-theme="light"]) .sideTitle {
-  color: #000;
-  opacity: 0.03;
-}
-
 .mainTitle {
-  font-size: 4rem;
-  font-weight: 900;
-  font-style: italic;
-  margin: 15px 0;
-  text-transform: uppercase;
-  color: white;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  font-weight: 800;
+  margin: 14px 0 20px;
+  color: #f8fafc;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 :global([data-theme="light"]) .mainTitle {

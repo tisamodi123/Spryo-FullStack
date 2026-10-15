@@ -18,15 +18,14 @@ export default function ProductCard({ item }) {
   const originalPrice = item.originalPrice || Math.round(price * 1.25);
   const rating = item.rating || 4.9;
 
-  // Flavor based dynamic styling
+  // Flavor based dynamic accent border
   const getFlavorClass = (name = "") => {
     const n = name.toLowerCase();
-    if (n.includes("cola")) return styles.colaBg;
-    if (n.includes("orange")) return styles.orangeBg;
-    if (n.includes("lemon")) return styles.lemonBg;
-    if (n.includes("up")) return styles.upBg;
-    if (n.includes("power") || n.includes("energy")) return styles.powerBg;
-    return styles.defaultBg;
+    if (n.includes("cola")) return styles.colaTheme;
+    if (n.includes("orange")) return styles.orangeTheme;
+    if (n.includes("lemon")) return styles.lemonTheme;
+    if (n.includes("up")) return styles.upTheme;
+    return styles.defaultTheme;
   };
 
   const handleQuickAdd = (e) => {
@@ -34,77 +33,72 @@ export default function ProductCard({ item }) {
     e.stopPropagation();
     const success = addToCart(item, 1);
     if (!success) {
-      showToast("Please login first to add items to your crate! 🔒");
+      showToast("Please sign in first to add items to your crate! 🔒");
       return;
     }
     setAdded(true);
-    showToast(`${item.name} added to your crate! 🍹`);
-    setTimeout(() => setAdded(false), 1500);
+    showToast(`${item.name} added to your crate! ✨`);
+    setTimeout(() => setAdded(false), 1600);
   };
 
   return (
-    <article className={`${styles.campaCard} ${getFlavorClass(item.name)} group`}>
+    <article className={`${styles.productCard} ${getFlavorClass(item.name)}`}>
       {/* Top Badges */}
       <div className={styles.topBadges}>
         <span className={styles.ratingBadge}>
           <FaStar className="text-amber-400" size={10} /> {rating}
         </span>
-        <span className={styles.discountBadge}>20% OFF</span>
+        <span className={styles.discountBadge}>SAVE 20%</span>
       </div>
 
-      {/* Brand & Flavor Title */}
-      <div className={styles.brandHeader}>
-        <span className={styles.brandName}>SPRYO CRAFT</span>
-        <h3 className={styles.flavorTitle}>
-          {item.name.split(" ").pop()}
-        </h3>
-      </div>
-
-      {/* Product Image with Floating Effect */}
-      <Link href={`/product/${item._id || item.id}`} className={styles.imageContainer}>
+      {/* Product Image Stage */}
+      <Link href={`/product/${item._id || item.id}`} className={styles.imageStage}>
+        <div className={styles.pedestalAura}></div>
         <img
           src={image}
           alt={item.name}
-          className={styles.floatingBottle}
+          className={styles.bottleImg}
           loading="lazy"
         />
-        <div className={styles.bottleGlow}></div>
       </Link>
 
-      {/* Price Section */}
-      <div className={styles.cardPriceRow}>
-        <div className={styles.priceContainer}>
-          <span className={styles.currency}>₹</span>
-          <span className={styles.priceValue}>{price}</span>
-          <span className={styles.oldPrice}>₹{originalPrice}</span>
+      {/* Details Header */}
+      <div className={styles.infoSection}>
+        <div className={styles.brandTag}>SPRYO BOTANICALS • 330ML</div>
+        <h3 className={styles.productName}>
+          <Link href={`/product/${item._id || item.id}`}>
+            {item.name}
+          </Link>
+        </h3>
+        <p className={styles.productDescription}>
+          {item.description || "Sub-zero cold-pressed sparkling soda with 100% natural fruit extract."}
+        </p>
+
+        {/* Pricing & Actions */}
+        <div className={styles.footerRow}>
+          <div className={styles.priceGroup}>
+            <span className={styles.priceCurrent}>₹{price}</span>
+            <span className={styles.priceOriginal}>₹{originalPrice}</span>
+          </div>
+
+          <div className={styles.buttonGroup}>
+            <button
+              onClick={handleQuickAdd}
+              className={`${styles.addBtn} ${added ? styles.addBtnSuccess : ""}`}
+              aria-label={`Add ${item.name} to crate`}
+            >
+              {added ? (
+                <>
+                  <FaCheck size={11} /> Added
+                </>
+              ) : (
+                <>
+                  <FaPlus size={10} /> Add
+                </>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* Action Footer */}
-      <div className={styles.campaFooter}>
-        <Link
-          href={`/product/${item._id || item.id}`}
-          className={styles.viewBtn}
-        >
-          VIEW
-        </Link>
-
-        <button
-          onClick={handleQuickAdd}
-          className={`${styles.quickAddBtn} ${added ? styles.quickAddSuccess : ""}`}
-          title="Add to Crate"
-          aria-label={`Add ${item.name} to crate`}
-        >
-          {added ? (
-            <>
-              <FaCheck size={12} /> ADDED
-            </>
-          ) : (
-            <>
-              <FaPlus size={11} /> ADD
-            </>
-          )}
-        </button>
       </div>
     </article>
   );
